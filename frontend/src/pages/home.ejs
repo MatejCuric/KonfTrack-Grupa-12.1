@@ -18,13 +18,13 @@
 
       <% if (isLoggedIn) { %>
         <a href="/moji-radovi">Moji radovi</a>
-        <a href="/predaj-rad">Predaj rad</a>
+        <a href="/moje-konferencije">Moje konferencije</a>
         <a href="/moje-recenzije">Recenzije</a>
-        <a href="/odluke">Odluke</a>
-        <a href="/statistika">Statistika</a>
+        
         
         <% if (user && user.uloga === 'Admin') { %>
           <a href="/admin">Admin</a>
+          <a href="/statistika">Statistika</a>
         <% } %>
 
         <a href="/" style="color: crimson; font-weight: bold;">Odjava</a>
@@ -34,20 +34,45 @@
     </nav>
   </header>
 
-  <main>
-    <section class="card">
-      <h2>Dobrodošli u sustav KonfTrack</h2>
+<main>
+  <section class="card">
+    <h2>Dobrodošli u sustav KonfTrack</h2>
+
+    <% if (isLoggedIn) { %>
+      <p>Prijavljeni ste kao: <strong><%= user.username %></strong> (<%= user.uloga %>)</p>
+      <p>Pregledajte konferencije otvorene za prijavu znanstvenih radova.</p>
+    <% } else { %>
+      <p>Središnji web-sustav za upravljanje znanstvenim radovima, recenzijama i konferencijskim aktivnostima.</p>
+      <p>Prijavite se u sustav kako biste pristupili funkcijama namijenjenima prijavljenim korisnicima.</p>
+      <a href="/login" class="btn">Prijavi se u sustav</a>
+    <% } %>
+  </section>
+
+  <section>
+    <h2>Konferencije otvorene za prijavu radova</h2>
+
+    <div class="card">
+      <h3>Međunarodna konferencija o računalnim znanostima</h3>
+      <p>Rok za prijavu radova: 15.12.2026.</p>
 
       <% if (isLoggedIn) { %>
-        <p>Prijavljeni ste kao: <strong><%= user.username %></strong> (<%= user.uloga %>)</p>
-        <p>Sada su vam otključane nove mogućnosti sustava. Možete predati novi rad ili pregledati postojeće.</p>
-        <a href="/predaj-rad" class="btn">Predaj novi rad</a>
+        <a href="/predaj-rad" class="btn">Predaj rad</a>
       <% } else { %>
-        <p>Središnji web-sustav za upravljanje znanstvenim radovima, recenzijama i konferencijskim aktivnostima.</p>
-        <p>Molimo vas da se prijavite u sustav kako biste dobili pristup ostalim funkcijama i radovima.</p>
-        <a href="/login" class="btn">Prijavi se u sustav</a>
+        <a href="/login" class="btn">Prijavi se za predaju rada</a>
       <% } %>
-    </section>
-  </main>
+    </div>
+
+    <div class="card">
+      <h3>Konferencija o informacijskim sustavima</h3>
+      <p>Rok za prijavu radova: 20.12.2026.</p>
+
+      <% if (isLoggedIn) { %>
+        <a href="/predaj-rad" class="btn">Predaj rad</a>
+      <% } else { %>
+        <a href="/login" class="btn">Prijavi se za predaju rada</a>
+      <% } %>
+    </div>
+  </section>
+</main>
 </body>
 </html>
