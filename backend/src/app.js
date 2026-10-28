@@ -1,65 +1,39 @@
 const express = require("express");
 const path = require("path");
 
+const routes = require("./controllers/konftrack.controller");
+
 const app = express();
-const port = process.env.PORT || 10000;
 
-//Postavljanje EJS-a za pregled stranica
+// Lokacija EJS prikaza
+app.set("views", path.join(__dirname, "..", "..", "frontend", "src", "pages"));
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "../../frontend/src/pages"));
 
-//Omogućavanje statičkih datoteka
-app.use(express.static(path.join(__dirname, "../../frontend/public")));
+// Statičke datoteke
+app.use(express.static(path.join(__dirname, "..", "..", "frontend", "public")));
 
-//Omogućavanje čitanja JSON-a i URL-encoded podataka iz zahtjeva
+// Parsiranje tijela zahtjeva
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// Health check ruta
-app.get("/health", (req, res) => {
-  res.json({ status: "healthy" });
+// Rute aplikacije
+app.use("/", routes);
+
+const PORT = process.env.PORT || 10000;
+
+app.listen(PORT, () => {
+  console.log(`KonfTrack je pokrenut na http://localhost:${PORT}`);
 });
 
-// Početna stranica (home.ejs)
-app.get("/", (req, res) => {
-  res.render("home");
-});
+// const server = http.createServer((req, res) => {
+//   if (req.url === "/health") {
+//     res.writeHead(200, { "Content-Type": "application/json" });
+//     return res.end(JSON.stringify({ status: "healthy" }));
+//   }
+//   res.writeHead(200, { "Content-Type": "text/plain" });
+//   res.end("API running");
+// });
 
-// Stranica za prijavu (login.ejs)
-app.get("/login", (req, res) => {
-  res.render("login");
-});
-
-// Moje konferencije (moje-konferencije.ejs)
-app.get("/moje-konferencije", (req, res) => {
-  res.render("moje-konferencije");
-});
-
-// Moji radovi (moji-radovi.ejs)
-app.get("/moji-radovi", (req, res) => {
-  res.render("moji-radovi");
-});
-
-// Moje recenzije (moje-recenzije.ejs)
-app.get("/moje-recenzije", (req, res) => {
-  res.render("moje-recenzije");
-});
-
-// Predaj rad (predaj-rad.ejs)
-app.get("/predaj-rad", (req, res) => {
-  res.render("predaj-rad");
-});
-
-// Statistika (statistika.ejs)
-app.get("/statistika", (req, res) => {
-  res.render("statistika");
-});
-
-// Admin (admin.ejs)
-app.get("/admin", (req, res) => {
-  res.render("admin");
-});
-
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Server listening on http://localhost:${port}`);
-});
+// server.listen(port, "0.0.0.0", () => {
+//   console.log(`Server listening on 0.0.0.0:${port}`);
+// });
