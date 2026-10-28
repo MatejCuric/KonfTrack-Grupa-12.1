@@ -1,30 +1,21 @@
-# [Naziv aplikacije] — Projektna dokumentacija
+# KonfTrack — Projektna dokumentacija
 
 **Kolegij:** [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz), Fakultet elektrotehnike i računarstva Sveučilišta u Zagrebu  
-**Akademska godina:** [20XX./20XX.]  
-**Tim:** [Oznaka i naziv tima]  
+**Akademska godina:** 2026./2027.  
+**Tim:** Grupa-12.1  
 **Nastavnik:** Vlado Sruk  
-**Asistent / demonstrator:** [Ime i uloga u ovom izvođenju kolegija]
+**Asistent / demonstrator:** Saša Kendjel - Asistent
 
 ## Pregled projekta
 
-**Cilj:** Omogućiti čitatelju koji prvi put vidi projekt da u dvije ili tri rečenice prepozna aplikaciju, njezine ciljane korisnike i glavnu svrhu.
+KonfTrack je web-aplikacija za upravljanje znanstvenim konferencijama, namijenjena organizatorima konferencija, autorima znanstvenih radova i recenzentima. Aplikacija objedinjuje procese prijave znanstvenih radova, njihove dodjele recenzentima, provedbe recenzijskog postupka i donošenja odluka o prihvaćanju radova. Cilj je pojednostaviti organizaciju konferencija, olakšati praćenje statusa radova i podržati provedbu dvostruko slijepog recenzijskog postupka.
 
-[Opis projekta.]
-
-<details>
-<summary><strong>Sažet pregled projekta</strong></summary>
-
-Za projekt na temu CrisisMap sažet pregled može navesti građane kojima trebaju informacije o kriznim događajima povezane s njihovom lokacijom te cilj aplikacije da prijave kriznih događaja prikaže na karti. Funkcionalnost spomenite samo ako pripada odobrenom zadatku tima; bez dokaza nemojte tvrditi da aplikacija poboljšava odgovor hitnih službi. Ovo je primjer informativnog pregleda, a ne tekst za prepisivanje niti dokaz da je funkcionalnost ostvarena.
-
-</details>
-
-**Aplikacija i osnovno postavljanje:** [README repozitorija](../README_PREDLOZAK.md#quick-start)  
-**Javno dostupna aplikacija:** pogledajte [README – Postavljanje](../README_PREDLOZAK.md#deployment)
+**Aplikacija i osnovno postavljanje:** [README repozitorija](../README.md#quick-start)  
+**Javno dostupna aplikacija:** pogledajte [README – Postavljanje](../README.md#deployment)
 
 ## Članovi tima i uloge
 
-Ažurirani popis članova, njihovih GitHub profila i glavnih uloga ili doprinosa nalazi se u [README-u repozitoriju](../README_PREDLOZAK.md#team-members).
+Ažurirani popis članova, njihovih GitHub profila i glavnih uloga ili doprinosa nalazi se u [README-u repozitoriju](../README.md#team-members).
 
 ## Kazalo dokumentacije
 
@@ -50,17 +41,11 @@ Dokumentacija se kontinuirano ažurira kako se aplikacija razvija.
 
 ## Organizacija projekta i razvojni proces
 
-**Način rada:** [Stvarni način rada i trajanje iteracije, ako je relevantno.]  
-**Praćenje trenutačnih zadataka i nedostataka:** [Poveznica na GitHub Issues ili stvarno korištenu ploču zadataka.]
+**Način rada:** 
 
-<details>
-<summary><strong>Opis načina rada tima</strong></summary>
+Tim organizira razvoj pomoću GitHub Issues, u kojima se evidentiraju aktualni zadaci, problemi i potrebne dorade. Član tima zadužen za određeno područje preuzima odgovarajući Issue i radi na njegovu rješavanju. Ako tijekom rada naiđe na poteškoće, ostali članovi tima pomažu u pronalaženju rješenja, dok se opsežniji zadaci raspodjeljuju na više članova kako bi se mogli učinkovitije izvršiti. 
 
-**Primjer — CrisisMap:**
-
-Navedite pristup koji tim stvarno koristi. Tim koji razvija CrisisMap može organizirati prijave, rad na karti i provjere kao GitHub Issues, jednom tjedno raspraviti prioritete i iznad postaviti poveznicu na svoju aktivnu ploču zadataka. Takav je konkretan opis procesa informativniji od tvrdnje da tim koristi „Scrum” ako zapravo ne primjenjuje njegove prakse. Stvarni tim treba navesti vlastiti ritam rada i odgovornosti; dokumentacija ne treba duplicirati ploču zadataka. Primjer opisuje mogući tijek rada (engl. workflow), a ne tvrdi da je objavljeni tim CrisisMapa radio upravo tako.
-
-</details>
+**Praćenje trenutačnih zadataka i nedostataka:** [GitHub Issues](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/issues)
 
 ## Pravila dokumentacije
 
@@ -77,13 +62,13 @@ Za obrazac uporabe podnošenja prijave kriznog događaja u CrisisMapu tim može 
 
 ## Akademski integritet, ponašanje i licenciranje
 
-README repozitorija sadrži projektnu [izjavu o uporabi umjetne inteligencije](../README_PREDLOZAK.md#ai-usage), [informacije o kodeksu ponašanja i podršci](../README_PREDLOZAK.md#code-of-conduct-and-support) te [status licence ili ponovne uporabe](../README_PREDLOZAK.md#license). Pristupni podaci i druge tajne nikada se ne objavljuju u dokumentaciji niti dijele u običnim porukama.
+README repozitorija sadrži projektnu [izjavu o uporabi umjetne inteligencije](../README.md#ai-usage), [informacije o kodeksu ponašanja i podršci](../README.md#code-of-conduct-and-support) te [status licence ili ponovne uporabe](../README.md#license). Pristupni podaci i druge tajne nikada se ne objavljuju u dokumentaciji niti dijele u običnim porukama.
 
 ## Izjava o uporabi umjetne inteligencije
 
 <!-- UPUTA: Ovo je detaljan zapis uporabe umjetne inteligencije; README sadrži kratak sažetak i poveznicu na ovaj odjeljak. Unesite samo ono što se stvarno dogodilo i uklonite neupotrijebljene retke. Ako nije korišten nijedan alat generativne umjetne inteligencije, zamijenite cijeli odjeljak jednom rečenicom koja to jasno navodi. Svaki redak mora upućivati na stranicu, datoteku, zahtjev za uključivanje promjena (PR) ili zadatak. Nikada ne unosite pristupne podatke, osobne podatke ni tuđi zaštićeni sadržaj u alate umjetne inteligencije. -->
 
-Kratak sažetak: [README – Uporaba umjetne inteligencije](../README_PREDLOZAK.md#ai-usage). Ovaj odjeljak bilježi koji su alati korišteni, za koju dokumentaciju ili kod te kako je tim provjerio rezultat. Slijedi FER-ova [pravila o primjerenoj uporabi umjetne inteligencije](https://www.fer.unizg.hr/_download/repository/Policy%20on%20the%20appropriate%20use%20of%20artificial%20intelligence%20at%20the%20faculty%20of%20electrical%20engineering%20and%20computing%5B1%5D.pdf).
+Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usage). Ovaj odjeljak bilježi koji su alati korišteni, za koju dokumentaciju ili kod te kako je tim provjerio rezultat. Slijedi FER-ova [pravila o primjerenoj uporabi umjetne inteligencije](https://www.fer.unizg.hr/_download/repository/Policy%20on%20the%20appropriate%20use%20of%20artificial%20intelligence%20at%20the%20faculty%20of%20electrical%20engineering%20and%20computing%5B1%5D.pdf).
 
 ### Korišteni alati
 
