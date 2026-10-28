@@ -1,24 +1,29 @@
-const http = require("http");
+const express = require("express");
+const path = require("path");
 
-const express = require("express");   // express framework
-const app = express();                // added express instance as app
+const routes = require("./controllers/konftrack.controller");
 
-const path = require("path");         // simpler path referencing     
+const app = express();
 
-const routes = require('./middleware/konftrack.routes');
-// routes found in /backend/src/middleware/
+// Lokacija EJS prikaza
+app.set("views", path.join(__dirname, "..", "..", "frontend", "src", "pages"));
+app.set("view engine", "ejs");
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '..', '..', 'frontend', 'src', 'pages'))
-// EJS templates can be found in /frontend/src/pages/
+// Statičke datoteke
+app.use(express.static(path.join(__dirname, "..", "..", "frontend", "public")));
+
+// Parsiranje tijela zahtjeva
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Rute aplikacije
+app.use("/", routes);
 
 const PORT = process.env.PORT || 10000;
 
-app.use('/', routes);
-
 app.listen(PORT, () => {
-  console.log(`App is running at https://localhost:${PORT}`)
-})
+  console.log(`KonfTrack je pokrenut na http://localhost:${PORT}`);
+});
 
 // const server = http.createServer((req, res) => {
 //   if (req.url === "/health") {
