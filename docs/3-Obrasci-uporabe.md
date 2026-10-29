@@ -44,16 +44,99 @@ Vanjski sustav može biti sekundarni akter obrasca uporabe kada sudjeluje u ostv
 
 **Za svaki obrazac uporabe koristite jednu okomitu tablicu.** Navedite samo onoliko pojedinosti koliko interakcija zahtijeva; neprimjenjivu alternativu izostavite umjesto da je popunjavate samo radi forme.
 
-### UC-[ID]: [Naziv usmjeren na cilj]
+### UC-01: Registracija i prijava
 
 | Element specifikacije | Opis |
 | :--- | :--- |
-| **Primarni akter** | [Uloga definirana u analizi zahtjeva] |
-| **Povezani zahtjevi** | [Identifikatori funkcijskih zahtjeva, npr. F-001, F-004] |
-| **Preduvjeti** | [Stanje sustava koje mora biti zadovoljeno prije početka izvođenja] |
-| **Glavni uspješni tok** | 1. Akter pokreće akciju.<br>2. Program obrađuje unos i vraća povratnu informaciju.<br>3. [Koračni prikaz interakcije do ostvarenja cilja] |
-| **Alternativni tokovi / Iznimke** | **[Korak]a — [Naziv iznimke]:** [Uvjet nastanka, reakcija programa i nastavak toka] |
-| **Posljedice (ishod)** | [Promjena stanja podataka ili potvrda nakon uspješnog završetka] |
+| **Primarni akter** | Javni posjetitelj (A-01); sekundarni akter: ORCID (A-06) |
+| **Povezani zahtjevi** | F-001 |
+| **Preduvjeti** | Korisnik nije prijavljen. |
+| **Glavni uspješni tok** | 1. Korisnik odabire registraciju ili prijavu e-poštom ili ORCID-om.<br>2. Pri odabiru ORCID-a prijava se provodi preko ORCID-a.<br>3. Sustav registrira korisnika (pri prvoj prijavi) i prijavljuje ga. |
+| **Alternativni tokovi / Iznimke** | **3a — Prijava nije uspjela:** korisnik ostaje neprijavljen i ne može izvršiti radnje za prijavljene. |
+| **Posljedice (ishod)** | Korisnik dobiva pristup radnjama za prijavljene. |
+
+### UC-02: Pregled javne stranice konferencije
+
+| Element specifikacije | Opis |
+| :--- | :--- |
+| **Primarni akter** | Javni posjetitelj (A-01) |
+| **Povezani zahtjevi** | F-003 |
+| **Preduvjeti** | Nema; prijava nije potrebna. |
+| **Glavni uspješni tok** | 1. Posjetitelj otvara javnu stranicu konferencije.<br>2. Sustav prikazuje poziv, teme i datume.<br>3. Ako je program objavljen, sustav ga prikazuje. |
+| **Alternativni tokovi / Iznimke** | **3a — Program nije objavljen:** sustav ga ne prikazuje. |
+| **Posljedice (ishod)** | Neprijavljeni korisnik vidi stranicu; objavljeni program vidljiv je, neobjavljeni nije. |
+
+### UC-03: Uređivanje profila
+
+| Element specifikacije | Opis |
+| :--- | :--- |
+| **Primarni akter** | Prijavljeni korisnik u ulozi A-02 do A-05 |
+| **Povezani zahtjevi** | F-002 |
+| **Preduvjeti** | Korisnik je prijavljen. |
+| **Glavni uspješni tok** | 1. Korisnik otvara profil.<br>2. Mijenja ime, ustanovu, ORCID i ključne riječi ekspertize.<br>3. Sustav sprema promjene. |
+| **Posljedice (ishod)** | Spremljeni podaci vide se pri ponovnom otvaranju profila. |
+
+### UC-04: Odobravanje konferencije i imenovanje predsjednika
+
+| Element specifikacije | Opis |
+| :--- | :--- |
+| **Primarni akter** | Administrator (A-05) |
+| **Povezani zahtjevi** | F-004, F-005 |
+| **Preduvjeti** | Administrator je prijavljen; postoji nova konferencija. |
+| **Glavni uspješni tok** | 1. Administrator odobrava novu konferenciju.<br>2. Imenuje korisnika predsjednikom programskog odbora.<br>3. Sustav aktivira konferenciju i imenovanom korisniku dodjeljuje ovlasti predsjednika. |
+| **Posljedice (ishod)** | Konferencija postaje aktivna tek nakon odobrenja; imenovani korisnik ima ovlasti predsjednika na toj konferenciji. |### UC-02: Pregled javne stranice konferencije
+
+| Element specifikacije | Opis |
+| :--- | :--- |
+| **Primarni akter** | Javni posjetitelj (A-01) |
+| **Povezani zahtjevi** | F-003 |
+| **Preduvjeti** | Nema; prijava nije potrebna. |
+| **Glavni uspješni tok** | 1. Posjetitelj otvara javnu stranicu konferencije.<br>2. Sustav prikazuje poziv, teme i datume.<br>3. Ako je program objavljen, sustav ga prikazuje. |
+| **Alternativni tokovi / Iznimke** | **3a — Program nije objavljen:** sustav ga ne prikazuje. |
+| **Posljedice (ishod)** | Neprijavljeni korisnik vidi stranicu; objavljeni program vidljiv je, neobjavljeni nije. |
+
+### UC-03: Uređivanje profila
+
+| Element specifikacije | Opis |
+| :--- | :--- |
+| **Primarni akter** | Prijavljeni korisnik u ulozi A-02 do A-05 |
+| **Povezani zahtjevi** | F-002 |
+| **Preduvjeti** | Korisnik je prijavljen. |
+| **Glavni uspješni tok** | 1. Korisnik otvara profil.<br>2. Mijenja ime, ustanovu, ORCID i ključne riječi ekspertize.<br>3. Sustav sprema promjene. |
+| **Posljedice (ishod)** | Spremljeni podaci vide se pri ponovnom otvaranju profila. |
+
+### UC-04: Odobravanje konferencije i imenovanje predsjednika
+
+| Element specifikacije | Opis |
+| :--- | :--- |
+| **Primarni akter** | Administrator (A-05) |
+| **Povezani zahtjevi** | F-004, F-005 |
+| **Preduvjeti** | Administrator je prijavljen; postoji nova konferencija. |
+| **Glavni uspješni tok** | 1. Administrator odobrava novu konferenciju.<br>2. Imenuje korisnika predsjednikom programskog odbora.<br>3. Sustav aktivira konferenciju i imenovanom korisniku dodjeljuje ovlasti predsjednika. |
+| **Posljedice (ishod)** | Konferencija postaje aktivna tek nakon odobrenja; imenovani korisnik ima ovlasti predsjednika na toj konferenciji. |
+
+### UC-05: Postavljanje konferencije i rokova
+
+| Element specifikacije | Opis |
+| :--- | :--- |
+| **Primarni akter** | Predsjednik programskog odbora (A-04) |
+| **Povezani zahtjevi** | F-006, F-007 |
+| **Preduvjeti** | Predsjednik je prijavljen i imenovan za konferenciju. |
+| **Glavni uspješni tok** | 1. Predsjednik unosi naziv, mjesto, datume i teme konferencije.<br>2. Unosi rokove: predaja, recenzije, obavijesti i konačne verzije.<br>3. Sustav sprema podatke i prikazuje ih na javnoj stranici. |
+| **Posljedice (ishod)** | Uneseni podaci prikazuju se na javnoj stranici. Nakon isteka roka sustav onemogućuje odgovarajuće radnje (F-007). |
+
+### UC-06: Predaja rada
+
+| Element specifikacije | Opis |
+| :--- | :--- |
+| **Primarni akter** | Autor / koautor (A-02) |
+| **Povezani zahtjevi** | F-007, F-008, F-009 (UC-07), F-010 (UC-08) |
+| **Preduvjeti** | Autor je prijavljen; rok predaje nije istekao. |
+| **Glavni uspješni tok** | 1. Autor unosi naslov, sažetak, ključne riječi, temu, koautore i autora za kontakt.<br>2. Prilaže anonimizirani PDF.<br>3. Sustav provjerava PDF (UC-07), a za reference s DOI-jem i metapodatke (UC-08).<br>4. Sustav pohranjuje rad. |
+| **Alternativni tokovi / Iznimke** | **3a — Nedostaje obavezno polje ili PDF:** rad ne dobiva status Predan.<br>**3b — PDF je neispravan (UC-07):** sustav ga odbija uz poruku.<br>**3c — Metapodaci PDF-a sadrže imena autora (UC-07):** sustav upozorava prije predaje.<br>**1a — Rok predaje je istekao:** sustav blokira predaju (F-007). |
+| **Posljedice (ishod)** | Rad s popunjenim obaveznim poljima i PDF-om dobiva status Predan. |
+
+
 
 <details>
 <summary><strong>Primjeri specifikacija: Registracija i prijava kriznog događaja</strong></summary>
