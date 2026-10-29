@@ -84,36 +84,8 @@ Vanjski sustav može biti sekundarni akter obrasca uporabe kada sudjeluje u ostv
 | **Povezani zahtjevi** | F-004, F-005 |
 | **Preduvjeti** | Administrator je prijavljen; postoji nova konferencija. |
 | **Glavni uspješni tok** | 1. Administrator odobrava novu konferenciju.<br>2. Imenuje korisnika predsjednikom programskog odbora.<br>3. Sustav aktivira konferenciju i imenovanom korisniku dodjeljuje ovlasti predsjednika. |
-| **Posljedice (ishod)** | Konferencija postaje aktivna tek nakon odobrenja; imenovani korisnik ima ovlasti predsjednika na toj konferenciji. |### UC-02: Pregled javne stranice konferencije
-
-| Element specifikacije | Opis |
-| :--- | :--- |
-| **Primarni akter** | Javni posjetitelj (A-01) |
-| **Povezani zahtjevi** | F-003 |
-| **Preduvjeti** | Nema; prijava nije potrebna. |
-| **Glavni uspješni tok** | 1. Posjetitelj otvara javnu stranicu konferencije.<br>2. Sustav prikazuje poziv, teme i datume.<br>3. Ako je program objavljen, sustav ga prikazuje. |
-| **Alternativni tokovi / Iznimke** | **3a — Program nije objavljen:** sustav ga ne prikazuje. |
-| **Posljedice (ishod)** | Neprijavljeni korisnik vidi stranicu; objavljeni program vidljiv je, neobjavljeni nije. |
-
-### UC-03: Uređivanje profila
-
-| Element specifikacije | Opis |
-| :--- | :--- |
-| **Primarni akter** | Prijavljeni korisnik u ulozi A-02 do A-05 |
-| **Povezani zahtjevi** | F-002 |
-| **Preduvjeti** | Korisnik je prijavljen. |
-| **Glavni uspješni tok** | 1. Korisnik otvara profil.<br>2. Mijenja ime, ustanovu, ORCID i ključne riječi ekspertize.<br>3. Sustav sprema promjene. |
-| **Posljedice (ishod)** | Spremljeni podaci vide se pri ponovnom otvaranju profila. |
-
-### UC-04: Odobravanje konferencije i imenovanje predsjednika
-
-| Element specifikacije | Opis |
-| :--- | :--- |
-| **Primarni akter** | Administrator (A-05) |
-| **Povezani zahtjevi** | F-004, F-005 |
-| **Preduvjeti** | Administrator je prijavljen; postoji nova konferencija. |
-| **Glavni uspješni tok** | 1. Administrator odobrava novu konferenciju.<br>2. Imenuje korisnika predsjednikom programskog odbora.<br>3. Sustav aktivira konferenciju i imenovanom korisniku dodjeljuje ovlasti predsjednika. |
 | **Posljedice (ishod)** | Konferencija postaje aktivna tek nakon odobrenja; imenovani korisnik ima ovlasti predsjednika na toj konferenciji. |
+
 
 ### UC-05: Postavljanje konferencije i rokova
 
