@@ -6,12 +6,18 @@
 
 **Cilj:** Voditi kratak zapis projektnih sastanaka i tjedne koordinacije: tko je sudjelovao, što je odlučeno i koja je radnja uslijedila. Raspravu koja nije dovela do odluke zabilježite samo ako je važno pitanje ostalo otvoreno.
 
->Definirati prije prve uporabe:
-`[Inicijali/Kratica] = [Ime i prezime]` (npr. *AK = Ana Kovač; LM = Luka Marić; EP = Ema Petrović; NK = Nika Kralj*).																														
+MĆ - Matej Ćurić	
+AJ - Antonio Jović
+PP - Patrik Paradžik
+NMR - Nina Mare Rogulj 
+MČ - Martina Čulina
+NT - Nea Trumbić
+ST - Stella Tomeljak
+ 																								
 
 | Datum i sudionici | Glavna tema | Donesena odluka ili zadatak  | Poveznica na zadatak ili  rezultat, ako postoji |
-| --- | --- | --- | --- |
-|  |  |  |  |
+| 22. 10. 2026.; MĆ, AJ, PP, NMR, NT, ST | Početni sastanak: podjela zadataka i plan prvih koraka | Do 29. 10. 2026. izraditi grubu početnu stranicu, README, stranicu s routanjem i osnovnu dokumentaciju. MĆ: routanje i autentifikacija te README; AJ: osnovna Express aplikacija i lokalno pokretanje; PP: osnovna korisnička stranica i frontend struktura; NMR: početni model baze (PostgreSQL); Mč: arhitektura sustava; NT: opis glavnih slučajeva uporabe; ST: osnovna projektna dokumentacija i ova evidencija. |#1, #2, #3, #4, #5, #6, #7, #8 |
+
 
 Za svaki relevantan sastanak ili zapis tjedne koordinacije upišite jedan sažet redak. Dodijeljeni zadatak treba imati odgovornu osobu; za neriješeno pitanje treba navesti tko će ga dalje obraditi. Sam naslov sastanka ne pokazuje što se promijenilo. U ovu evidenciju nemojte kopirati cijeli popis issuea ni prijepis razgovora.
 
@@ -38,8 +44,7 @@ Za svaki relevantan sastanak ili zapis tjedne koordinacije upišite jedan sažet
 **Trenutačni plan:** [Poveznica na GitHub Projects ploču, Gantogram ili održavanu tablicu u nastavku. Navesti osobu zaduženu za ažurnost plana. Odaberite jedan glavni prikaz i navedite tko ga održava ažurnim.]
 
 | Razdoblje/Tjedan | Glavni planirani rad | Odgovorni članovi | Poveznica na zadatke |
-| --- | --- | --- | --- |
-|  |  |  |  |
+| 22. 10. – 29. 10. 2026. | Gruba početna stranica, README, stranica s routanjem, osnovna dokumentacija | MĆ, AJ, PP, NMR, NT, ST | Zadaci #1, #2, #3, #4, #5, #6, #7, #8 |
 
 Ako koristite tablicu, plan vodite na korisnoj tjednoj razini i ažurirajte ga kada se prioriteti promijene. Kratice članova tima definirajte  u A.1 i ovdje ih primjenjujte dosljedno; ako dva člana imaju iste inicijale, proširite kraticu. Plan nije dokaz da je planirani rad dovršen (to dokazuje kod i dokumentacija).
 

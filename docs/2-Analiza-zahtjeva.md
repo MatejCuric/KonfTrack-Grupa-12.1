@@ -15,34 +15,39 @@ Primjeri koriste temu projekta CrisisMap. Neki namjerno sadrže korisne nedostat
 
 | ID | Opis | Prioritet | Izvor | Kriteriji prihvaćanja |
 | --- | --- | --- | --- | --- |
-| F-001 | [Funkcijski zahtjev/ponašanje sustava] | [Visok/Srednji/Nizak] | [Odobreni zadatak / zahtjev dionika / povratna informacija] | [Opažljivi rezultat] |
-|  |  |  |  |  |
+| F-001 | Korisnik se registrira i prijavljuje e-poštom ili ORCID-om; | Visok | Odobreni zadatak | Nakon uspješne prijave korisnik dobiva pristup radnjama za prijavljene; neprijavljeni ih ne može izvršiti. |
+| F-002 | Korisnik uređuje profil (ime, ustanova, ORCID, ključne riječi ekspertize). | Srednji | Odobreni zadatak | Spremljeni podaci vide se pri ponovnom otvaranju profila. |
+| F-003 | Javna stranica konferencije (poziv, teme, datumi, program nakon objave) dostupna je bez prijave. | Visok | Odobreni zadatak | Neprijavljeni korisnik vidi stranicu; objavljeni program vidljiv je, neobjavljeni nije. |
+| F-004 | Isti korisnik može imati različite uloge na različitim konferencijama. | Visok | Odobreni zadatak | Korisnik je autor na konferenciji A, a recenzent na B, i vidi samo ovlasti pripadajuće svakoj. |
+| F-005 | Administrator odobrava novu konferenciju i imenuje predsjednika programskog odbora. | Visok | Odobreni zadatak | Konferencija postaje aktivna tek nakon odobrenja; imenovani korisnik dobiva ovlasti predsjednika. |
+| F-006 | Predsjednik unosi naziv, mjesto, datume, teme i rokove (predaja, recenzije, obavijesti, konačne verzije). | Visok | Odobreni zadatak | Uneseni podaci prikazuju se na javnoj stranici. |
+| F-007 | Nakon isteka roka sustav onemogućuje odgovarajuće radnje;  | Visok | Odobreni zadatak | Radnja nakon roka je blokirana; |
+| F-008 | Autor predaje rad: naslov, sažetak, ključne riječi, tema, koautori, autor za kontakt i anonimizirani PDF. | Visok | Odobreni zadatak | Rad s popunjenim obaveznim poljima i PDF-om dobiva status Predan. |
+| F-009 | Sustav provjerava format i najveći broj stranica PDF-a te upozorava ako metapodaci sadrže imena autora. | Visok | Odobreni zadatak | Neispravan PDF je odbijen uz poruku; PDF s imenom u metapodacima daje upozorenje prije predaje. |
+| F-010 | Za reference s DOI-jem sustav dohvaća metapodatke preko Crossrefa i upozorava na DOI koji nije pronađen. | Srednji | Odobreni zadatak | Postojeći DOI prikaže metapodatke; nepostojeći prikaže upozorenje i autor može ispraviti. |
+| F-011 | Autor mijenja rad do roka predaje i može ga povući prije prihvaćanja. | Srednji | Odobreni zadatak | Izmjena i povlačenje rade u dopuštenom razdoblju, a izvan njega su onemogućeni. |
+| F-012 | Autor na pregledu „Moji radovi“ vidi radove i njihova stanja (nacrt, predan, u recenziji, potrebna revizija, prihvaćen, odbijen, konačna verzija predana, uvršten u program). | Visok | Odobreni zadatak | Popis prikazuje trenutni status svakog rada, a status nije označen samo bojom. |
+| F-013 | Predsjednik poziva recenzente e-poštom; pozvani korisnik prihvaća ili odbija poziv. | Visok | Odobreni zadatak | Prihvaćanjem korisnik postaje recenzent te konferencije; pozivnica ne sadrži podatke o autorima. |
+| F-014 | Nakon roka predaje recenzent za naslov i sažetak bira: želim, ne želim recenzirati ili sukob interesa. | Visok | Odobreni zadatak | Odabir se sprema i koristi pri prijedlogu raspodjele. |
+| F-015 | Sustav predlaže raspodjelu: najmanje tri recenzenta po radu, ravnomjerno opterećenje. | Visok | Odobreni zadatak | Svaki rad u prijedlogu ima ≥ 3 recenzenta, a opterećenja se međusobno ne razlikuju više od dogovorene granice. |
+| F-016 | Sustav prepoznaje sukobe interesa: prijavljeni, ista ustanova, koautorstvo u zadnje tri godine. | Visok | Odobreni zadatak | Recenzent u sukobu nikad nije u prijedlogu raspodjele. |
+| F-017 | Predsjednik ručno mijenja raspodjelu; nitko ne može recenzirati vlastiti rad. | Visok | Odobreni zadatak | Pokušaj dodjele vlastitog rada je blokiran uz poruku. |
+| F-018 | Recenzent na „Moje recenzije“ vidi dodijeljene radove i rokove te predaje ocjenu (−3 do +3), stručnost (1 do 5), komentar autorima i povjerljivi komentar. | Visok | Odobreni zadatak | Recenzija se sprema; recenzent ne vidi identitet autora. |
+| F-019 | Nakon predaje svih recenzija za rad, recenzenti vide međusobne recenzije i raspravljaju anonimno kao „Recenzent 1“, „Recenzent 2“... | Srednji | Odobreni zadatak | Rasprava se ne otvara prije predaje svih recenzija; imena se nigdje ne prikazuju. |
+| F-020 | Sustav šalje podsjetnike 7 i 2 dana prije roka recenzije, označava kasne recenzije, a predsjednik može dodijeliti zamjenskog recenzenta. | Srednji | Odobreni zadatak | Podsjetnici stižu u zadano vrijeme; kasna recenzija je vidljivo označena. |
+| F-021 | Predsjednik na pregledu „Odluke“ vidi prosječnu ocjenu, broj recenzija i oznaku znatnog neslaganja te bira Prihvaćen, Potrebna revizija ili Odbijen. | Visok | Odobreni zadatak | Tablica prikazuje sve navedene podatke; odabrana odluka mijenja status rada. |
+| F-022 | Obavijesti o odlukama šalju se skupno prema predlošku, s odlukom i recenzijama, ali bez povjerljivih komentara. | Visok | Odobreni zadatak | Poslana poruka ne sadrži povjerljive komentare ni identitete recenzenata. |
+| F-023 | Autor za rad s odlukom „potrebna revizija“ predaje novu verziju i dokument s odgovorima, a rad se vraća istim recenzentima. | Srednji | Odobreni zadatak | Nakon predaje rad je u recenziji kod istih recenzenata. |
+| F-024 | Nakon prihvaćanja autor predaje neanonimiziranu konačnu verziju, potpisanu izjavu o autorskim pravima i ime izlagača. | Srednji | Odobreni zadatak | Rad prelazi u stanje Konačna verzija predana. |
+| F-025 | Predsjednik slaže program (sekcije s temom, dvoranom, terminom i predsjedavajućim); sustav predlaže grupiranje i provjerava preklapanja izlagača te da predsjedavajući nije autor u svojoj sekciji. | Srednji | Odobreni zadatak | Sustav ne dopušta spremanje programa s preklapanjem ili sukobom predsjedavajućeg. |
+| F-026 | Prijavljeni korisnik dodaje izlaganja u osobni raspored i izvozi ih u Google Calendar. | Nizak | Odobreni zadatak | Izvezeni događaji pojavljuju se u kalendaru s ispravnim vremenom. |
+| F-027 | Sustav generira PDF zbornika sažetaka (sadržaj po sekcijama, kazalo autora); javan je kad ga organizator objavi. | Nizak | Odobreni zadatak | Generirani PDF sadrži sažetke prihvaćenih radova, sadržaj i kazalo. |
+| F-028 | Administrator upravlja korisnicima i konferencijama, uređuje predloške e-pošte, vidi statistiku korištenja i deaktivira račune. | Srednji | Odobreni zadatak | Svaka navedena radnja dostupna je samo administratoru; deaktivirani korisnik se ne može prijaviti. |
 
 <details>
 <summary><strong>Izvori zahtjeva i kriteriji prihvaćanja</strong></summary>
 
 Svaki zahtjev treba imati stabilan ID. **Izvor označava odakle zahtjev potječe**, primjerice iz odobrenog projektnog zadatka, zahtjeva dionika ili povratne informacije koja je promijenila zahtjev. Opišite opažljivo ponašanje umjesto naziva zaslona ili programskog okvira. U cijeloj dokumentaciji koristite istu ljestvicu prioriteta. Složenu korisničku interakciju objasnite u odgovarajućem obrascu uporabe umjesto kopiranja cijelog tijeka u ovu tablicu.
-
-**Primjer — funkcijski zahtjevi za aplikaciju CrisisMap:**
-
-Kategorije izvora pokazuju različite načine na koje zahtjev može nastati.
-
-| ID | Opis | Prioritet | Izvor | Kriteriji prihvaćanja |
-| --- | --- | --- | --- | --- |
-| F-001 | Sustav omogućuje korisniku registraciju računa pomoću adrese e-pošte. | Visok | Zahtjev dionika | Korisnik se može registrirati adresom e-pošte, primiti poruku za potvrdu i aktivirati račun slijedeći poveznicu. |
-| F-002 | Sustav omogućuje oporavak lozinke putem e-pošte. | Srednji | Zahtjev dionika | Korisnik može zatražiti ponovno postavljanje lozinke, primiti poveznicu i uspješno postaviti novu lozinku. |
-| F-003 | Sustav prikazuje popis dostupnih resursa povezanih s kriznim događajima. | Visok | Postojeći sustav | Korisnik može pregledati ažurirani popis resursa relevantnih za vrstu kriznog događaja, lokaciju i raspoloživost. |
-| F-004 | Sustav omogućuje korisnicima podnošenje prijave kriznog događaja s lokacijom. | Visok | Dokument sa zahtjevima | Korisnik može podnijeti prijavu s vrstom kriznog događaja, razinom ozbiljnosti i lokacijom te dobiti potvrdu o zaprimanju. Ako odbije pristup geolokaciji preglednika, može lokaciju odabrati ručno.|
-| F-005 | Sustav šalje korisnicima obavijesti o relevantnim promjenama u njihovoj blizini. | Visok | Povratna informacija korisnika | Korisnici dobivaju obavijest unutar jedne minute od relevantne promjene za njihovu lokaciju. |
-| F-006 | Sustav prikazuje dostupne resurse prema lokaciji. | Visok | Analiza dokumentacije | Prikazuje se ažurirani popis resursa prilagođen vrsti kriznog događaja, lokaciji i raspoloživosti. |
-| F-007 | Sustav prikazuje prijave kriznih događaja s lokacijom kao oznake na karti. | Visok | Odobreni zadatak | Prijava s valjanom lokacijom prikazuje se kao oznaka na karti; odabirom oznake korisnik može otvoriti pripadajuću prijavu. |
-| F-008 | Sustav omogućuje moderatoru odobravanje ili odbijanje podnesenih prijava. | Visok | Zahtjev dionika | Moderator može odobriti ili odbiti prijavu koja čeka pregled; korisnik bez moderatorskih ovlasti ne može izvršiti te radnje. |
-
-**Kriteriji prihvaćanja i podrijetlo zahtjeva:** Primjer prikazuje registraciju, oporavak lozinke, resurse, prijavu kriznog događaja i obavijesti te nekoliko vrsta izvora i opažljivih kriterija. Istodobno otvara korisna pitanja: opisuju li F-003 i F-006 istu funkcionalnost resursa? Je li obećanje od jedne minute u F-005 dogovoreno i moguće ispitati? Treba li aplikaciji koja koristi isključivo OAuth uopće F-001 i F-002? Retke koristite kao materijal za analizu; u svojem projektu navedite vlastite zahtjeve. U stvarnom projektu stupac Izvor bilježi odakle su doista potekli njegovi zahtjevi.
-
-**Primjer prilagodbe kada odobreni zadatak koristi OAuth i kartu:** Umjesto kopiranja registracije e-poštom i oporavka lozinke formulirajte relevantni zahtjev za prijavu, primjerice: „F-001: Korisnici se prijavljuju putem odobrenog OAuth pružatelja identiteta; uspješna prijava omogućuje radnje rezervirane za prijavljene korisnike, a odustajanje od prijave ostavlja te radnje nedostupnima.” Zaseban zahtjev za kartu može glasiti: „F-007 : Prijave s lokacijom prikazuju se kao oznake na karti; odabirom oznake otvara se pripadajuća prijava.” Izvor treba biti stvarni odobreni zadatak ili dogovoreni zahtjev dionika. Ova je prilagodba zamjena za neodgovarajuće retke, a ne dodatna tablica koju svaki tim mora ispuniti.
-
-Za složenu interakciju kratak scenarij *Given / When / Then* može pojasniti kriterij. Primjerice: *Given* prijava bez lokacije, *when* građanin je podnese, *then* sustav objašnjava da lokacija nedostaje i ne pohranjuje prijavu. Nemojte jednostavan kriterij ponavljati i u prozi i u Gherkinu niti pisati Gherkin za svaki zahtjev.
 
 </details>
 
@@ -54,30 +59,19 @@ Za složenu interakciju kratak scenarij *Given / When / Then* može pojasniti kr
 | ID | Opis | Prioritet | Izvor | Način provjere |
 | --- | --- | --- | --- | --- |
 | NF-01 | [Konkretan zahtjev (npr. odziv, sigurnost, pristupačnost)] | Visok / Srednji / Nizak | [Sigurnost / Uputa / SLA] | [Mjerenje / Testni scenarij / Pregled] |
-|  |  |  |  |  |
+| NF-01 | Anonimnost dvostruko slijepe recenzije jamči se u UI-ju, nazivima preuzetih datoteka, e-pošti i API odgovorima. | Visok | Odobreni zadatak | Pregled API odgovora, naziva datoteka i poruka kao autor i kao recenzent; nigdje nema identiteta druge strane. |
+| NF-02 | Aplikacija je web aplikacija prilagođena mobilnim uređajima. | Visok | Odobreni zadatak | Ručni pregled glavnih tokova na mobilnoj širini zaslona. |
+| NF-03 | Rokovi se izražavaju u vremenskoj zoni koju odabere predsjednik, a korisniku se prikazuju i u lokalnom vremenu. | Visok | Odobreni zadatak | Testni scenarij s rokom u drugoj vremenskoj zoni. |
+| NF-04 | Sustav podržava istodobni rad većeg broja korisnika, osobito pred istek roka za predaju. | Srednji | Odobreni zadatak | Test opterećenja prema broju koji tim dogovori. |
+| NF-05 | Prava pristupa određuju se po konferenciji i ulozi; OAuth tokeni se ne prikazuju u UI-ju. | Visok | Odobreni zadatak | Testni scenariji pristupa s različitim ulogama; pregled UI-ja i odgovora. |
+| NF-06 | Status rada i ostala stanja ne smiju biti označeni samo bojom. | Nizak | Projektni vodič (UI prototip) | Pregled sučelja. |
+
 
 <details>
 <summary><strong>Nefunkcijski zahtjevi za analizu</strong></summary>
 
 Relevantna svojstva mogu se odnositi na uporabljivost, pristupačnost, sigurnost, performanse ili pouzdanost. Odaberite svojstva specifična za projekt i opišite kako ih je moguće provjeriti. Zahtjev navodi što se očekuje; stvarna opažanja i dokazi pripadaju rezultatima ispitivanja, a ne drugom stupcu s rezultatima u ovoj tablici.
 
-**Primjer — nefunkcijski zahtjevi za aplikaciju CrisisMap:**
-
-| ID | Opis | Prioritet | Izvor |
-| --- | --- | --- | --- |
-| NF-1.1 | Sustav mora podržati 1.000 istodobnih korisnika uz vrijeme odziva kraće od 1 s. | Visok | SLA | Opteretiti sustav zadanim brojem istodobnih korisnika i izmjeriti vrijeme odziva. |
-| NF-1.2 | Svi osjetljivi podaci moraju biti šifrirani algoritmom AES-256. | Visok | Sigurnosna politika | Pregledati način pohrane i konfiguraciju šifriranja za podatke na koje se zahtjev odnosi. |
-| NF-1.3 | Korisničko sučelje mora podržavati engleski i španjolski jezik. | Srednji | Povratna informacija dionika | Pregledati reprezentativne korisničke tijekove u oba jezika. |
-| NF-1.4 | Dostupnost sustava mora iznositi najmanje 99,5 % mjesečno. | Visok | SLA | Izračunati mjesečnu dostupnost iz zapisa sustava za nadzor, ako takvi podaci postoje.|
-| NF-3.1.7 | Sustav treba imati odgovarajuću dokumentaciju. | Visok | Pravila dokumentiranja | Pregledati zahtijevane dokumentaciju prema obavezama.|
-| NF-3.1.7.1 | Kod sustava treba biti dokumentiran prema „Code Conventions for the Java Programming Language”. | Visok | Pravila dokumentiranja | Pregledati kod. |
-| NF-3.1.7.2 | Sustav treba biti opisan projektnim dokumentom/SRS-om. | Visok | Pravila dokumentiranja | Pregledati strukturu dokumenta  |
-| NF-3.1.7.3 | Sustav treba imati „Operativni priručnik” koji opisuje pravilnu uporabu. | Visok | Pravila dokumentiranja | Pregledati postoji li priručnik i mogu li se prema njemu izvršiti opisane radnje. |
-| NF-3.1.7.4 | Sustav treba imati „Plan implementacije” za pravilno postavljanje. | Visok | Smjernice za postavljanje | Pregledati odgovara li opisani postupak stvarnom postupku postavljanja.|
-
-**Provjerljivost i opseg:** Primjer uvodi performanse, sigurnost, lokalizaciju, dostupnost i dokumentaciju, uključujući hijerarhijski ID zahtjeva. Navedeni izvori primjeri su podrijetla zahtjeva, a ne dokaz da za studentski projekt stvarno postoji SLA ili sigurnosna politika. Vrijednosti poput 1.000 korisnika, 99,5 % mjesečne dostupnosti i AES-256 moraju imati odobren izvor i izvediv način provjere prije nego što postanu zahtjevi tima. Skup zahtjeva o dokumentaciji ilustrira razlaganje zahtjeva, ali zahtjevi za izradu *ove dokumentacije kolegija* u pravilu pripadaju uputama zadatka, a ne zahtjevima kvalitete web-aplikacije.
-
-**Primjer prilagodbe:** Ako je pristupačnost zahtjevana za  projekt, projektno specifičan zahtjev može glasiti: „NF-01: Sve obavezne radnje u obrascu za podnošenje prijave moguće je izvršiti samo tipkovnicom, uz vidljiv fokus na aktivnoj kontroli.” Provjera: navigirati kroz obrazac bez pokazivačkog uređaja, odabrati ili unijeti lokaciju, poslati prijavu i provjeriti može li se pročitati rezultat. To je provjerljivo svojstvo kvalitete, a ne dodatna funkcionalnost koju svaki projekt mora implementirati.
 
 </details>
 
@@ -86,23 +80,15 @@ Relevantna svojstva mogu se odnositi na uporabljivost, pristupačnost, sigurnost
 **Cilj:** Utvrditi uloge koje utječu na zahtjeve i razlikovati dionike od aktera koji komuniciraju s aplikacijom.
 
 | ID uloge ili aktera | Odnos prema sustavu | Relevantni zahtjevi |
-| --- | --- | --- |
-|  |  |  |
+| A-01 | Javni posjetitelj: pregledava javnu stranicu i program | F-003 |
+| A-02 | Autor / koautor: predaje i prati radove | F-008 do F-012, F-023, F-024 |
+| A-03 | Recenzent: prihvaća pozive, iskazuje interes, recenzira, raspravlja | F-013, F-014, F-018, F-019 |
+| A-04 | Predsjednik programskog odbora: postavlja konferenciju, raspodjeljuje, odlučuje, slaže program | F-006, F-007, F-015 do F-017, F-021, F-022, F-025 |
+| A-05 | Administrator: odobrava konferencije, upravlja korisnicima i predlošcima | F-005, F-028 |
+| A-06 | Vanjski sustavi: ORCID, Crossref, Google Calendar, servis za e-poštu | F-001, F-010, F-016, F-026 |
 
 <details>
 <summary><strong>Akteri i povezani zahtjevi</strong></summary>
-
-**Primjer — akteri aplikacije CrisisMap:**
-
-| ID aktera | Uloga | Obuhvaćeni funkcijski zahtjevi |
-| --- | --- | --- |
-| A-01 | Koordinator pomoći | F-003: Pregled resursa; F-004: Podnošenje prijave kriznog događaja. |
-| A-02 | Građanin | F-001: Izrada računa; F-005: Primanje obavijesti. |
-| A-03 | Administrator sustava | NF-1.2: Provođenje sigurnosnih pravila; upravljanje korisnicima. |
-| A-04 | Posjetitelj | F-007: Pregled prijava na karti. |
-| A-05 | Moderator | F-008: Odobravanje ili odbijanje prijava. |
-
-**Odgovornosti aktera:** Uloga aktera treba biti povezana s interakcijom, a ne samo s nazivom. Provjerite podnosi li koordinator pomoći u odobrenom zadatku doista prijave kriznih događaja. Poveznica administratora s NF-1.2 navodi sigurnosni aspekt, ali sama po sebi ne opisuje obrazac uporabe; navedite stvarnu radnju administratora ili izostavite ulogu ako je nema. Nastavnici zainteresirani za rezultat mogu biti dionici, a da nisu akteri aplikacije. Tablica je polazište za razmišljanje, a ne potvrđen opis ovlasti u CrisisMapu.
 
 </details>
 
@@ -113,23 +99,19 @@ Relevantna svojstva mogu se odnositi na uporabljivost, pristupačnost, sigurnost
 **Cilj:** Zabilježiti projektno specifične granice i pretpostavke koje utječu na zahtjeve ili oblikovanje, zajedno s njihovim izvorom i praktičnom posljedicom. Ovo je njihovo mjerodavno mjesto u dokumentaciji.
 
 | ID | Tip | Opis ograničenja ili pretpostavke | Izvor | Inženjerska posljedica / Provjera |
-| --- | --- | --- | --- | --- |
-| C-01 | Ograničenje | [Fiksni tehnički ili procesni uvjet] | [Zadatak / Pravila] | [Utjecaj na arhitekturu i oblikovanje] |
-| AS-01 | Pretpostavka | [Očekivani uvjet, npr. o podacima ili okolini] | [Procjena tima] | [Kako i kada će se provjeriti valjanost] |
-|  |  |  |  |  |
+| C-01 | Ograničenje | Prijava je isključivo e-poštom ili ORCID-om uz OAuth 2.0 tokene. | Odobreni zadatak | Autorizaciju projektirati oko vanjskog pružatelja identiteta (issue #8, #9). |
+| C-02 | Ograničenje | Rješenje je responzivna web aplikacija. | Odobreni zadatak | Bez nativne mobilne aplikacije. |
+| C-03 | Ograničenje | Za ORCID, Crossref, Google Calendar i e-poštu potrebni su vanjski servisi. | Odobreni zadatak | Integraciju izolirati u zasebne module radi lakšeg testiranja. |
+| C-04 | Ograničenje | Backend je Express aplikacija, a baza PostgreSQL. | Odluka tima (issue #6, #7) | Arhitekturu i model podataka graditi na tome. |
+| AS-01 | Pretpostavka | Zadatak je nejasan oko povlačenja: uređivanje do roka predaje, povlačenje do prihvaćanja. | Procjena tima | Potvrditi s asistentom. |
+| AS-02 | Pretpostavka | ORCID daje dovoljno podataka o ustanovi i koautorstvu za provjeru sukoba. | Procjena tima | Provjeriti u istraživanju (issue #8) i nadomjestiti ručnim unosom ako ne. |
+| AS-03 | Pretpostavka | Zadatak ne navodi broj istodobnih korisnika; tim bira realnu brojku za test. | Procjena tima | Dogovoriti broj i zapisati ga u NF-04. |
+| AS-04 | Pretpostavka | Format PDF-a i najveći broj stranica zadaje predsjednik konferencije. | Procjena tima | Prikazati ih jasno pri predaji. |
+
 <details>
 <summary><strong>Ograničenja nasuprot pretpostavkama</strong></summary>
 
 Ograničenje je uvjet koji tim mora poštovati; pretpostavka je uvjet na koji se tim oslanja i koji treba ponovno provjeravati.
-
-**Primjer — projektni kontekst CrisisMapa:**
-
-| ID | Ograničenje ili pretpostavka | Izvor | Posljedica ili način provjere |
-| --- | --- | --- | --- |
-| C-01 | Odobreni zadatak zahtijeva OAuth prijavu u sustav za uređivanje vlastitih prijava korisnika. | Odobreni zadatak  | Zaštićeno uređivanje projektirati oko odabranog pružatelja identiteta; provjeriti autorizirane i neautorizirane zahtjeve. |
-| AS-01 | Prijave koje se prikazuju na karti imaju uporabive koordinate. | Pretpostavka o podacima  | Pregledati ogledne i uvezene prijave; planirati prikaz prijava bez valjanih koordinata. |
-
-**Ograničenje nasuprot pretpostavci:** C-01 navodi obvezujuću odluku i njezin arhitekturni učinak; AS-01 je moguće provjeriti i može se pokazati netočnim. Nemojte kopirati C-01 ako OAuth nije dio stvarnog odobrenog zadatka. Projektni odgovor objasnite u arhitekturi bez prepisivanja ove tablice.
 
 </details>
 
