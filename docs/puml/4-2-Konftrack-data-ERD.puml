@@ -33,13 +33,24 @@ entity "User" as User {
   --
   * ime : varchar
   * prezime : varchar
-  * email : varchar <<UK>>
+  email : varchar <<UK>>
+  password_hash : varchar 
+  * email_verified : bool
   ustanova : varchar
   orcid : varchar <<UK>>
-  podrucjaEkspertize : text
-  * nacinPrijave : varchar  
   * jeAdmin : bool
   * aktivan : bool
+}
+
+entity "Expertise" as Expertise {
+  * expertise_id : int <<PK>>
+  --
+  * naziv : varchar
+}
+
+entity "UserExpertise" as UserExpertise {
+  * user_id : int <<PK, FK>>
+  * expertise_id : int <<PK, FK>>
 }
 
 ' Predsjednik_id je predsjednik programskog odbora kojeg imenuje admin
@@ -76,7 +87,7 @@ entity "Topic" as Topic {
 entity "UserConf" as UserConf {
   * conference_id : int <<PK, FK>>
   * user_id : int <<PK, FK>>
-  * uloga : varchar <<PK>>
+  * uloga : varchar 
 }
 
 'Pozivnice za članove odbora (recenzente) i za koautore koji još nemaju račun (zato email i ime, a ne user_id)
@@ -126,9 +137,9 @@ entity "PaperAuthor" as PaperAuthor {
 entity "PaperVersion" as PaperVersion {
   * version_id : int <<PK>>
   --
-  * paper_id : int <<FK>>
-  * tip : varchar
-  * redniBrojRunde : int
+  * paper_id : int <<FK, UK1>>
+  * tip : varchar <<UK1>>
+  * redniBrojRunde : int <<UK1>>
   * datoteka : varchar
   * internNaziv : varchar
   brojStranica : int
@@ -165,15 +176,14 @@ entity "ReviewAssignment" as ReviewAssignment {
   * podsjetnik2Poslan : bool
 }
 
-' Unutar aplikacije treba osigurati da su sve ocijene izmedu -3 i 3, a strucnost izmedu 1 i 5
 ' nakon revizije isti recenzent ocjenjuje novu verziju, pa jedna dodjela može imati više recenzija
 entity "Review" as Review {
   * review_id : int <<PK>>
   --
   * assignment_id : int <<FK>>
   * version_id : int <<FK>>
-  * ocjena : int  
-  * strucnost : int 
+  * ocjena : int  (CHECK -3 <= ocjena <= 3)
+  * strucnost : int (CHECK 1 <= strucnost <= 5)
   komentarAutorima : text
   povjerljivKomentar : text
   * datumPredaje : datetime
