@@ -1,0 +1,78 @@
+' ==============================================================================
+' 4-1-konftrack-system-CMP
+'
+' Svrha:    Prikazuje glavne komponente sustava KonfTrack, njihove ovisnosti i
+'           vanjske sustave s kojima komuniciraju (ORCID, Crossref, SMTP, Google Calendar).
+'           Klase, metode i fizička mrežna topologija namjerno nisu
+'           obuhvaćeni.
+' Autor:    Martina Čulina, kolegij Programsko inženjerstvo
+' AI:       Dijagram je izradio autor. AI je pomogao u reviziji i komentarima;
+'           autor ih je pregledao i odgovara za konačni sadržaj.
+' Praćenje: Komponente treba uskladiti sa strukturom repozitorija i
+'           implementiranim uslugama; pri promjeni arhitekture ažurirati model.
+'
+' Diagram level: High-level logical architecture
+' Diagram type:  UML Component Diagram
+' Version:       1.0
+' ==============================================================================
+
+@startuml
+title KonfTrack - Dijagram komponenti
+actor Korisnik
+left to right direction
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam componentStyle rectangle
+skinparam ArrowColor #212529
+
+skinparam component {
+    BackgroundColor #E7F1FF
+    BorderColor #0D6EFD
+}
+
+skinparam database {
+    BackgroundColor #FFF3CD
+    BorderColor #212529
+}
+
+' ==============================================================================
+' Granica sustava i unutarnje komponente
+' ==============================================================================
+
+rectangle "KonfTrack" {
+    [Frontend] as FE
+    package "Backend" {
+       [Rute (API)] as RUTE
+       [Posredničke funkcije\n(token, uloga po konferenciji, rokovi)] as MW
+       [Poslovna logika (servisi)] as BL
+       [Planer rokova i podsjetnika] as SCH
+       [Generator PDF zbornika] as PDF
+       [Pristup bazi (repozitoriji)] as DAL
+    }
+    database "Baza podataka" as DB
+    folder "Pohrana PDF datoteka" as FS
+}
+
+cloud "ORCID (pružatelj identiteta)" as IDP
+cloud "Crossref" as CR
+cloud "E-pošta (SMTP)" as SMTP
+cloud "Google Calendar" as GC
+
+Korisnik --> FE
+FE --> RUTE: HTTPS, JSON, token
+FE --> IDP : prijava (OAuth 2.0)
+RUTE --> MW
+MW --> BL
+MW --> IDP : provjera identiteta
+BL --> DAL
+BL --> PDF
+SCH --> BL : istek roka, podsjetnici
+DAL --> DB : SQL
+BL --> FS : PDF rukopisi
+BL --> IDP : ustanova i koautorstvo
+BL --> CR : provjera DOI-ja
+BL --> SMTP : obavijesti
+BL --> GC : izvoz rasporeda
+
+@enduml
