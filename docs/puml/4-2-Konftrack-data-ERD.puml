@@ -81,9 +81,10 @@ entity "Topic" as Topic {
   --
   * conference_id : int <<FK>>
   * naziv : varchar
+  --
+  <<UK (conference_id, naziv)>>
 }
 
-'Jedan korisnik može imati više uloga na istoj konferenciji
 entity "UserConf" as UserConf {
   * conference_id : int <<PK, FK>>
   * user_id : int <<PK, FK>>
@@ -146,8 +147,10 @@ entity "PaperVersion" as PaperVersion {
   * datum : datetime
   dokumentOdgovora : varchar
   izjavaAutorskaPrava : varchar
-  upozorenjeMetapodaci : bool
+  * upozorenjeMetapodaci : bool
   reference : text
+  --
+  <<UK (paper_id, tip, redniBrojRunde)>>
 }
 
 'Recenzenzenti iskazuje interes za recenziranje rada:„želim recenzirati“, „mogu recenzirati“, „ne želim recenzirati“, „sukob interesa“
@@ -174,6 +177,8 @@ entity "ReviewAssignment" as ReviewAssignment {
   * jeZamjena : bool
   * podsjetnik7Poslan : bool
   * podsjetnik2Poslan : bool
+  --
+  <<UK (paper_id, redniBroj)>>
 }
 
 ' nakon revizije isti recenzent ocjenjuje novu verziju, pa jedna dodjela može imati više recenzija
@@ -187,12 +192,15 @@ entity "Review" as Review {
   komentarAutorima : text
   povjerljivKomentar : text
   * datumPredaje : datetime
+  --
+  <<UK (assignment_id, version_id)>>
 }
 
 ' Veže se na dodjelu, ne na korisnika, pa se autor poruke prikazuje samo kao "Recenzent N" i anonimnost je očuvana.
 entity "DiscussionMessage" as DiscussionMessage {
   * message_id : int <<PK>>
   --
+  * sender_id : int <<FK>>
   * assignment_id : int <<FK>>
   * tekst : text
   * vrijeme : datetime
@@ -223,6 +231,8 @@ entity "Presentation" as Presentation {
   * redoslijed : int
   * pocetak : datetime
   * kraj : datetime
+  --
+  <<UK (section_id, redoslijed)>>
 }
 
 'osobni raspored korisnika (odabrana izlaganja)
@@ -241,6 +251,9 @@ entity "EmailTemplate" as EmailTemplate {
 }
 
 
+' --- Korisnici i stručnosti ---
+User ||--o{ UserExpertise
+Expertise ||--o{ UserExpertise
 
 ' --- Konferencija, uloge, pozivnice ---
 User ||--o{ Conference : predsjeda
@@ -266,6 +279,7 @@ ReviewAssignment |o--o| ReviewAssignment : zamjena
 ReviewAssignment ||--o{ Review : recenzije po rundi
 PaperVersion ||--o{ Review : ocjenjuje verziju
 ReviewAssignment ||--o{ DiscussionMessage : rasprava
+User ||--o{ DiscussionMessage : pošiljatelj
 
 ' --- Program ---
 Conference ||--o{ Section
