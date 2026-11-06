@@ -315,13 +315,13 @@ router.get("/moje-recenzije", requireAuth, (req, res) => {
   res.render("moje-recenzije");
 });
 
+router.get("/predaj-rad", requireAuth, (req, res) => {
+  res.render("predaj-rad");
+});
+
 // Administratorske stranice
 router.get("/admin", requireAdmin, (req, res) => {
   res.render("admin");
-});
-
-router.get("/predaj-rad", requireAuth, (req, res) => {
-  res.render("predaj-rad");
 });
 
 router.get("/statistika", requireAdmin, (req, res) => {
