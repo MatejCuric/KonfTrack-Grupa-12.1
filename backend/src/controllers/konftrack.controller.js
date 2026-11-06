@@ -1,43 +1,62 @@
 const express = require("express");
-
 const router = express.Router();
 
-// Početna stranica s popisom konferencija
-router.get("/", (req, res) => {
-  res.render("home");
+
+const conferenceService = require("../services/conference.service");
+
+// Početna stranica s dinamičkim popisom konferencija
+router.get("/", async (req, res) => {
+  try {
+    const sveKonferencije = conferenceService.dohvatiSveKonferencije();
+    const trenutniDatum = new Date();
+
+    // Konferencije otvorene za prijavu radova
+    const otvoreneKonferencije = sveKonferencije.filter(conf => 
+      new Date(conf.rokZaPrijavu) >= trenutniDatum && new Date(conf.datumOdrzavanja) >= trenutniDatum
+    );
+
+    // Nadolazeće konferencije (rok za prijavu istekao, ali se konferencija još nije održala)
+    const nadolazeceKonferencije = sveKonferencije.filter(conf => 
+      new Date(conf.rokZaPrijavu) < trenutniDatum && new Date(conf.datumOdrzavanja) >= trenutniDatum
+    );
+
+    res.render("home", {
+      otvoreneKonferencije,
+      nadolazeceKonferencije
+    });
+  } catch (error) {
+    console.error("Greška pri dohvaćanju konferencija:", error);
+    res.status(500).send("Došlo je do greške na poslužitelju.");
+  }
 });
 
-// Radovi korisnika
+
 router.get("/moji-radovi", (req, res) => {
   res.render("moji-radovi");
 });
 
-// Konferencije kojima korisnik upravlja
+
 router.get("/moje-konferencije", (req, res) => {
   res.render("moje-konferencije");
 });
 
-// Radovi na kojima je korisnik recenzent
+
 router.get("/moje-recenzije", (req, res) => {
   res.render("moje-recenzije");
 });
 
-// Stranica za administratora sustava
 router.get("/admin", (req, res) => {
   res.render("admin");
 });
 
-// Ruta za prikaz obrasca za predaju rada
 router.get("/predaj-rad", (req, res) => {
   res.render("predaj-rad");
 });
 
-// Stranica s prikazom statistike sustava namijenjena za administartora
 router.get("/statistika", (req, res) => {
   res.render("statistika");
 });
 
-// Ruta za prikaz sučelja za prijavu korisnika
 router.get("/login", (req, res) => {
   res.render("login");
 });
