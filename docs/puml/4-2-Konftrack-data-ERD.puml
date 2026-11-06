@@ -1,0 +1,294 @@
+' ==============================================================================
+' 4-2-Konftrack-data-ERD.puml 
+'
+' Svrha:    Prikazuje trajne entitete sustava Konftrack (korisnik, konferencija, tema,
+'           rad, verzija rada, autor, uloga na konferenciji, pozivnica, dodjela recenzije,
+'           rasprava o radu, sekcija programa, izlaganje rada, osobni raspored korisnika,
+'           predložak poruke e-pošte), njihove ključeve, reprezentativne atribute i kardinalnosti. 
+'           Fizička implementacija baze nije obuhvaćena.
+' Autor:    Nina Mare Rogulj, kolegij Programsko inženjerstvo
+' AI:       Dijagram je izradio autor. AI je pomogao u reviziji i komentarima;
+'           autor ih je pregledao i odgovara za konačni sadržaj.
+' Praćenje: Entiteti, atributi i veze trebaju ostati usklađeni sa shemom baze;
+'           pri promjeni sheme ažurirati model.
+'
+' Diagram level: Logical data model
+' Diagram type:  Entity-Relationship Diagram (ERD), crow's foot
+' ==============================================================================
+
+@startuml KonfTrack
+' ER dijagram 
+hide circle
+skinparam linetype ortho
+skinparam roundcorner 6
+skinparam entity {
+  BackgroundColor #F7F7F7
+  BorderColor #444444
+}
+
+'Korisnik bira način prijave: email ili orcid
+'Uloga po konferenciji nije ovdje nego u UserConf
+entity "User" as User {
+  * user_id : int <<PK>>
+  --
+  * ime : varchar
+  * prezime : varchar
+  email : varchar <<UK>>
+  password_hash : varchar 
+  * email_verified : bool
+  ustanova : varchar
+  orcid : varchar <<UK>>
+  * jeAdmin : bool
+  * aktivan : bool
+}
+
+entity "Expertise" as Expertise {
+  * expertise_id : int <<PK>>
+  --
+  * naziv : varchar
+}
+
+entity "UserExpertise" as UserExpertise {
+  * user_id : int <<PK, FK>>
+  * expertise_id : int <<PK, FK>>
+}
+
+' Predsjednik_id je predsjednik programskog odbora kojeg imenuje admin
+' odobrena = admin mora odobriti konferenciju.
+'Ne treba odvojena tablica za rok, produljenje roka je samo update polja u tablici konferencije
+entity "Conference" as Conference {
+  * conference_id : int <<PK>>
+  --
+  * predsjednik_id : int <<FK>>
+  * naziv : varchar
+  * mjesto : varchar
+  * pocetak : date
+  * zavrsetak : date
+  * vremZona : varchar
+  maxStranica : int
+  * odobrena : bool
+  rokPredaja : datetime
+  rokRecenzija : datetime
+  rokObavijest : datetime
+  rokKonacna : datetime
+}
+
+' teme konferencije (npr. "Strojno učenje"). 
+'Vezane su uz konferenciju jer svaka konferencija ima svoj skup tema. 
+'Rad i sekcija referenciraju temu, pa se konferencija uvijek može dobiti preko nje.
+entity "Topic" as Topic {
+  * topic_id : int <<PK>>
+  --
+  * conference_id : int <<FK>>
+  * naziv : varchar
+  --
+  <<UK (conference_id, naziv)>>
+}
+
+entity "UserConf" as UserConf {
+  * conference_id : int <<PK, FK>>
+  * user_id : int <<PK, FK>>
+  * uloga : varchar 
+}
+
+'Pozivnice za članove odbora (recenzente) i za koautore koji još nemaju račun (zato email i ime, a ne user_id)
+'status pozivnice može biti poslana, prihvaćena ili odbijena 
+entity "Invitation" as Invitation {
+  * invitation_id : int <<PK>>
+  --
+  * conference_id : int <<FK>>
+  paper_id : int <<FK>>
+  * poslao_id : int <<FK>>
+  * email : varchar
+  ime : varchar
+  * uloga : varchar
+  * status : varchar
+}
+
+'stanje prati životni ciklus (nacrt, predan, u recenziji, potrebna revizija, prihvaćen, odbijen, konačna verzija predana,
+' uvršten u program, povučen)
+entity "Paper" as Paper {
+  * paper_id : int <<PK>>
+  --
+  * topic_id : int <<FK>>
+  * naslov : varchar
+  * sazetak : text
+  kljucneRijeci : text
+  * stanje : varchar
+  datumPredaje : datetime
+  odluka : varchar
+  datumOdluke : datetime
+}
+
+'svaki rad ima odredenu kontakt osobu i izlagaca
+'redni broj autora bilježimo da znamo razlikovat koautore
+entity "PaperAuthor" as PaperAuthor {
+  * paper_id : int <<PK, FK>>
+  * user_id : int <<PK, FK>>
+  --
+  * redniBroj : int
+  * kontaktOsoba : bool
+  * izlagac : bool
+}
+
+'Od autora se može zatražiti da ponovno preda popravljeni rad, pa je bitno čuvati verzije rada. Svaka verzija ima svoj redni broj i tip (prva verzija, revidirana verzija, konačna verzija)
+' datoteka i internNaziv su odvojeni zbog anonimnosti: recenzent vidi neutralan nazi
+' reference je JSON/tekst s DOI-jima i rezultatom Crossref provjere
+'upozorenjeMetapodaci = u PDF-u su pronađena imena autora.
+entity "PaperVersion" as PaperVersion {
+  * version_id : int <<PK>>
+  --
+  * paper_id : int <<FK, UK1>>
+  * tip : varchar <<UK1>>
+  * redniBrojRunde : int <<UK1>>
+  * datoteka : varchar
+  * internNaziv : varchar
+  brojStranica : int
+  * datum : datetime
+  dokumentOdgovora : varchar
+  izjavaAutorskaPrava : varchar
+  * upozorenjeMetapodaci : bool
+  reference : text
+  --
+  <<UK (paper_id, tip, redniBrojRunde)>>
+}
+
+'Recenzenzenti iskazuje interes za recenziranje rada:„želim recenzirati“, „mogu recenzirati“, „ne želim recenzirati“, „sukob interesa“
+entity "ReviewBid" as ReviewBid {
+  * paper_id : int <<PK, FK>>
+  * reviewer_id : int <<PK, FK>>
+  --
+  * interes : varchar
+}
+
+' dodjela rada recenzentu
+' redniBroj daje "Recenzent 1/2/..." u raspravi, tako da se imena ne otkrivaju.
+' jeZamjena i zamijenjeni_assignment_id bilježe zamjenskog recenzenta koji preuzima rad zakašnjele recenzije.
+entity "ReviewAssignment" as ReviewAssignment {
+  * assignment_id : int <<PK>>
+  --
+  * paper_id : int <<FK>>
+  * reviewer_id : int <<FK>>
+  zamijenjeni_assignment_id : int <<FK>>
+  * status : varchar
+  * datumDodjele : datetime
+  * rok : datetime
+  * redniBroj : int
+  * jeZamjena : bool
+  * podsjetnik7Poslan : bool
+  * podsjetnik2Poslan : bool
+  --
+  <<UK (paper_id, redniBroj)>>
+}
+
+' nakon revizije isti recenzent ocjenjuje novu verziju, pa jedna dodjela može imati više recenzija
+entity "Review" as Review {
+  * review_id : int <<PK>>
+  --
+  * assignment_id : int <<FK>>
+  * version_id : int <<FK>>
+  * ocjena : int  (CHECK -3 <= ocjena <= 3)
+  * strucnost : int (CHECK 1 <= strucnost <= 5)
+  komentarAutorima : text
+  povjerljivKomentar : text
+  * datumPredaje : datetime
+  --
+  <<UK (assignment_id, version_id)>>
+}
+
+' Veže se na dodjelu, ne na korisnika, pa se autor poruke prikazuje samo kao "Recenzent N" i anonimnost je očuvana.
+entity "DiscussionMessage" as DiscussionMessage {
+  * message_id : int <<PK>>
+  --
+  * sender_id : int <<FK>>
+  * assignment_id : int <<FK>>
+  * tekst : text
+  * vrijeme : datetime
+}
+
+'Sekcija programa s temom, dvoranom, terminom i predsjedavajućim
+'Aplikacija mora provjeriti da predsjedavajući nije autor nekog rada u toj sekciji.
+entity "Section" as Section {
+  * section_id : int <<PK>>
+  --
+  * conference_id : int <<FK>>
+  * topic_id : int <<FK>>
+  * predsjedavajuci_id : int <<FK>>
+  * naziv : varchar
+  * dvorana : varchar
+  * pocetak : datetime
+  * kraj : datetime
+}
+
+'izlaganje jednog rada u sekciji
+'izlagac_id i vrijeme omogućuju provjeru da nitko nema dva izlaganja u isto vrijeme
+entity "Presentation" as Presentation {
+  * presentation_id : int <<PK>>
+  --
+  * paper_id : int <<FK, UK>>
+  * section_id : int <<FK>>
+  * izlagac_id : int <<FK>>
+  * redoslijed : int
+  * pocetak : datetime
+  * kraj : datetime
+  --
+  <<UK (section_id, redoslijed)>>
+}
+
+'osobni raspored korisnika (odabrana izlaganja)
+entity "PersonalSchedule" as PersonalSchedule {
+  * user_id : int <<PK, FK>>
+  * presentation_id : int <<PK, FK>>
+}
+'predlošci poruka e-pošte koje uređuje admin
+' (npr. obavijest o odluci, podsjetnik, produljenje roka)
+' tip je jedinstven da za svaku vrstu poruke postoji jedan predložak
+entity "EmailTemplate" as EmailTemplate {
+  * template_id : int <<PK>>
+  --
+  * tip : varchar <<UK>>
+  * predlozak : text
+}
+
+
+' --- Korisnici i stručnosti ---
+User ||--o{ UserExpertise
+Expertise ||--o{ UserExpertise
+
+' --- Konferencija, uloge, pozivnice ---
+User ||--o{ Conference : predsjeda
+Conference ||--o{ Topic : ima teme
+Conference ||--o{ UserConf
+User ||--o{ UserConf : uloga
+Conference ||--o{ Invitation
+User ||--o{ Invitation : poslao
+Paper |o--o{ Invitation : poziv koautoru
+
+' --- Radovi ---
+Topic ||--o{ Paper
+Paper ||--o{ PaperAuthor
+User ||--o{ PaperAuthor : autor
+Paper ||--o{ PaperVersion : verzije
+
+' --- Recenzije ---
+Paper ||--o{ ReviewBid
+User ||--o{ ReviewBid
+Paper ||--o{ ReviewAssignment
+User ||--o{ ReviewAssignment : recenzent
+ReviewAssignment |o--o| ReviewAssignment : zamjena
+ReviewAssignment ||--o{ Review : recenzije po rundi
+PaperVersion ||--o{ Review : ocjenjuje verziju
+ReviewAssignment ||--o{ DiscussionMessage : rasprava
+User ||--o{ DiscussionMessage : pošiljatelj
+
+' --- Program ---
+Conference ||--o{ Section
+Topic ||--o{ Section
+User ||--o{ Section : predsjedava
+Section ||--o{ Presentation
+Paper ||--o| Presentation : izlaganje
+User ||--o{ Presentation : izlaže
+User ||--o{ PersonalSchedule
+Presentation ||--o{ PersonalSchedule
+
+@enduml
