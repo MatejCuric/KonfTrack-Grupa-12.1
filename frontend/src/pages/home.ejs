@@ -9,57 +9,156 @@
 <body>
   <header>
     <h1>KonfTrack</h1>
+
     <nav>
       <a href="/">Početna</a>
-      <a href="/login" class="btn" style="padding: 6px 14px;">Prijava</a>
+
+      <% if (currentUser) { %>
+
+        <!-- Navigacija dostupna prijavljenim korisnicima -->
+        <a href="/moji-radovi">Moji radovi</a>
+        <a href="/moje-konferencije">Moje konferencije</a>
+        <a href="/moje-recenzije">Recenzije</a>
+
+        <!-- Dodatne stranice prikazuju se samo administratoru -->
+        <% if (currentUser.jeAdmin) { %>
+          <a href="/admin">Admin</a>
+          <a href="/statistika">Statistika</a>
+        <% } %>
+
+        <!-- Odjava se izvršava slanjem POST zahtjeva -->
+        <form action="/logout" method="POST" style="display: inline;">
+          <button type="submit" class="btn"
+                  style="color: crimson; background: none; border: none;">
+            Odjava
+          </button>
+        </form>
+
+      <% } else { %>
+
+        <!-- Navigacija za goste -->
+        <a href="/login" class="btn" style="padding: 6px 14px;">Prijava</a>
+        <a href="/register">Registracija</a>
+
+      <% } %>
     </nav>
   </header>
 
-<main>
-  <section class="card">
-    <h2>Dobrodošli u sustav KonfTrack</h2>
-    <p>Središnji web-sustav za upravljanje znanstvenim radovima, recenzijama i konferencijskim aktivnostima.</p>
-    <p>Prijavite se u sustav kako biste pristupili funkcijama namijenjenima prijavljenim korisnicima.</p>
-    <a href="/login" class="btn">Prijavi se u sustav</a>
-  </section>
+  <main>
 
-  <section>
-    <h2>Konferencije otvorene za prijavu radova</h2>
+    <section class="card">
+      <h2>Dobrodošli u sustav KonfTrack</h2>
 
-    <% if (typeof otvoreneKonferencije !== 'undefined' && otvoreneKonferencije.length > 0) { %>
-      <% otvoreneKonferencije.forEach(conf => { %>
-        <div class="card">
-          <h3><%= conf.naziv %></h3>
-          <p><%= conf.kratakOpis %></p>
-          <p><strong>Mjesto i datum održavanja:</strong> <%= conf.mjesto %>, <%= new Date(conf.datumOdrzavanja).toLocaleDateString('hr-HR') %></p>
-          <p><strong>Rok za prijavu radova:</strong> <%= new Date(conf.rokZaPrijavu).toLocaleDateString('hr-HR') %></p>
+      <% if (currentUser) { %>
 
-          <a href="/konferencije/<%= conf.id %>" class="btn">Detalji konferencije</a>
-        </div>
-      <% }); %>
-    <% } else { %>
-      <p>Trenutno nema konferencija otvorenih za prijavu radova.</p>
-    <% } %>
-  </section>
+        <!-- Sadržaj za prijavljenog korisnika -->
+        <p>
+          Prijavljeni ste kao:
+          <strong><%= currentUser.ime %> <%= currentUser.prezime %></strong>
+        </p>
 
-  <section>
-    <h2>Nadolazeće konferencije</h2>
+        <% if (currentUser.jeAdmin) { %>
+          <p>Uloga u sustavu: Administrator</p>
+        <% } %>
 
-    <% if (typeof nadolazeceKonferencije !== 'undefined' && nadolazeceKonferencije.length > 0) { %>
-      <% nadolazeceKonferencije.forEach(conf => { %>
-        <div class="card">
-          <h3><%= conf.naziv %></h3>
-          <p><%= conf.kratakOpis %></p>
-          <p><strong>Mjesto i datum održavanja:</strong> <%= conf.mjesto %>, <%= new Date(conf.datumOdrzavanja).toLocaleDateString('hr-HR') %></p>
-          <p><strong>Rok za prijavu radova:</strong> <span style="color: crimson; font-weight: bold;">Rok za prijavu je istekao (<%= new Date(conf.rokZaPrijavu).toLocaleDateString('hr-HR') %>)</span></p>
+        <p>
+          Pregledajte konferencije otvorene za prijavu znanstvenih radova.
+        </p>
 
-          <a href="/konferencije/<%= conf.id %>" class="btn">Detalji konferencije</a>
-        </div>
-      <% }); %>
-    <% } else { %>
-      <p>Trenutno nema nadolazećih konferencija kojima je istekao rok za prijavu.</p>
-    <% } %>
-  </section>
-</main>
+      <% } else { %>
+
+        <!-- Sadržaj za goste -->
+        <p>
+          Središnji web-sustav za upravljanje znanstvenim radovima,
+          recenzijama i konferencijskim aktivnostima.
+        </p>
+
+        <p>
+          Prijavite se u sustav kako biste pristupili funkcijama
+          namijenjenima prijavljenim korisnicima.
+        </p>
+
+        <a href="/login" class="btn">Prijavi se u sustav</a>
+
+      <% } %>
+    </section>
+
+    <!-- Konferencije otvorene za prijavu radova -->
+    <section>
+      <h2>Konferencije otvorene za prijavu radova</h2>
+
+      <% if (typeof otvoreneKonferencije !== 'undefined' && otvoreneKonferencije.length > 0) { %>
+
+        <% otvoreneKonferencije.forEach(conf => { %>
+          <div class="card">
+            <h3><%= conf.naziv %></h3>
+            <p><%= conf.kratakOpis %></p>
+
+            <p>
+              <strong>Mjesto i datum održavanja:</strong>
+              <%= conf.mjesto %>,
+              <%= new Date(conf.datumOdrzavanja).toLocaleDateString('hr-HR') %>
+            </p>
+
+            <p>
+              <strong>Rok za prijavu radova:</strong>
+              <%= new Date(conf.rokZaPrijavu).toLocaleDateString('hr-HR') %>
+            </p>
+
+            <% if (currentUser) { %>
+              <a href="/predaj-rad" class="btn">Predaj rad</a>
+            <% } else { %>
+              <a href="/login" class="btn">Prijavi se za predaju rada</a>
+            <% } %>
+
+            <a href="/konferencije/<%= conf.id %>" class="btn">
+              Detalji konferencije
+            </a>
+          </div>
+        <% }); %>
+
+      <% } else { %>
+        <p>Trenutno nema konferencija otvorenih za prijavu radova.</p>
+      <% } %>
+    </section>
+
+    <!-- Nadolazeće konferencije -->
+    <section>
+      <h2>Nadolazeće konferencije</h2>
+
+      <% if (typeof nadolazeceKonferencije !== 'undefined' && nadolazeceKonferencije.length > 0) { %>
+
+        <% nadolazeceKonferencije.forEach(conf => { %>
+          <div class="card">
+            <h3><%= conf.naziv %></h3>
+            <p><%= conf.kratakOpis %></p>
+
+            <p>
+              <strong>Mjesto i datum održavanja:</strong>
+              <%= conf.mjesto %>,
+              <%= new Date(conf.datumOdrzavanja).toLocaleDateString('hr-HR') %>
+            </p>
+
+            <p>
+              <strong>Rok za prijavu radova:</strong>
+              <span style="color: crimson; font-weight: bold;">
+                Rok za prijavu je istekao
+                (<%= new Date(conf.rokZaPrijavu).toLocaleDateString('hr-HR') %>)
+              </span>
+            </p>
+
+            <a href="/konferencije/<%= conf.id %>" class="btn">
+              Detalji konferencije
+            </a>
+          </div>
+        <% }); %>
+
+      <% } else { %>
+        <p>Trenutno nema nadolazećih konferencija kojima je istekao rok za prijavu.</p>
+      <% } %>
+    </section>
+
+  </main>
 </body>
+</html>
 </html>
