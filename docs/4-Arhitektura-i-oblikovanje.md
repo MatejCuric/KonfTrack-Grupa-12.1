@@ -22,10 +22,10 @@ Za svaki UML dijagram čuvajte čitljivu sliku i PlantUML izvor, kako je opisano
 
 | Odluka | Razmatrana alternativa | Projektno specifično obrazloženje i kompromis |
 | --- | --- | --- |
-| Web-klijent (React) i jedna poslužiteljska aplikacija (Node.js + Express) | Zasebne usluge (mikrousluge) | Lakše postaviti i povezati; kvar aplikacije zaustavlja sve funkcije |
+| Stranice se renderiraju na poslužitelju pomoću EJS-a, jedna poslužiteljska aplikacija (Node.js + Express) | Zasebne usluge (mikrousluge) | Lakše postaviti i povezati; kvar aplikacije zaustavlja sve funkcije |
 | Poslovna logika samo na poslužitelju | Provjere pravila i na klijentu | Anonimnost recenzija i rokovi potvrđuju se na jednom mjestu; klijent ih samo prikazuje |
 | PostgreSQL preko repozitorija | Dokumentna baza | Podaci imaju jasne veze (radovi, recenzije, autori) |
-| Prijava e-poštom i ORCID-om, OAuth 2.0 s JWT tokenima | Sesije na poslužitelju | Tokeni omogućuju provjeru uloge na svakom zahtjevu |
+| Prijava e-poštom i ORCID-om, OAuth 2.0 | Sesije na poslužitelju | Provjera uloge na svakom zahtjevu |
 | Rokovi pohranjeni u UTC | Pohrana u lokalnom vremenu | Izbjegavanje grešaka pri usporedbi rokova; frontend ih pretvara u lokalno vrijeme za prikaz |
 
 
@@ -46,11 +46,11 @@ Za svaki UML dijagram čuvajte čitljivu sliku i PlantUML izvor, kako je opisano
 | --- | --- | --- |
 | Frontend | Prikaz podataka i prikupljanje unosa korisnika | Sučelje je odvojeno od pravila i pohrane |
 | Rute (API) | Primanje zahtjeva i vraćanje odgovora | HTTP je odvojen od obrade |
-| Posredničke funkcije | Provjera tokena, uloge i rokova | Sigurnost sustava na jednom mjestu |
+| Posredničke funkcije | Provjera prijave, uloge i rokova | Sigurnost sustava na jednom mjestu |
 | Poslovna logika | Provođenje pravila sustava vezano uz radove, recenzije, odluke, program i anonimnost | Pravila su samo u backendu |
 | Planer rokova i podsjetnika | Blokiranje radnji nakon isteka roka i slanje podsjetnika | Odvajanje vremenskih okidača od zahtjeva |
-| Generator PDF sažetaka | Izrada PDF-a sa sažecima prihvaćenih radova podijeljenog po sekcijama s kazalom autora | Zasebna zadaća odvojena od ostale logike |
-| Pristup bazi | Poseban sloj za komunikaciju s bazom | Servisi ne ovise o načinu pohrane |
+| Generator PDF sažetaka | Izrada PDF zbornika sažetaka prihvaćenih radova podijeljenog po sekcijama s kazalom autora | Zasebna zadaća odvojena od ostale logike |
+| Pristup bazi (repozitoriji) | Poseban sloj za komunikaciju s bazom | Servisi ne ovise o načinu pohrane |
 | Baza podataka | Trajna pohrana podataka | Podaci aplikacije su unutar granice |
 | Pohrana PDF datoteka | Čuva rukopise i izjave | Datoteke su odvojene od baze |
 | ORCID | Prijava, podaci o ustanovi i koautorstvu | Vanjska usluga |

@@ -36,18 +36,15 @@ skinparam database {
     BorderColor #212529
 }
 
-' ==============================================================================
-' Granica sustava i unutarnje komponente
-' ==============================================================================
 
 rectangle "KonfTrack" {
-    [Frontend] as FE
+    [Frontend (EJS predlošci)] as FE
     package "Backend" {
        [Rute (API)] as RUTE
-       [Posredničke funkcije\n(token, uloga po konferenciji, rokovi)] as MW
+       [Posredničke funkcije\n(sesija, uloga po konferenciji, rokovi)] as MW
        [Poslovna logika (servisi)] as BL
        [Planer rokova i podsjetnika] as SCH
-       [Generator PDF zbornika] as PDF
+       [Generator PDF sažetaka] as PDF
        [Pristup bazi (repozitoriji)] as DAL
     }
     database "Baza podataka" as DB
@@ -60,16 +57,15 @@ cloud "E-pošta (SMTP)" as SMTP
 cloud "Google Calendar" as GC
 
 Korisnik --> FE
-FE --> RUTE: HTTPS, JSON, token
-FE --> IDP : prijava (OAuth 2.0)
+FE --> RUTE: HTTPS, JSON, sesija
+RUTE --> IDP : prijava (OAuth 2.0)
 RUTE --> MW
 MW --> BL
-MW --> IDP : provjera identiteta
 BL --> DAL
 BL --> PDF
 SCH --> BL : istek roka, podsjetnici
 DAL --> DB : SQL
-BL --> FS : PDF rukopisi
+BL --> FS : PDF rukopisi i izjave
 BL --> IDP : ustanova i koautorstvo
 BL --> CR : provjera DOI-ja
 BL --> SMTP : obavijesti
