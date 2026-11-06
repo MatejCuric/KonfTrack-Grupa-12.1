@@ -1,7 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
-
+const session = require("express-session");
 const routes = require("./controllers/konftrack.controller");
+const { loadCurrentUser } = require("./middleware/auth.middleware");
 
 const app = express();
 
@@ -16,6 +18,38 @@ app.use(express.static(path.join(__dirname, "..", "..", "frontend", "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// Konfiguracija sesije
+app.use(
+  session({
+    // Tajna vrijednost kojom se potpisuje identifikator sesije
+    secret: process.env.SESSION_SECRET || "konftrack-local-development-secret",
+
+    // Ne sprema se sesija ponovno u spremnik ako se nije promijenila
+    resave: false,
+
+    // Ne stvara se sesija za korisnika koji nije ništa spremio u nju
+    saveUninitialized: false,
+
+    // Postavljanje svojstava cookieja koji identificira sesiju u pregledniku
+    cookie: {
+      // JavaScript kod u pregledniku ne može izravno čitati cookie
+      httpOnly: true,
+
+      // Cookie se šalje u uobičajenim navigacijskim zahtjevima iste stranice
+      sameSite: "lax",
+
+      // U produkciji cookie se koristi samo preko HTTPS veze
+      secure: process.env.NODE_ENV === "production",
+
+      // Sesija vrijedi najviše 24 sata od postavljanja cookieja
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  }),
+);
+
+// Nakon učitavanja sesije dohvaćaju se podaci trenutno prijavljenog korisnika
+app.use(loadCurrentUser);
+
 // Rute aplikacije
 app.use("/", routes);
 
@@ -24,16 +58,3 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`KonfTrack je pokrenut na http://localhost:${PORT}`);
 });
-
-// const server = http.createServer((req, res) => {
-//   if (req.url === "/health") {
-//     res.writeHead(200, { "Content-Type": "application/json" });
-//     return res.end(JSON.stringify({ status: "healthy" }));
-//   }
-//   res.writeHead(200, { "Content-Type": "text/plain" });
-//   res.end("API running");
-// });
-
-// server.listen(port, "0.0.0.0", () => {
-//   console.log(`Server listening on 0.0.0.0:${port}`);
-// });
