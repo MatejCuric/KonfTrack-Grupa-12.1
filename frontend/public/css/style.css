@@ -94,7 +94,7 @@ p {
 }
 
 button.dng {
-  background-color: crimson !important;
+  background-color: red !important;
 }
 
 button.dng:hover {
@@ -144,7 +144,7 @@ tr:hover {
 }
 
 .znak.odbijen, .znak.neaktivan {
-  background-color: crimson;
+  background-color: red;
 }
 
 form {
