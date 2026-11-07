@@ -16,29 +16,185 @@
   </header>
 
   <main>
-    <form action="/spremi-rad" method="POST" class="card">
+    <% if (poruka) { %>
+      <section class="card" style="border-color: green;">
+        <p style="color: green; font-weight: bold; margin-bottom: 0;"><%= poruka %></p>
+      </section>
+    <% } %>
+
+    <% if (Object.keys(greske).length > 0) { %>
+      <section class="card" style="border-color: red;">
+        <h2 style="color: red;">Obrazac sadrži pogreške</h2>
+        <ul style="padding-left: 20px;">
+          <% Object.values(greske).forEach(p => { %>
+            <li><%= p %></li>
+          <% }); %>
+        </ul>
+      </section>
+    <% } %>
+
+    <form action="/spremi-rad" method="POST" enctype="multipart/form-data" class="card" id="forma-rad">
       <h2>Prijava novog rada</h2>
-      
+
+      <p id="greske-klijent" style="color: red; font-weight: bold;" hidden></p>
+
+      <div class="form-group">
+        <label for="konferencija">Konferencija:</label>
+        <select id="konferencija" name="konferencija" required>
+          <option value="">-- Odaberite konferenciju --</option>
+          <% konferencije.forEach(konferencije => { %>
+            <option value="<%= konferencije.id %>" <%= String(vrijednosti.konferencija) === String(konferencije.id) ? 'selected' : '' %>><%= konferencije.naziv %></option>
+          <% }); %>
+        </select>
+        <% if (greske.konferencija) { %><small style="color: red;"><%= greske.konferencija %></small><% } %>
+      </div>
+
       <div class="form-group">
         <label for="naslov">Naslov rada:</label>
-        <input type="text" id="naslov" name="naslov" required placeholder="Unesite naslov rada...">
+        <input type="text" id="naslov" name="naslov" required placeholder="Unesite naslov rada..." value="<%= vrijednosti.naslov || '' %>">
+        <% if (greske.naslov) { %><small style="color: red;"><%= greske.naslov %></small><% } %>
       </div>
 
       <div class="form-group">
         <label for="kategorija">Kategorija:</label>
         <select id="kategorija" name="kategorija">
-          <option value="znanstveni">Znanstveni rad</option>
-          <option value="strucni">Stručni rad</option>
+          <option value="znanstveni" <%= vrijednosti.kategorija !== 'strucni' ? 'selected' : '' %>>Znanstveni rad</option>
+          <option value="strucni" <%= vrijednosti.kategorija === 'strucni' ? 'selected' : '' %>>Stručni rad</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label for="sazetak">Sažetak:</label>
-        <textarea id="sazetak" name="sazetak" placeholder="Unesite sažetak..."></textarea>
+        <label for="tema">Tema:</label>
+        <select id="tema" name="tema" required data-odabrano="<%= vrijednosti.tema || '' %>">
+          <option value="">-- Prvo odaberite konferenciju --</option>
+        </select>
+        <% if (greske.tema) { %><small style="color: red;"><%= greske.tema %></small><% } %>
       </div>
 
-      <button type="submit">Pošalji rad</button>
+      <div class="form-group">
+        <label for="sazetak">Sažetak:</label>
+        <textarea id="sazetak" name="sazetak" required placeholder="Unesite sažetak..."
+          style="width: 100%; min-height: 120px; padding: 10px 12px; border: 1px solid lightgray; border-radius: 6px; font-size: 1rem; font-family: inherit; resize: vertical;"><%= vrijednosti.sazetak || '' %></textarea>
+        <% if (greske.sazetak) { %><small style="color: red;"><%= greske.sazetak %></small><% } %>
+      </div>
+
+      <div class="form-group">
+        <label for="kljucneRijeci">Ključne riječi (odvojene zarezom):</label>
+        <input type="text" id="kljucneRijeci" name="kljucneRijeci" placeholder="npr. strojno učenje, neuronske mreže" value="<%= vrijednosti.kljucneRijeci || '' %>">
+      </div>
+
+      <div class="form-group">
+        <label>Koautori (postojeći korisnici):</label>
+        <% korisnici.forEach(korisnik => { %>
+          <label style="font-weight: normal;">
+            <input type="checkbox" name="koautori" value="<%= korisnik.id %>" <%= vrijednosti.koautori.includes(String(korisnik.id)) ? 'checked' : '' %>>
+            <%= korisnik.ime %> (<%= korisnik.email %>)
+          </label>
+        <% }); %>
+      </div>
+
+      <div class="form-group">
+        <label>Pozovi koautora (ime i e-pošta):</label>
+        <div id="pozvani-lista" style="display: flex; flex-direction: column; gap: 8px;">
+          <% vrijednosti.pozvani.forEach(pozvan => { %>
+            <div class="pozvani-red" style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <input type="text" name="pozvaniIme" placeholder="Ime i prezime" value="<%= pozvan.ime %>" style="flex: 1; min-width: 160px;">
+              <input type="email" name="pozvaniEmail" placeholder="E-pošta" value="<%= pozvan.email %>" style="flex: 1; min-width: 160px;">
+              <button type="button" class="dng ukloni-pozvanog">Ukloni</button>
+            </div>
+          <% }); %>
+        </div>
+        <div><button type="button" id="dodaj-pozvanog">+ Dodaj koautora</button></div>
+        <% if (greske.pozvani) { %><small style="color: red;"><%= greske.pozvani %></small><% } %>
+      </div>
+
+      <div class="form-group">
+        <label for="kontaktIme">Autor za kontakt (ime):</label>
+        <input type="text" id="kontaktIme" name="kontaktIme" placeholder="Ime i prezime" value="<%= vrijednosti.kontaktIme || '' %>">
+      </div>
+
+      <div class="form-group">
+        <label for="kontaktEmail">Autor za kontakt (e-pošta):</label>
+        <input type="email" id="kontaktEmail" name="kontaktEmail" placeholder="E-pošta" value="<%= vrijednosti.kontaktEmail || '' %>">
+        <% if (greske.kontaktEmail) { %><small style="color: red;"><%= greske.kontaktEmail %></small><% } %>
+      </div>
+
+      <div class="form-group">
+        <label for="pdf">PDF datoteka rada (najviše 10 MB):</label>
+        <input type="file" id="pdf" name="pdf" accept="application/pdf,.pdf" required>
+        <% if (greske.pdf) { %><small style="color: red;"><%= greske.pdf %></small><% } %>
+        <% if (Object.keys(greske).length > 0) { %>
+          <small>PDF je potrebno ponovno odabrati.</small>
+        <% } %>
+      </div>
+
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <button type="submit" name="akcija" value="predaj">Predaj rad</button>
+        <button type="submit" name="akcija" value="nacrt" formnovalidate>Spremi kao nacrt</button>
+      </div>
     </form>
   </main>
+
+  <script id="podaci-konferencija" type="application/json"><%- JSON.stringify(konferencije.map(k => ({ id: k.id, teme: k.teme }))).replace(/</g, '\\u003c') %></script>
+
+  <script> // dio skripte napisan u frontendu
+    (function () {
+      const podaci = JSON.parse(document.getElementById('podaci-konferencija').textContent);
+      const forma = document.getElementById('forma-rad');
+      const konferencija = document.getElementById('konferencija');
+      const tema = document.getElementById('tema');
+      const lista = document.getElementById('pozvani-lista');
+      const poruka = document.getElementById('greske-klijent');
+      const MAX_BAJTOVA = 10 * 1024 * 1024;
+
+      // Teme prema tome koja je konferencija odabrana(od strane korisnika)
+      function osvjeziTeme(odabrana) {
+        const konferencija = podaci.find(function (x) { return String(x.id) === konferencija.value; });
+        tema.innerHTML = '';
+        tema.add(new Option(konferencija ? '-- Odaberite temu --' : '-- Prvo odaberite konferenciju --', ''));
+        if (konferencija) {
+          konferencija.teme.forEach(function (teme) { tema.add(new Option(t, t, false, teme === odabrana)); });
+        }
+      }
+      konferencija.addEventListener('change', function () { osvjeziTeme(''); });
+      osvjeziTeme(tema.dataset.odabrano);
+
+      // Dinamički redovi za pozvane koautore
+      document.getElementById('dodaj-pozvanog').addEventListener('click', function () {
+        const prvi = lista.querySelector('.pozvani-red');
+        const novi = prvi.cloneNode(true);
+        novi.querySelectorAll('input').forEach(function (i) { i.value = ''; });
+        lista.appendChild(novi);
+      });
+      lista.addEventListener('click', function (e) {
+        if (!e.target.classList.contains('ukloni-pozvanog')) return;
+        const redovi = lista.querySelectorAll('.pozvani-red');
+        if (redovi.length > 1) {
+          e.target.closest('.pozvani-red').remove();
+        } else {
+          redovi[0].querySelectorAll('input').forEach(function (i) { i.value = ''; });
+        }
+      });
+
+      // Provjera na klijentskoj strani prije slanja forme
+      forma.addEventListener('submit', function (e) {
+        if (e.submitter && e.submitter.value === 'nacrt') return;
+        const greske = [];
+        if (!document.getElementById('naslov').value.trim()) greske.push('Naslov ne smije biti prazan.');
+        if (!document.getElementById('sazetak').value.trim()) greske.push('Sažetak ne smije biti prazan.');
+        const pdf = document.getElementById('pdf').files[0];
+        if (!pdf) greske.push('Odaberite PDF dokument.');
+        else if (pdf.type !== 'application/pdf') greske.push('Datoteka mora biti u PDF formatu.');
+        else if (pdf.size > MAX_BAJTOVA) greske.push('PDF datoteka je prevelika (najviše 10 MB).');
+
+        if (greske.length) {
+          e.preventDefault();
+          poruka.textContent = greske.join(' ');
+          poruka.hidden = false;
+          poruka.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
