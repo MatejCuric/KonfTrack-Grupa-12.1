@@ -29,7 +29,7 @@
         <!-- Odjava se izvršava slanjem POST zahtjeva -->
         <form action="/logout" method="POST" style="display: inline;">
           <button type="submit" class="btn"
-                  style="color: crimson; background: none; border: none;">
+                  style="color: red; background: none; border: none;">
             Odjava
           </button>
         </form>
@@ -106,7 +106,7 @@
             </p>
 
             <% if (currentUser) { %>
-              <a href="/predaj-rad" class="btn">Predaj rad</a>
+              <a href="/predaj-rad?konferencija=<%= conf.id %>" class="btn">Predaj rad</a>
             <% } else { %>
               <a href="/login" class="btn">Prijavi se za predaju rada</a>
             <% } %>
@@ -141,10 +141,10 @@
 
             <p>
               <strong>Rok za prijavu radova:</strong>
-              <span style="color: crimson; font-weight: bold;">
+              <span style="color: red; font-weight: bold;">
                 Rok za prijavu je istekao
                 (<%= new Date(conf.rokZaPrijavu).toLocaleDateString('hr-HR') %>)
-              </span>
+            </span>
             </p>
 
             <a href="/konferencije/<%= conf.id %>" class="btn">
@@ -160,5 +160,4 @@
 
   </main>
 </body>
-</html>
 </html>

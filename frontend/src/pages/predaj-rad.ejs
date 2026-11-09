@@ -1,7 +1,12 @@
+<% 
+  const odabranaKonfId = vrijednosti?.konferencijaId || vrijednosti?.konferencija;
+  const zakljucanaKonferencija = konferencije.find(k => String(k.id) === String(odabranaKonfId)); 
+%>
 <!DOCTYPE html>
 <html lang="hr">
 <head>
-  <script src="/js/script.js" defer></script>
+  <script src="/scripts/script.js" defer></script>
+<script src="/scripts/predaj-rad.js" defer></script>
   <meta charset="UTF-8">
   <title>KonfTrack - Predaja rada</title>
   <link rel="stylesheet" href="/css/style.css">
@@ -40,12 +45,19 @@
 
       <div class="form-group">
         <label for="konferencija">Konferencija:</label>
-        <select id="konferencija" name="konferencija" required>
-          <option value="">-- Odaberite konferenciju --</option>
-          <% konferencije.forEach(konferencije => { %>
-            <option value="<%= konferencije.id %>" <%= String(vrijednosti.konferencija) === String(konferencije.id) ? 'selected' : '' %>><%= konferencije.naziv %></option>
-          <% }); %>
-        </select>
+        <% if (zakljucanaKonferencija) { %>
+          <select id="konferencija" disabled>
+            <option value="<%= zakljucanaKonferencija.id %>" selected><%= zakljucanaKonferencija.naziv %></option>
+          </select>
+          <input type="hidden" name="konferencija" value="<%= zakljucanaKonferencija.id %>">
+        <% } else { %>
+          <select id="konferencija" name="konferencija" required>
+            <option value="">-- Odaberite konferenciju --</option>
+            <% konferencije.forEach(konferencije => { %>
+              <option value="<%= konferencije.id %>"><%= konferencije.naziv %></option>
+            <% }); %>
+          </select>
+        <% } %>
         <% if (greske.konferencija) { %><small style="color: red;"><%= greske.konferencija %></small><% } %>
       </div>
 
@@ -53,14 +65,6 @@
         <label for="naslov">Naslov rada:</label>
         <input type="text" id="naslov" name="naslov" required placeholder="Unesite naslov rada..." value="<%= vrijednosti.naslov || '' %>">
         <% if (greske.naslov) { %><small style="color: red;"><%= greske.naslov %></small><% } %>
-      </div>
-
-      <div class="form-group">
-        <label for="kategorija">Kategorija:</label>
-        <select id="kategorija" name="kategorija">
-          <option value="znanstveni" <%= vrijednosti.kategorija !== 'strucni' ? 'selected' : '' %>>Znanstveni rad</option>
-          <option value="strucni" <%= vrijednosti.kategorija === 'strucni' ? 'selected' : '' %>>Stručni rad</option>
-        </select>
       </div>
 
       <div class="form-group">
@@ -136,65 +140,5 @@
   </main>
 
   <script id="podaci-konferencija" type="application/json"><%- JSON.stringify(konferencije.map(k => ({ id: k.id, teme: k.teme }))).replace(/</g, '\\u003c') %></script>
-
-  <script> // dio skripte napisan u frontendu
-    (function () {
-      const podaci = JSON.parse(document.getElementById('podaci-konferencija').textContent);
-      const forma = document.getElementById('forma-rad');
-      const konferencija = document.getElementById('konferencija');
-      const tema = document.getElementById('tema');
-      const lista = document.getElementById('pozvani-lista');
-      const poruka = document.getElementById('greske-klijent');
-      const MAX_BAJTOVA = 10 * 1024 * 1024;
-
-      // Teme prema tome koja je konferencija odabrana(od strane korisnika)
-      function osvjeziTeme(odabrana) {
-        const konferencija = podaci.find(function (x) { return String(x.id) === konferencija.value; });
-        tema.innerHTML = '';
-        tema.add(new Option(konferencija ? '-- Odaberite temu --' : '-- Prvo odaberite konferenciju --', ''));
-        if (konferencija) {
-          konferencija.teme.forEach(function (teme) { tema.add(new Option(t, t, false, teme === odabrana)); });
-        }
-      }
-      konferencija.addEventListener('change', function () { osvjeziTeme(''); });
-      osvjeziTeme(tema.dataset.odabrano);
-
-      // Dinamički redovi za pozvane koautore
-      document.getElementById('dodaj-pozvanog').addEventListener('click', function () {
-        const prvi = lista.querySelector('.pozvani-red');
-        const novi = prvi.cloneNode(true);
-        novi.querySelectorAll('input').forEach(function (i) { i.value = ''; });
-        lista.appendChild(novi);
-      });
-      lista.addEventListener('click', function (e) {
-        if (!e.target.classList.contains('ukloni-pozvanog')) return;
-        const redovi = lista.querySelectorAll('.pozvani-red');
-        if (redovi.length > 1) {
-          e.target.closest('.pozvani-red').remove();
-        } else {
-          redovi[0].querySelectorAll('input').forEach(function (i) { i.value = ''; });
-        }
-      });
-
-      // Provjera na klijentskoj strani prije slanja forme
-      forma.addEventListener('submit', function (e) {
-        if (e.submitter && e.submitter.value === 'nacrt') return;
-        const greske = [];
-        if (!document.getElementById('naslov').value.trim()) greske.push('Naslov ne smije biti prazan.');
-        if (!document.getElementById('sazetak').value.trim()) greske.push('Sažetak ne smije biti prazan.');
-        const pdf = document.getElementById('pdf').files[0];
-        if (!pdf) greske.push('Odaberite PDF dokument.');
-        else if (pdf.type !== 'application/pdf') greske.push('Datoteka mora biti u PDF formatu.');
-        else if (pdf.size > MAX_BAJTOVA) greske.push('PDF datoteka je prevelika (najviše 10 MB).');
-
-        if (greske.length) {
-          e.preventDefault();
-          poruka.textContent = greske.join(' ');
-          poruka.hidden = false;
-          poruka.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      });
-    })();
-  </script>
 </body>
 </html>

@@ -45,7 +45,7 @@
 
             <!-- Poruka ako poveznica za potvrdu nije valjana ili je istekla -->
             <% if (verificationError) { %>
-                <p style="color: crimson;">
+                <p style="color: red;">
                     Poveznica za potvrdu nije valjana ili je istekla.
                 </p>
             <% } %>
@@ -58,7 +58,7 @@
 
             <!-- Prikazuje grešku ako prijava nije uspjela -->
             <% if (error) { %>
-                <p style="color: crimson;">
+                <p style="color: red;">
                     <%= error %>
                 </p>
             <% } %>
