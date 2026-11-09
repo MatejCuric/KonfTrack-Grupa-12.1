@@ -1,12 +1,19 @@
-<% 
+
+<%
+  // Dohvaća ID konferencije koja je odabrana prilikom dolaska na obrazac.
   const odabranaKonfId = vrijednosti?.konferencijaId || vrijednosti?.konferencija;
-  const zakljucanaKonferencija = konferencije.find(k => String(k.id) === String(odabranaKonfId)); 
+
+  // Pronalazi konferenciju koja odgovara ID-u iz URL-a
+  const zakljucanaKonferencija = konferencije.find(
+    k => String(k.id) === String(odabranaKonfId)
+  );
 %>
 <!DOCTYPE html>
 <html lang="hr">
 <head>
   <script src="/scripts/script.js" defer></script>
-<script src="/scripts/predaj-rad.js" defer></script>
+  <script src="/scripts/predaj-rad.js" defer></script>
+
   <meta charset="UTF-8">
   <title>KonfTrack - Predaja rada</title>
   <link rel="stylesheet" href="/css/style.css">
@@ -21,15 +28,24 @@
   </header>
 
   <main>
+
     <% if (poruka) { %>
-      <section class="card" style="border-color: green;">
-        <p style="color: green; font-weight: bold; margin-bottom: 0;"><%= poruka %></p>
+      <!-- Prikazuje obavijest ako nije moguće pristupiti obrascu -->
+      <section class="card" style="border-color: red;">
+        <p style="color: red; font-weight: bold; margin-bottom: 0;">
+          <%= poruka %>
+        </p>
+
+        <p>
+          <a href="/">Povratak na početnu stranicu</a>
+        </p>
       </section>
     <% } %>
 
     <% if (Object.keys(greske).length > 0) { %>
       <section class="card" style="border-color: red;">
         <h2 style="color: red;">Obrazac sadrži pogreške</h2>
+
         <ul style="padding-left: 20px;">
           <% Object.values(greske).forEach(p => { %>
             <li><%= p %></li>
@@ -38,107 +54,235 @@
       </section>
     <% } %>
 
-    <form action="/spremi-rad" method="POST" enctype="multipart/form-data" class="card" id="forma-rad">
-      <h2>Prijava novog rada</h2>
+    <% if (zakljucanaKonferencija) { %>
 
-      <p id="greske-klijent" style="color: red; font-weight: bold;" hidden></p>
+      <!-- Obrazac se prikazuje samo ako je konferencija valjana i otvorena -->
+      <form
+        action="/spremi-rad"
+        method="POST"
+        enctype="multipart/form-data"
+        class="card"
+        id="forma-rad"
+      >
+        <h2>Prijava novog rada</h2>
 
-      <div class="form-group">
-        <label for="konferencija">Konferencija:</label>
-        <% if (zakljucanaKonferencija) { %>
+        <p id="greske-klijent" style="color: red; font-weight: bold;" hidden></p>
+
+        <div class="form-group">
+          <label for="konferencija">Konferencija:</label>
+
+          <!-- Odabrana konferencija je zaključana i ne može se promijeniti -->
           <select id="konferencija" disabled>
-            <option value="<%= zakljucanaKonferencija.id %>" selected><%= zakljucanaKonferencija.naziv %></option>
+            <option value="<%= zakljucanaKonferencija.id %>" selected>
+              <%= zakljucanaKonferencija.naziv %>
+            </option>
           </select>
-          <input type="hidden" name="konferencija" value="<%= zakljucanaKonferencija.id %>">
-        <% } else { %>
-          <select id="konferencija" name="konferencija" required>
-            <option value="">-- Odaberite konferenciju --</option>
-            <% konferencije.forEach(konferencije => { %>
-              <option value="<%= konferencije.id %>"><%= konferencije.naziv %></option>
-            <% }); %>
+
+          <!-- Skriveno polje šalje ID konferencije backendu -->
+          <input
+            type="hidden"
+            name="konferencija"
+            value="<%= zakljucanaKonferencija.id %>"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="naslov">Naslov rada:</label>
+
+          <input
+            type="text"
+            id="naslov"
+            name="naslov"
+            required
+            placeholder="Unesite naslov rada..."
+            value="<%= vrijednosti.naslov || '' %>"
+          >
+
+          <% if (greske.naslov) { %>
+            <small style="color: red;"><%= greske.naslov %></small>
+          <% } %>
+        </div>
+
+        <div class="form-group">
+          <label for="tema">Tema:</label>
+
+          <select
+            id="tema"
+            name="tema"
+            required
+            data-odabrano="<%= vrijednosti.tema || '' %>"
+          >
+            <option value="">-- Odaberite temu --</option>
           </select>
-        <% } %>
-        <% if (greske.konferencija) { %><small style="color: red;"><%= greske.konferencija %></small><% } %>
-      </div>
 
-      <div class="form-group">
-        <label for="naslov">Naslov rada:</label>
-        <input type="text" id="naslov" name="naslov" required placeholder="Unesite naslov rada..." value="<%= vrijednosti.naslov || '' %>">
-        <% if (greske.naslov) { %><small style="color: red;"><%= greske.naslov %></small><% } %>
-      </div>
+          <% if (greske.tema) { %>
+            <small style="color: red;"><%= greske.tema %></small>
+          <% } %>
+        </div>
 
-      <div class="form-group">
-        <label for="tema">Tema:</label>
-        <select id="tema" name="tema" required data-odabrano="<%= vrijednosti.tema || '' %>">
-          <option value="">-- Prvo odaberite konferenciju --</option>
-        </select>
-        <% if (greske.tema) { %><small style="color: red;"><%= greske.tema %></small><% } %>
-      </div>
+        <div class="form-group">
+          <label for="sazetak">Sažetak:</label>
 
-      <div class="form-group">
-        <label for="sazetak">Sažetak:</label>
-        <textarea id="sazetak" name="sazetak" required placeholder="Unesite sažetak..."
-          style="width: 100%; min-height: 120px; padding: 10px 12px; border: 1px solid lightgray; border-radius: 6px; font-size: 1rem; font-family: inherit; resize: vertical;"><%= vrijednosti.sazetak || '' %></textarea>
-        <% if (greske.sazetak) { %><small style="color: red;"><%= greske.sazetak %></small><% } %>
-      </div>
+          <textarea
+            id="sazetak"
+            name="sazetak"
+            required
+            placeholder="Unesite sažetak..."
+            style="width: 100%; min-height: 120px; padding: 10px 12px; border: 1px solid lightgray; border-radius: 6px; font-size: 1rem; font-family: inherit; resize: vertical;"
+          ><%= vrijednosti.sazetak || '' %></textarea>
 
-      <div class="form-group">
-        <label for="kljucneRijeci">Ključne riječi (odvojene zarezom):</label>
-        <input type="text" id="kljucneRijeci" name="kljucneRijeci" placeholder="npr. strojno učenje, neuronske mreže" value="<%= vrijednosti.kljucneRijeci || '' %>">
-      </div>
+          <% if (greske.sazetak) { %>
+            <small style="color: red;"><%= greske.sazetak %></small>
+          <% } %>
+        </div>
 
-      <div class="form-group">
-        <label>Koautori (postojeći korisnici):</label>
-        <% korisnici.forEach(korisnik => { %>
-          <label style="font-weight: normal;">
-            <input type="checkbox" name="koautori" value="<%= korisnik.id %>" <%= vrijednosti.koautori.includes(String(korisnik.id)) ? 'checked' : '' %>>
-            <%= korisnik.ime %> (<%= korisnik.email %>)
-          </label>
-        <% }); %>
-      </div>
+        <div class="form-group">
+          <label for="kljucneRijeci">Ključne riječi (odvojene zarezom):</label>
 
-      <div class="form-group">
-        <label>Pozovi koautora (ime i e-pošta):</label>
-        <div id="pozvani-lista" style="display: flex; flex-direction: column; gap: 8px;">
-          <% vrijednosti.pozvani.forEach(pozvan => { %>
-            <div class="pozvani-red" style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <input type="text" name="pozvaniIme" placeholder="Ime i prezime" value="<%= pozvan.ime %>" style="flex: 1; min-width: 160px;">
-              <input type="email" name="pozvaniEmail" placeholder="E-pošta" value="<%= pozvan.email %>" style="flex: 1; min-width: 160px;">
-              <button type="button" class="dng ukloni-pozvanog">Ukloni</button>
-            </div>
+          <input
+            type="text"
+            id="kljucneRijeci"
+            name="kljucneRijeci"
+            placeholder="npr. strojno učenje, neuronske mreže"
+            value="<%= vrijednosti.kljucneRijeci || '' %>"
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Koautori (postojeći korisnici):</label>
+
+          <% korisnici.forEach(korisnik => { %>
+            <label style="font-weight: normal;">
+              <input
+                type="checkbox"
+                name="koautori"
+                value="<%= korisnik.id %>"
+                <%= vrijednosti.koautori.includes(String(korisnik.id)) ? 'checked' : '' %>
+              >
+
+              <%= korisnik.ime %> (<%= korisnik.email %>)
+            </label>
           <% }); %>
         </div>
-        <div><button type="button" id="dodaj-pozvanog">+ Dodaj koautora</button></div>
-        <% if (greske.pozvani) { %><small style="color: red;"><%= greske.pozvani %></small><% } %>
-      </div>
 
-      <div class="form-group">
-        <label for="kontaktIme">Autor za kontakt (ime):</label>
-        <input type="text" id="kontaktIme" name="kontaktIme" placeholder="Ime i prezime" value="<%= vrijednosti.kontaktIme || '' %>">
-      </div>
+        <div class="form-group">
+          <label>Pozovi koautora (ime i e-pošta):</label>
 
-      <div class="form-group">
-        <label for="kontaktEmail">Autor za kontakt (e-pošta):</label>
-        <input type="email" id="kontaktEmail" name="kontaktEmail" placeholder="E-pošta" value="<%= vrijednosti.kontaktEmail || '' %>">
-        <% if (greske.kontaktEmail) { %><small style="color: red;"><%= greske.kontaktEmail %></small><% } %>
-      </div>
+          <div
+            id="pozvani-lista"
+            style="display: flex; flex-direction: column; gap: 8px;"
+          >
+            <% vrijednosti.pozvani.forEach(pozvan => { %>
+              <div
+                class="pozvani-red"
+                style="display: flex; gap: 8px; flex-wrap: wrap;"
+              >
+                <input
+                  type="text"
+                  name="pozvaniIme"
+                  placeholder="Ime i prezime"
+                  value="<%= pozvan.ime %>"
+                  style="flex: 1; min-width: 160px;"
+                >
 
-      <div class="form-group">
-        <label for="pdf">PDF datoteka rada (najviše 10 MB):</label>
-        <input type="file" id="pdf" name="pdf" accept="application/pdf,.pdf" required>
-        <% if (greske.pdf) { %><small style="color: red;"><%= greske.pdf %></small><% } %>
-        <% if (Object.keys(greske).length > 0) { %>
-          <small>PDF je potrebno ponovno odabrati.</small>
-        <% } %>
-      </div>
+                <input
+                  type="email"
+                  name="pozvaniEmail"
+                  placeholder="E-pošta"
+                  value="<%= pozvan.email %>"
+                  style="flex: 1; min-width: 160px;"
+                >
 
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <button type="submit" name="akcija" value="predaj">Predaj rad</button>
-        <button type="submit" name="akcija" value="nacrt" formnovalidate>Spremi kao nacrt</button>
-      </div>
-    </form>
+                <button type="button" class="dng ukloni-pozvanog">
+                  Ukloni
+                </button>
+              </div>
+            <% }); %>
+          </div>
+
+          <div>
+            <button type="button" id="dodaj-pozvanog">
+              + Dodaj koautora
+            </button>
+          </div>
+
+          <% if (greske.pozvani) { %>
+            <small style="color: red;"><%= greske.pozvani %></small>
+          <% } %>
+        </div>
+
+        <div class="form-group">
+          <label for="kontaktIme">Autor za kontakt (ime):</label>
+
+          <input
+            type="text"
+            id="kontaktIme"
+            name="kontaktIme"
+            placeholder="Ime i prezime"
+            value="<%= vrijednosti.kontaktIme || '' %>"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="kontaktEmail">Autor za kontakt (e-pošta):</label>
+
+          <input
+            type="email"
+            id="kontaktEmail"
+            name="kontaktEmail"
+            placeholder="E-pošta"
+            value="<%= vrijednosti.kontaktEmail || '' %>"
+          >
+
+          <% if (greske.kontaktEmail) { %>
+            <small style="color: red;"><%= greske.kontaktEmail %></small>
+          <% } %>
+        </div>
+
+        <div class="form-group">
+          <label for="pdf">PDF datoteka rada (najviše 10 MB):</label>
+
+          <input
+            type="file"
+            id="pdf"
+            name="pdf"
+            accept="application/pdf,.pdf"
+            required
+          >
+
+          <% if (greske.pdf) { %>
+            <small style="color: red;"><%= greske.pdf %></small>
+          <% } %>
+
+          <% if (Object.keys(greske).length > 0) { %>
+            <small>PDF je potrebno ponovno odabrati.</small>
+          <% } %>
+        </div>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button type="submit" name="akcija" value="predaj">
+            Predaj rad
+          </button>
+
+          <button
+            type="submit"
+            name="akcija"
+            value="nacrt"
+            formnovalidate
+          >
+            Spremi kao nacrt
+          </button>
+        </div>
+      </form>
+
+    <% } %>
+
   </main>
 
-  <script id="podaci-konferencija" type="application/json"><%- JSON.stringify(konferencije.map(k => ({ id: k.id, teme: k.teme }))).replace(/</g, '\\u003c') %></script>
+  <!-- JavaScriptu se prosljeđuju teme konferencije za popunjavanje izbornika. -->
+  <% if (zakljucanaKonferencija) { %>
+    <script id="podaci-konferencija" type="application/json"><%- JSON.stringify([zakljucanaKonferencija].map(k => ({ id: k.id, teme: k.teme }))).replace(/</g, '\\u003c') %></script>
+  <% } %>
+
 </body>
 </html>
