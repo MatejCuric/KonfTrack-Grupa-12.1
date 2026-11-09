@@ -44,14 +44,14 @@ router.get("/", async (req, res) => {
     const otvoreneKonferencije = sveKonferencije.filter(
       (conf) =>
         new Date(conf.rokZaPrijavu) >= trenutniDatum &&
-        new Date(conf.datumOdrzavanja) >= trenutniDatum
+        new Date(conf.datumOdrzavanja) >= trenutniDatum,
     );
 
     // Nadolazeće konferencije
     const nadolazeceKonferencije = sveKonferencije.filter(
       (conf) =>
         new Date(conf.rokZaPrijavu) < trenutniDatum &&
-        new Date(conf.datumOdrzavanja) >= trenutniDatum
+        new Date(conf.datumOdrzavanja) >= trenutniDatum,
     );
 
     res.render("home", {
@@ -61,6 +61,29 @@ router.get("/", async (req, res) => {
     });
   } catch (error) {
     console.error("Greška pri dohvaćanju konferencija:", error);
+    res.status(500).send("Došlo je do greške na poslužitelju.");
+  }
+});
+
+// Prikaz detalja odabrane konferencije
+router.get("/konferencije/:id", (req, res) => {
+  try {
+    // Dohvaća ID konferencije iz URL-a
+    const konferencija = conferenceService.dohvatiKonferencijuPoId(
+      req.params.id,
+    );
+
+    // Ako konferencija s tim ID-em ne postoji, vraća 404
+    if (!konferencija) {
+      return res.status(404).send("Tražena konferencija ne postoji.");
+    }
+
+    // Prosljeđuje podatke konferencije EJS prikazu
+    res.render("konferencija", {
+      konferencija,
+    });
+  } catch (error) {
+    console.error("Greška pri dohvaćanju konferencije:", error);
     res.status(500).send("Došlo je do greške na poslužitelju.");
   }
 });
@@ -204,7 +227,7 @@ router.get("/auth/orcid/callback", async (req, res) => {
     try {
       const profile = await orcidService.getPublicProfile(
         orcid,
-        tokenData.access_token
+        tokenData.access_token,
       );
 
       ime = profile.ime || ime;
@@ -268,11 +291,7 @@ router.post("/auth/orcid/complete-registration", async (req, res) => {
       });
     }
 
-    const user = await authService.createOrcidUser(
-      pending.orcid,
-      ime,
-      prezime
-    );
+    const user = await authService.createOrcidUser(pending.orcid, ime, prezime);
 
     delete req.session.pendingOrcidRegistration;
 
@@ -315,8 +334,83 @@ router.get("/moje-recenzije", requireAuth, (req, res) => {
   res.render("moje-recenzije");
 });
 
+// Prikaz obrasca za predaju rada
 router.get("/predaj-rad", requireAuth, (req, res) => {
-  res.render("predaj-rad");
+  try {
+    // Dohvaća ID konferencije iz URL-a
+    const konferencijaId = req.query.konferencija;
+
+    // Ako ID nije naveden, korisnik mora odabrati konferenciju tako da na njezinoj stranici klikne "Predaj rad"
+    if (!konferencijaId) {
+      return res.status(400).render("predaj-rad", {
+        konferencija: null,
+        konferencije: [],
+        korisnici: [],
+        vrijednosti: {},
+        greske: {},
+        poruka:
+          "Za predaju rada potrebno je najprije odabrati konferenciju na početnoj stranici za koju je otvorena prijava radova.",
+      });
+    }
+
+    // Dohvaća konferencije kod kojih je prijava još otvorena
+    const otvoreneKonferencije =
+      conferenceService.dohvatiOtvoreneKonferencije();
+
+    // Pronalazi traženu konferenciju
+    const konferencija = otvoreneKonferencije.find(
+      (konf) => konf.id === Number(konferencijaId),
+    );
+
+    // Ako konferencija ne postoji ili prijava nije otvorena, korisniku se ne prikazuje obrazac za predaju
+    if (!konferencija) {
+      return res.status(404).render("predaj-rad", {
+        konferencija: null,
+        konferencije: [],
+        korisnici: [],
+        vrijednosti: {},
+        greske: {},
+        poruka:
+          "Odabrana konferencija ne postoji ili trenutačno nije otvorena za prijavu radova.",
+      });
+    }
+
+    // Početne vrijednosti obrasca
+    const vrijednosti = {
+      konferencijaId: konferencija.id,
+      naslov: "",
+      tema: "",
+      sazetak: "",
+      kljucneRijeci: "",
+      koautori: [],
+      pozvani: [],
+      kontaktIme: "",
+      kontaktEmail: "",
+    };
+
+    // Privremeno prazno polje dok ne povežemo bazu podataka
+    const korisnici = [];
+
+    // Početno nema pogrešaka validacije
+    const greske = {};
+
+    // Početno nema dodatne poruke
+    const poruka = null;
+
+    // Prikazuje obrazac za točno određenu konferenciju
+    res.render("predaj-rad", {
+      konferencija,
+      konferencije: [konferencija],
+      korisnici,
+      vrijednosti,
+      greske,
+      poruka,
+    });
+  } catch (error) {
+    console.error("Greška pri prikazu obrasca za predaju rada:", error);
+
+    res.status(500).send("Došlo je do greške na poslužitelju.");
+  }
 });
 
 // Administratorske stranice
