@@ -1,6 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
+// Omogućujemo backendu primanje PDF datoteke koju šalje EJS obrazac
+const multer = require("multer");
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 10*1024*1024,
+  },
+});
+
+
 // Servis za autentifikaciju
 const authService = require("../services/auth.service");
 
@@ -12,6 +22,9 @@ const orcidService = require("../services/orcid.service");
 
 // Servis za dohvaćanje konferencija
 const conferenceService = require("../services/conference.service");
+
+//servis za validaciju predaje rada
+const paperService = require("../services/paper.service");
 
 // Pomoćna funkcija koja stvara novu sesiju za prijavljenog korisnika
 function createUserSession(req, userId) {
@@ -383,7 +396,10 @@ router.get("/predaj-rad", requireAuth, (req, res) => {
       sazetak: "",
       kljucneRijeci: "",
       koautori: [],
-      pozvani: [],
+      pozvani: [{
+        ime:"",
+        email:""
+      }],
       kontaktIme: "",
       kontaktEmail: "",
     };
@@ -410,6 +426,106 @@ router.get("/predaj-rad", requireAuth, (req, res) => {
     console.error("Greška pri prikazu obrasca za predaju rada:", error);
 
     res.status(500).send("Došlo je do greške na poslužitelju.");
+  }
+});
+
+// pomocna funkcija za prikaz gresaka
+function prikazGresaka(req,res,greske){
+  const podatci = req.body;
+  const konferencija = conferenceService.dohvatiKonferencijuPoId(podatci.konferencija);
+
+  function niz(val){
+    if (Array.isArray(val)){
+      return val;
+    }
+    if (val===undefined){
+      return [];
+    }
+    return [val];
+  }
+
+  const pozvanaImena=niz(podatci.pozvaniIme);
+  const pozvaniEmailovi=niz(podatci.pozvaniEmail);
+
+  const pozvani=[];
+  const brPozvanih = Math.max(
+    pozvanaImena.length,
+    pozvaniEmailovi.length,
+    1
+  );
+
+  for(let i=0; i<brPozvanih;i++){
+    pozvani.push({
+      ime:pozvanaImena[i] || "",
+      email: pozvaniEmailovi[i] || ""
+    });
+  }
+  const vrijednosti = {
+    konferencijaId: podatci.konferencija,
+    naslov: podatci.naslov || "",
+    sazetak: podatci.sazetak || "",
+    tema: podatci.tema || "",
+    kljucneRijeci: podatci.kljucneRijeci || "",
+    kontaktIme: podatci.kontaktIme || "",
+    kontaktEmail: podatci.kontaktEmail || "",
+    koautori: niz(podatci.koautori),
+    pozvani: pozvani
+  };
+
+  //prikaz prethodno unesenih vrijednosti
+
+  return res.status(400).render("predaj-rad",{
+    konferencija: konferencija || null,
+    konferencije: konferencija? [konferencija]:[],
+    korisnici: [],
+    vrijednosti,
+    greske,
+    poruka: konferencija? null : "Odabrana konferencija ne postoji"
+  });
+
+}
+
+// primanje pdf-a (jer dolazi do greske ako je veci od 10MB)
+const primanjePdf = (req,res,next)=>{
+  upload.single("pdf")(req,res,(error)=>{
+    if (error){
+      if (error.code === "LIMIT_FILE_SIZE"){
+        return prikazGresaka(req,res,{pdf:"PDF datoteka ne smije biti veća od 10MB"
+        });
+      }
+      return prikazGresaka(req,res,{pdf: "Došlo je do greške pri učitavanju PDF datoteke"
+      });
+    }
+    next();
+  });
+};
+
+router.post("/spremi-rad", requireAuth, primanjePdf, (req,res)=>{
+  try{
+    const podatci = req.body;
+    const pdf = req.file;
+
+    if(podatci.akcija==="nacrt"){
+      return res.send("Nacrt je uspješno zaprimljen(bez trajnog spremanja");
+    }
+
+    if(podatci.akcija==="predaj"){
+      const greske=paperService.validacijaRada(podatci,pdf);
+
+      if(Object.keys(greske).length>0){
+        return prikazGresaka(req,res,greske);
+      }
+
+      return res.send("Zahtjev za predaju rada je zaprimljen(bez trajnog spremanja)");
+    }
+
+    return res.status(400).send("Nepoznata akcija obrasca");
+
+
+  }catch (error){
+    console.error("Greška pri obradi rada:", error);
+
+    return res.status(500).send("Došlo je do greške pri obradi rada");
   }
 });
 
