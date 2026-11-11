@@ -80,13 +80,13 @@ Relevantna svojstva mogu se odnositi na uporabljivost, pristupačnost, sigurnost
 **Cilj:** Utvrditi uloge koje utječu na zahtjeve i razlikovati dionike od aktera koji komuniciraju s aplikacijom.
 
 | ID uloge ili aktera | Odnos prema sustavu | Relevantni zahtjevi |
+|---|---|---|
 | A-01 | Javni posjetitelj: pregledava javnu stranicu i program | F-003 |
 | A-02 | Autor / koautor: predaje i prati radove | F-008 do F-012, F-023, F-024 |
 | A-03 | Recenzent: prihvaća pozive, iskazuje interes, recenzira, raspravlja | F-013, F-014, F-018, F-019 |
 | A-04 | Predsjednik programskog odbora: postavlja konferenciju, raspodjeljuje, odlučuje, slaže program | F-006, F-007, F-015 do F-017, F-021, F-022, F-025 |
 | A-05 | Administrator: odobrava konferencije, upravlja korisnicima i predlošcima | F-005, F-028 |
 | A-06 | Vanjski sustavi: ORCID, Crossref, Google Calendar, servis za e-poštu | F-001, F-010, F-016, F-026 |
-
 <details>
 <summary><strong>Akteri i povezani zahtjevi</strong></summary>
 
@@ -99,6 +99,7 @@ Relevantna svojstva mogu se odnositi na uporabljivost, pristupačnost, sigurnost
 **Cilj:** Zabilježiti projektno specifične granice i pretpostavke koje utječu na zahtjeve ili oblikovanje, zajedno s njihovim izvorom i praktičnom posljedicom. Ovo je njihovo mjerodavno mjesto u dokumentaciji.
 
 | ID | Tip | Opis ograničenja ili pretpostavke | Izvor | Inženjerska posljedica / Provjera |
+|---|---|---|---|---|
 | C-01 | Ograničenje | Prijava je isključivo e-poštom ili ORCID-om uz OAuth 2.0 tokene. | Odobreni zadatak | Autorizaciju projektirati oko vanjskog pružatelja identiteta (issue #8, #9). |
 | C-02 | Ograničenje | Rješenje je responzivna web aplikacija. | Odobreni zadatak | Bez nativne mobilne aplikacije. |
 | C-03 | Ograničenje | Za ORCID, Crossref, Google Calendar i e-poštu potrebni su vanjski servisi. | Odobreni zadatak | Integraciju izolirati u zasebne module radi lakšeg testiranja. |
