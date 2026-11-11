@@ -28,14 +28,12 @@ Navedene koristi su očekivane, a ne izmjerene.
 **Cilj:** Utvrditi osobe, uloge i organizacije čije potrebe i interesi određuju projektni zadatak.
 
 | Skupina korisnika ili dionika | Potreba ili interes relevantan za ovaj projekt |
-| Javni posjetitel | Nije potrebna prijava, pregledava javne konferencije, pozive, teme, rokove i objavljeni program |
-| Autor  | Predaje i uređuje rad do roka; upravlja koautorima, kontakt-autorom i verzijama; provjera PDF-a i DOI-ja; anonimnost;praćenje statusa i rokova; predaje reviziju ili konačnu verziju |
-| Recenzent  | Prihvaća/odbija poziv; iskazuje interes i sukobe interesa; recenzira dodijeljene radove; sudjeluje u anonimnoj raspravi; prati rokove(jasno naglašeni te podsjetnci) |
+|---|---|
+| Javni posjetitelj | Nije potrebna prijava, pregledava javne konferencije, pozive, teme, rokove i objavljeni program |
+| Autor | Predaje i uređuje rad do roka; upravlja koautorima, kontakt-autorom i verzijama; provjera PDF-a i DOI-ja; anonimnost; praćenje statusa i rokova; predaje reviziju ili konačnu verziju |
+| Recenzent | Prihvaća/odbija poziv; iskazuje interes i sukobe interesa; recenzira dodijeljene radove; sudjeluje u anonimnoj raspravi; prati rokove (jasno naglašeni uz podsjetnike) |
 | Predsjednik programskog odbora | Upravlja konferencijom i rokovima; poziva recenzente; potvrđuje raspodjelu; donosi odluke; slaže program; pregledava statistiku i generira zbornik |
-| Administrator | Odobrava nove konferencije; imenuje predsjednika
-programskog odbora; upravlja korisnicima i konferencijama;
-uređuje predloške e-pošte; pregledava statistiku korištenja;
-deaktivira račune|
+| Administrator | Odobrava nove konferencije; imenuje predsjednika programskog odbora; upravlja korisnicima i konferencijama; uređuje predloške e-pošte; pregledava statistiku korištenja; deaktivira račune |
 
 -PRIMJER(osoba) : Pojedinac koji na jednoj konferenciji ima ulogu autora dok je na drugoj recenzent. Obe uloge prikazane različito ovisno o zadaoj konferenciji. Ali ako unutar jedne konferencije osoba ima dvije uloge oba dvije titule će imati dodjeljeno od jednom.
 
