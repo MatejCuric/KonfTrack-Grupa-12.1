@@ -40,6 +40,8 @@ entity "User" as User {
   orcid : varchar <<UK>>
   * jeAdmin : bool
   * aktivan : bool
+  email_verification_token_hash : varchar
+  email_verification_expires_at :timestamp
 }
 
 entity "Expertise" as Expertise {
@@ -141,7 +143,7 @@ entity "PaperVersion" as PaperVersion {
   * paper_id : int <<FK, UK1>>
   * tip : varchar <<UK1>>
   * redniBrojRunde : int <<UK1>>
-  * datoteka : varchar
+   datoteka : varchar
   * internNaziv : varchar
   brojStranica : int
   * datum : datetime
