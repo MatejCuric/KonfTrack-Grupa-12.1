@@ -55,6 +55,6 @@ app.use("/", routes);
 
 const PORT = process.env.PORT || 10000;
 
-app.listen(PORT, () => {
-  console.log(`KonfTrack je pokrenut na ${process.env.APP_BASE_URL}`);
+const server = app.listen(PORT, () => {
+  console.log(`KonfTrack je pokrenut na portu ${PORT}`);
 });

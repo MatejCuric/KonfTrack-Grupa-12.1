@@ -32,7 +32,7 @@
         <p><%= konferencija.opis %></p>
         <p>
           <strong>Mjesto i datum održavanja:</strong>
-          <%= konferencija.mjesto %>, <%= konferencija.datumOdrzavanja ? new Date(konferencija.datumOdrzavanja).toLocaleDateString('hr-HR') : '-' %>
+          <%= konferencija.mjesto %>, <%= konferencija.pocetak ? new Date(konferencija.pocetak).toLocaleDateString('hr-HR') : '-' %>
         </p>
       </section>
 
@@ -66,11 +66,11 @@
           </tr>
           <tr>
             <td>Obavijest autorima</td>
-            <td><%= konferencija.rokObavijestAutorima ? new Date(konferencija.rokObavijestAutorima).toLocaleDateString('hr-HR') : '-' %></td>
+            <td><%= konferencija.rokobavijest ? new Date(konferencija.rokobavijest).toLocaleDateString('hr-HR') : '-' %></td>
           </tr>
           <tr>
             <td>Predaja konačnih verzija</td>
-            <td><%= konferencija.rokKonacneVerzije ? new Date(konferencija.rokKonacneVerzije).toLocaleDateString('hr-HR') : '-' %></td>
+            <td><%= konferencija.rokkonacna ? new Date(konferencija.rokkonacna).toLocaleDateString('hr-HR') : '-' %></td>
           </tr>
         </table>
       </section>
@@ -79,7 +79,7 @@
         <h2>Predaja radova</h2>
         <% if (konferencija.prijavaOtvorena) { %>
           <p>Prijava radova je otvorena do <strong><%= konferencija.rokZaPrijavu ? new Date(konferencija.rokZaPrijavu).toLocaleDateString('hr-HR') : '-' %></strong></p>
-          <a href="/predaj-rad?konferencija=<%= konferencija.id %>" class="btn">Predaj rad</a>
+          <a href="/predaj-rad?konferencija=<%= konferencija.conference_id %>" class="btn">Predaj rad</a>
         <% } else { %>
           <p style="color: red; font-weight: bold;">Prijava radova za ovu konferenciju nije otvorena.</p>
         <% } %>

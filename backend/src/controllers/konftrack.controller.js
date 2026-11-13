@@ -50,23 +50,23 @@ function createUserSession(req, userId) {
 // Početna stranica s dinamičkim popisom konferencija
 router.get("/", async (req, res) => {
   try {
-    const sveKonferencije = conferenceService.dohvatiSveKonferencije();
+    const sveKonferencije = await conferenceService.dohvatiSveKonferencije();
     const trenutniDatum = new Date();
 
     // Konferencije otvorene za prijavu radova
     const otvoreneKonferencije = sveKonferencije.filter(
       (conf) =>
         new Date(conf.rokZaPrijavu) >= trenutniDatum &&
-        new Date(conf.datumOdrzavanja) >= trenutniDatum,
+        new Date(conf.pocetak) >= trenutniDatum,
     );
 
     // Nadolazeće konferencije
     const nadolazeceKonferencije = sveKonferencije.filter(
       (conf) =>
         new Date(conf.rokZaPrijavu) < trenutniDatum &&
-        new Date(conf.datumOdrzavanja) >= trenutniDatum,
+        new Date(conf.pocetak) >= trenutniDatum,
     );
-
+    
     res.render("home", {
       otvoreneKonferencije,
       nadolazeceKonferencije,
@@ -79,10 +79,10 @@ router.get("/", async (req, res) => {
 });
 
 // Prikaz detalja odabrane konferencije
-router.get("/konferencije/:id", (req, res) => {
+router.get("/konferencije/:id", async (req, res) => {
   try {
     // Dohvaća ID konferencije iz URL-a
-    const konferencija = conferenceService.dohvatiKonferencijuPoId(
+    const konferencija = await conferenceService.dohvatiKonferencijuPoId(
       req.params.id,
     );
 
