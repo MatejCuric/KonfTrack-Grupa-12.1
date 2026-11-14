@@ -1,0 +1,267 @@
+' ==============================================================================
+' 4-3-konftrack-domain-CD.puml
+'
+' Svrha:    Prikazuje domenski model i aplikacijski servis za životni ciklus
+'           znanstvenog rada, njegovu predaju, dodjelu recenzenata, recenziranje,
+'           donošenje odluke i predaju konačne verzije
+' Autor:    Martina Čulina, kolegij Programsko inženjerstvo
+' AI:       Dijagram je izradio autor. AI je pomogao u reviziji i komentarima;
+'           autor ih je pregledao i odgovara za konačni sadržaj.
+' Praćenje: Model je polazište za implementaciju. Kad se dizajn promijeni
+'           tijekom razvoja, ažurirati model; nazivi operacija su konceptualni.
+'
+' Diagram level: Structural / Domain Design
+' Diagram type:  Class Diagram
+' Version:       1.0
+' ==============================================================================
+
+@startuml
+title Sustav KonfTrack – domenski model znanstvenog rada
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam packageStyle rectangle
+skinparam ArrowColor #212529
+
+skinparam class {
+    BackgroundColor #E7F1FF
+    BorderColor #0D6EFD
+}
+
+skinparam note {
+    BackgroundColor #F8F9FA
+    BorderColor #212529
+    FontColor #212529
+}
+
+' ==============================================================================
+' Aplikacijski sloj
+' ==============================================================================
+package "Aplikacijski sloj" {
+
+  class PaperWorkflow <<ApplicationService>> {
+    +submitPaper(paper: Paper): ID
+    +withdrawPaper(paperId: ID): void
+    +submitRevision(paperId: ID): void
+    +submitFinalVersion(paperId: ID): void
+    +processDecision(paperId: ID, decision: Decision): void
+  }
+
+  class ReviewService <<ApplicationService>>{
+    +registerInterest(paperId: ID, reviewerId: ID): void
+    +checkConflictOfInterest(paperId:ID, reviewerId: ID):boolean
+    +assignReviewers(paperId: ID): void
+    +submitReview(assignmentId: ID) : void
+  }
+
+}
+
+' ==============================================================================
+' Domenski sloj
+' ==============================================================================
+package "Domenski sloj" {
+
+  
+  class User <<Entity>>{
+    -userId: ID
+    -ime: String
+    -prezime: String
+    -email:String
+    -ustanova:String
+    -orcid:String
+  }
+
+  class Paper <<Entity>> <<AggregateRoot>> {
+    -paperId: ID
+    -naslov: String
+    -sazetak:String
+    -kljucneRijeci:String
+    -stanje:PaperStatus
+    -odluka:Decision
+    +submit():void
+    +withdraw():void
+    +requestRevision():void
+    +accept():void
+    +reject():void
+    +submitFinalVersion():void
+  }
+
+  class PaperAuthor <<Entity>> {
+    -redniBroj: Integer
+    -kontaktOsoba: boolean
+    -izlagac: boolean
+  }
+
+  class PaperVersion <<Entity>>{
+    -versionId:ID
+    -tip:String
+    -redniBrojRunde:Integer
+    -datoteka:String
+    -brojStranica:Integer
+    -dokumentOdgovora: String
+    +storeVersion():void
+  }
+
+  class ReviewBid <<Entity>>{
+    -interes: BidInterest
+  }
+
+  class ReviewAssignment <<Entity>>{
+    -assignmentId:ID
+    -status:String
+    -datumDodjele: DateTime
+    -rok:DateTime
+    -redniBroj:Integer
+    -jeZamjena:boolean
+    +acceptInvitation():void
+    +declineInvitation():void
+  }
+
+  class Review <<Entity>>{
+    -reviewId: ID
+    -ocjena:Integer
+    -strucnost:Integer
+    -komentarAutorima:String
+    -povjerljivKomentar:String
+    -datumPredaje:DateTime
+    +submit():void
+  }
+
+  class DiscussionMessage <<Entity>>{
+    -messageId:ID
+    -tekst:String
+    -vrijeme:DateTime
+    +send():void
+  }
+
+  enum PaperStatus {
+    DRAFT
+    SUBMITTED
+    UNDER_REVIEW
+    REVISION_REQUIRED
+    ACCEPTED
+    REJECTED
+    FINAL_VERSION_SUBMITTED
+    INCLUDED_IN_PROGRAM
+  }
+
+  enum Decision {
+    ACCEPTED
+    REVISION_REQUIRED
+    REJECTED
+  }
+
+  enum BidInterest{
+    WANT_TO_REVIEW
+    CAN_REVIEW
+    DO_NOT_WANT_TO_REVIEW
+    CONFLICT_OF_INTEREST
+  }
+
+  interface PaperRepository <<Repository>> {
+    +findById(id: ID): Paper
+    +save(paper: Paper): void
+  }
+  interface ReviewRepository <<Repository>> {
+    +findById(id: ID): Review
+    +save(review: Review): void
+  }
+
+}
+
+' ==============================================================================
+' Veze i višestrukosti
+' ==============================================================================
+
+' Autori znanstvenog rada
+Paper "1" -- "1..*" PaperAuthor : ima autore
+User "1" -- "0..*" PaperAuthor : autor je
+
+' verzije rada
+Paper "1" *-- "1..*" PaperVersion :sadrži verzije
+
+'interes recenzenata
+Paper "1" -- "0..*" ReviewBid : prima iskaze interesa
+User "1" -- "0..*" ReviewBid : iskazuje interes
+
+'dodjela recenzenata
+Paper "1" -- "0..*" ReviewAssignment : ima dodjele
+User "1" -- "0..*" ReviewAssignment : recenzira
+
+' recenzije
+ReviewAssignment "1" -- "0..*" Review : ima recenzije
+PaperVersion "1" -- "0..*" Review : recenzira se
+
+' rasprava o radu
+ReviewAssignment "1" -- "0..*" DiscussionMessage : sadrži poruke
+
+' aplikacijski sloj i repozitoriji
+PaperWorkflow ..> Paper : upravlja
+PaperWorkflow ..> PaperRepository : koristi
+PaperWorkflow ..> ReviewService : koordinira
+
+ReviewService ..> ReviewBid : obrađuje
+ReviewService ..> ReviewAssignment : upravlja
+ReviewService ..> ReviewRepository : koristi
+ReviewService ..> PaperRepository : koristi
+
+PaperRepository ..> Paper : vraća / sprema
+ReviewRepository ..> Review : vraća / sprema
+
+' ==============================================================================
+' Ograničenja
+' ==============================================================================
+
+note right of Paper
+  Životni ciklus znanstvenog rada:
+  1. DRAFT
+  2. SUBMITTED
+  3. UNDER_REVIEW
+
+  Nakon recenziranja:
+  REVISION_REQUIRED - Autor predaje novu verziju
+  te se rad vraća u UNDER_REVIEW
+
+  ACCEPTED - Autor predaje konačnu verziju
+  te se rad uvrštava u program
+
+  REJECTED - Postupak završava
+
+  Nakon prihvaćanja:
+  FINAL_VERSION_SUBMITTED - Autor je predao
+  konačnu verziju rada
+
+  INCLUDED_IN_PROGRAM - Prihvaćeni rad je 
+  uvršten u program konferencije
+
+  Autor može povući rad prije prihvaćanja.
+end note
+
+note right of ReviewService
+  Pravila dodjele recenzenata:
+  
+  - najmanje 3 recenzenta po radu
+  - ravnomjerna raspodjela opterećenja
+  - provjera iste ustanove
+  - provjera koautorstva u posljednje 3 godine
+  - nije dopušteno recenziranje vlastitog rada
+end note
+
+note right of Review
+  Ocjena: od -3 do 3
+  Stručnost: od 1 do 5
+
+  Povjerljivi komentar vidi samo programski
+  odbor.
+end note
+
+note bottom of DiscussionMessage
+  Rasprava je dostupna recenzentima
+  dodijeljenima istom radu nakon 
+  predaje svih recenzija.
+
+  Identiteti autora i recenzenata
+  moraju ostati anonimni.
+end note
+
+@enduml

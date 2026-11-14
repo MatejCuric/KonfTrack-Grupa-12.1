@@ -1,0 +1,293 @@
+' ==============================================================================
+' 4-2-crisismap-data-ERD.puml 
+'
+' Svrha:    Prikazuje trajne entitete sustava CrisisMap (korisnik, prijava,
+'           kategorija, fotografija, resurs, raspodjela, pretplata na
+'           obavijesti), njihove ključeve, reprezentativne atribute i
+'           kardinalnosti. Fizička implementacija baze nije obuhvaćena.
+' Autor:    Vlado Sruk, kolegij Programsko inženjerstvo
+' AI:       Dijagram je izradio autor. AI je pomogao u reviziji i komentarima;
+'           autor ih je pregledao i odgovara za konačni sadržaj.
+' Praćenje: Entiteti, atributi i veze trebaju ostati usklađeni sa shemom baze;
+'           pri promjeni sheme ažurirati model.
+'
+' Diagram level: Logical data model
+' Diagram type:  Entity-Relationship Diagram (ERD), crow's foot
+' Version:       1.3
+' ==============================================================================
+
+@startuml
+title KonfTrack - ER dijagram
+left to right direction
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam ArrowColor #212529
+
+skinparam entity {
+    BackgroundColor #E7F1FF
+    BorderColor #0D6EFD
+    FontColor #212529
+}
+
+' ==============================================================================
+' Korisnici i područja stručnosti
+' ==============================================================================
+
+entity "Korisnik" as User {
+    * user_id : ID <<PK>>
+    --
+    ime: text
+    prezime: text
+    email:text
+    password_hash: text
+    email_verified: boolean
+    ustanova: text
+    orcid: text
+    jeAdmin:boolean
+    aktivan:boolean
+    email_verification_token_hash: text
+    email_verification_expires_at:datetime
+    
+}
+
+entity "Područje stručnosti" as Expertise {
+    * expertise_id: ID <<PK>>
+    --
+    naziv: text
+}
+
+entity "Stručnost korisnika" as UserExpertise{
+    * user_id : ID <<PK,FK>>
+    * expertise_id: ID <<PK,FK>>
+}
+
+' ==============================================================================
+' Konferencije, teme, uloge
+' ==============================================================================
+
+entity "Konferencija" as Conference {
+    * conference_id : ID <<PK>>
+    --
+    *predsjednik_id: ID <<FK>>
+    naziv: text
+    mjesto: text
+    pocetak: date
+    zavrsetak: date
+    vremZova: text
+    maxStranica: integer
+    odobrena:boolean
+    rokPredaja: datetime
+    rokRecenzija: datetime
+    rokObavijesti: datetime
+    rokKonacna: datetime
+
+}
+
+entity "Tema konferencije" as Topic {
+    * topic_id : ID <<PK>>
+    --
+    * conference_id: ID <<FK>>
+    name : text
+}
+
+entity "Uloga na konferenciji" as UserConf {
+    * conference_id : ID <<PK,FK>>
+    *user_id: ID<<PK,FK>>
+    --
+    uloga : text
+}
+
+' ==============================================================================
+' Znanstveni radovi
+' ==============================================================================
+
+entity "Znanstveni rad" as Paper {
+    * paper_id : ID <<PK>>
+    --
+    * topic_id : ID <<FK>>
+    naslov : text
+    sazetak: text
+    kljucneRijeci: text
+    stanje: enum
+    datumPredaje: datetime
+    odluka: text
+    datumOdluke: datetime
+
+}
+
+entity "Autor rada" as PaperAuthor {
+    * paper_id: ID <<PK,FK>>
+    * user_id : ID <<PK, FK>>
+    --
+    redniBroj: integer
+    kontaktOsoba: boolean
+    izlagac: boolean
+}
+
+entity "Verzija rada" as PaperVersion {
+    * version_id: ID <<PK>>
+    --
+    * paper_id: ID<<FK>>
+    tip : enumredniBrojRunde: integer
+    datoteka: text
+    internNaziv: text
+    brojStranica: integer
+    datum:datetime
+    dokumentOdgovora: text
+    izjavaAutorskihPrava: text
+    upozorenjeMetapodaci: boolean
+    reference: text
+}
+
+' ==============================================================================
+' Pozivnice
+' ==============================================================================
+
+entity "Pozivnica" as Invitation {
+    * invitation_id : ID <<PK>>
+    --
+    * conference_id : ID <<FK>>
+    paper_id: ID <<FK>>
+    * poslao_id: ID <<FK>>
+    email: text
+    ime:text
+    uloga: text
+    status: enum
+
+}
+
+' ==============================================================================
+' Recenziranje
+' ==============================================================================
+
+entity "Interes recenzenta" as ReviewBid {
+    * paper_id : ID <<PK,FK>>
+    * reviewer_id: ID <<PK,FK>>
+    --
+    interes: enum
+    
+}
+
+entity "Dodjela recenzenta" as ReviewAssignment{
+    * assignment_id: ID <<PK>>
+    --
+    * paper_id: ID<<FK>>
+    * reviewer_id: ID<<FK>>
+    zamijenjeni_assignment_id: ID<<FK>>
+    status: text
+    datumDodjele: datetime
+    * rok: datetime
+    redniBroj: integer
+    jeZamjena: boolean
+    podsjetnik7Poslan: boolean
+    podsjetnik2Poslan: boolean
+}
+
+entity "Recenzija" as Review {
+    * review_id: ID <<PK>>
+    --
+    * assignment_id: ID <<FK>>
+    * version_id: ID<<FK>>
+    ocjena:integer
+    strucnost: integer
+    komentarAutorima: text
+    povjerljivKomentar: text
+    datumPredaje: datetime
+}
+
+entity "Porukau raspravi" as DiscussionMessage{
+    * message_id: ID<<PK>>
+    --
+    * assignment_id: ID<<FK>>
+    teks: text
+    vrijeme:datetime
+}
+
+' ==============================================================================
+' Konferencijski program
+' ==============================================================================
+
+entity "Sekcija programa" as Section {
+    * section_id : ID <<PK>>
+    --
+    * conference_id: ID<<FK>>
+    * topic_id: ID<<FK>>
+    * presjedavajući_id:ID<<FK>>
+    naziv: text
+    dvorana: text
+    pocetak: datetime
+    kraj: datetime
+}
+
+entity "Izlaganje" as Presentation {
+    * presentation_id : ID <<PK>>
+    --
+    * paper_id: ID<<FK>>
+    * section_id: ID<<FK>>
+    * izlagac_id:ID<<FK>>
+    redoslijed:integer
+    pocetak:datetime
+    kraj:datetime
+}
+
+entity "Osobni raspored" as PersonalSchedule{
+    * user_id: ID<<PK,FK>>
+    * presentation_id: ID<<PK,FK>>
+}
+
+' ==============================================================================
+' Predlošci e-pošte
+' ==============================================================================
+
+entity "Predložak e-pošte" as EmailTemplate {
+    * template_id : ID <<PK>>
+    --
+    tip: text
+    predlozak: text
+}
+
+' ==============================================================================
+' Veze između entiteta
+' ==============================================================================
+
+User ||--o{ UserExpertise : posjeduje 
+Expertise ||--o{ UserExpertise : opisuje 
+
+User ||--o{ Conference : predsjedava
+Conference ||--o{ Topic: obuhvaća
+User ||--o{ UserConf : ima ulogu
+Conference ||--o{ UserConf: dodjeljuje ulogu
+
+Topic ||--o{ Paper : sadrži
+User ||--o{ PaperAuthor: autor je
+Paper ||--o{ PaperAuthor : ima autora
+Paper ||--o{ PaperVersion: ima verziju
+
+Conference ||--o{ Invitation: šalje pozivnice
+Paper ||--o{ Invitation : odnosi se na
+User ||--o{ Invitation: šalje
+
+Paper ||--o{ ReviewBid : prima iskaz interesa
+User ||--o{ ReviewBid: iskazuje interes
+Paper ||--o{ ReviewAssignment : dodjeljuje se
+User ||--o{ ReviewAssignment: Recenzira
+
+ReviewAssignment |o--o| ReviewAssignment: zamjenjuje
+
+ReviewAssignment ||--o{ Review : ima recenzije
+PaperVersion ||--o{ Review: recenzira se
+ReviewAssignment ||--o{ DiscussionMessage : sadrži poruke
+
+Conference ||--o{ Section: ima sekcije
+Topic ||--o{ Section : obrađuje temu
+User ||--o{ Section : predsjedava
+
+Paper ||--o{ Presentation: izlaže se
+Section ||--o{ Presentation : sadrži
+User ||--o{ Presentation : izlaže
+
+User ||--o{ PersonalSchedule : sastavlja
+Presentation ||--o{ PersonalSchedule : uključuje se
+
+@enduml
