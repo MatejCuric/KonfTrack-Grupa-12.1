@@ -54,11 +54,8 @@ router.get("/", async (req, res) => {
     const trenutniDatum = new Date();
 
     // Konferencije otvorene za prijavu radova
-    const otvoreneKonferencije = sveKonferencije.filter(
-      (conf) =>
-        new Date(conf.rokZaPrijavu) >= trenutniDatum &&
-        new Date(conf.pocetak) >= trenutniDatum,
-    );
+    const otvoreneKonferencije = 
+          await conferenceService.dohvatiOtvoreneKonferencije();
 
     // Nadolazeće konferencije
     const nadolazeceKonferencije = sveKonferencije.filter(
@@ -348,7 +345,7 @@ router.get("/moje-recenzije", requireAuth, (req, res) => {
 });
 
 // Prikaz obrasca za predaju rada
-router.get("/predaj-rad", requireAuth, (req, res) => {
+router.get("/predaj-rad", requireAuth, async (req, res) => {
   try {
     // Dohvaća ID konferencije iz URL-a
     const konferencijaId = req.query.konferencija;
@@ -368,7 +365,7 @@ router.get("/predaj-rad", requireAuth, (req, res) => {
 
     // Dohvaća konferencije kod kojih je prijava još otvorena
     const otvoreneKonferencije =
-      conferenceService.dohvatiOtvoreneKonferencije();
+      await conferenceService.dohvatiOtvoreneKonferencije();
 
     // Pronalazi traženu konferenciju
     const konferencija = otvoreneKonferencije.find(
