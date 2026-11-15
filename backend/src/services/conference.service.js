@@ -15,27 +15,26 @@ function pripremiKonferenciju(konferencija) {
   const danas = new Date(dohvatiDanasnjiDatum());
 
   const prijavaOtvorena =
-    konferencija.rokZaPrijavu >= danas &&
-    konferencija.pocetak >= danas;
+    konferencija.rokZaPrijavu >= danas && konferencija.pocetak >= danas;
 
   return {
     ...konferencija,
+    // Dodaje se atribut id radi kompatibilnosti s postojećim dijelovima sustava koji očekuju taj naziv
+    id: konferencija.conference_id,
     prijavaOtvorena,
   };
 }
 
 // Dohvaća sve konferencije
 async function dohvatiSveKonferencije() {
-  const konferencije =
-    await conferenceModel.dohvatiSveKonferencije();
+  const konferencije = await conferenceModel.dohvatiSveKonferencije();
 
   return konferencije.map(pripremiKonferenciju);
 }
 
 // Dohvaća konferenciju prema ID-u
 async function dohvatiKonferencijuPoId(id) {
-  const konferencija =
-    await conferenceModel.dohvatiKonferencijuPoId(id);
+  const konferencija = await conferenceModel.dohvatiKonferencijuPoId(id);
 
   if (!konferencija) {
     return null;
@@ -48,9 +47,7 @@ async function dohvatiKonferencijuPoId(id) {
 async function dohvatiOtvoreneKonferencije() {
   const konferencije = await dohvatiSveKonferencije();
 
-  return konferencije.filter(
-    (konferencija) => konferencija.prijavaOtvorena
-  );
+  return konferencije.filter((konferencija) => konferencija.prijavaOtvorena);
 }
 
 module.exports = {
