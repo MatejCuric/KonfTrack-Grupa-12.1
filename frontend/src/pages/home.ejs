@@ -97,7 +97,7 @@
             <p>
               <strong>Mjesto i datum održavanja:</strong>
               <%= conf.mjesto %>,
-              <%= new Date(conf.datumOdrzavanja).toLocaleDateString('hr-HR') %>
+              <%= new Date(conf.pocetak).toLocaleDateString('hr-HR') %>
             </p>
 
             <p>
@@ -106,12 +106,12 @@
             </p>
 
             <% if (currentUser) { %>
-              <a href="/predaj-rad?konferencija=<%= conf.id %>" class="btn">Predaj rad</a>
+              <a href="/predaj-rad?konferencija=<%= conf.conference_id %>" class="btn">Predaj rad</a>
             <% } else { %>
               <a href="/login" class="btn">Prijavi se za predaju rada</a>
             <% } %>
 
-            <a href="/konferencije/<%= conf.id %>" class="btn">
+            <a href="/konferencije/<%= conf.conference_id %>" class="btn">
               Detalji konferencije
             </a>
           </div>
@@ -136,7 +136,7 @@
             <p>
               <strong>Mjesto i datum održavanja:</strong>
               <%= conf.mjesto %>,
-              <%= new Date(conf.datumOdrzavanja).toLocaleDateString('hr-HR') %>
+              <%= new Date(conf.pocetak).toLocaleDateString('hr-HR') %>
             </p>
 
             <p>
@@ -147,7 +147,7 @@
             </span>
             </p>
 
-            <a href="/konferencije/<%= conf.id %>" class="btn">
+            <a href="/konferencije/<%= conf.conference_id %>" class="btn">
               Detalji konferencije
             </a>
           </div>
