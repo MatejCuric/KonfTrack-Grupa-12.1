@@ -1,11 +1,12 @@
 ' ==============================================================================
-' 4-2-crisismap-data-ERD.puml 
+' 4-2-Konftrack-data-ERD.puml 
 '
-' Svrha:    Prikazuje trajne entitete sustava CrisisMap (korisnik, prijava,
-'           kategorija, fotografija, resurs, raspodjela, pretplata na
-'           obavijesti), njihove ključeve, reprezentativne atribute i
-'           kardinalnosti. Fizička implementacija baze nije obuhvaćena.
-' Autor:    Vlado Sruk, kolegij Programsko inženjerstvo
+' Svrha:    Prikazuje trajne entitete sustava Konftrack (korisnik, konferencija, tema,
+'           rad, verzija rada, autor, uloga na konferenciji, pozivnica, dodjela recenzije,
+'           rasprava o radu, sekcija programa, izlaganje rada, osobni raspored korisnika,
+'           predložak poruke e-pošte), njihove ključeve, reprezentativne atribute i kardinalnosti. 
+'           Fizička implementacija baze nije obuhvaćena.
+' Autor:    Martina Čulina, kolegij Programsko inženjerstvo
 ' AI:       Dijagram je izradio autor. AI je pomogao u reviziji i komentarima;
 '           autor ih je pregledao i odgovara za konačni sadržaj.
 ' Praćenje: Entiteti, atributi i veze trebaju ostati usklađeni sa shemom baze;
@@ -13,7 +14,6 @@
 '
 ' Diagram level: Logical data model
 ' Diagram type:  Entity-Relationship Diagram (ERD), crow's foot
-' Version:       1.3
 ' ==============================================================================
 
 @startuml
