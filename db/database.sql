@@ -18,6 +18,8 @@ CREATE TABLE users (
     orcid           VARCHAR(19) UNIQUE,
     jeAdmin         BOOLEAN NOT NULL DEFAULT FALSE,
     aktivan         BOOLEAN NOT NULL DEFAULT TRUE,
+    email_verification_token_hash VARCHAR(255),
+    email_verification_expires_at TIMESTAMP
     -- korisnik se prijavljuje emailom ili ORCID-om, barem jedno mora postojati
     CONSTRAINT chk_users_nacin_prijave CHECK (email IS NOT NULL OR orcid IS NOT NULL)
 );
@@ -99,7 +101,7 @@ CREATE TABLE paper_version (
     paper_id              INT NOT NULL REFERENCES paper(paper_id) ON DELETE CASCADE,
     tip                   VARCHAR(30) NOT NULL,
     redniBrojRunde        INT NOT NULL CHECK (redniBrojRunde > 0),
-    datoteka              VARCHAR(500) NOT NULL,
+    datoteka              VARCHAR(500),
     internNaziv           VARCHAR(255) NOT NULL,
     brojStranica          INT CHECK (brojStranica > 0),
     datum                 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
