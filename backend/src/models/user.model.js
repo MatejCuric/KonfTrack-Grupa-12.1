@@ -1,8 +1,5 @@
-// Privremena pohrana korisnika u memoriji
-const users = [];
-
-// Pomoćna varijabla za generiranje jedinstvenih ID-eva korisnika
-let nextId = 1;
+// Uvoz zajedničkog PostgreSQL poola za pristup bazi podataka
+const db = require("../db");
 
 // Pomoćna funkcija za normalizaciju e-mail adrese
 function normalizeEmail(email) {
@@ -22,9 +19,54 @@ function normalizeOrcid(orcid) {
   return orcid.trim();
 }
 
-// Pronalazi korisnika prema njegovom primarnom ključu
+// Dohvaća uloge korisnika na konferencijama
+async function getConferenceRoles(userId) {
+  const rezultat = await db.query(
+    `
+      SELECT
+        conference_id AS "conferenceId",
+        uloga AS role
+      FROM user_conf
+      WHERE user_id = $1
+    `,
+    [userId],
+  );
+
+  return rezultat.rows;
+}
+
+// Pronalazi korisnika prema primarnom ključu
 async function findUserById(id) {
-  return users.find((user) => user.user_id === Number(id)) || null;
+  const rezultat = await db.query(
+    `
+      SELECT
+        user_id,
+        ime,
+        prezime,
+        email,
+        email_verified,
+        email_verification_token_hash,
+        email_verification_expires_at,
+        ustanova,
+        orcid,
+        jeadmin AS "jeAdmin",
+        aktivan
+      FROM users
+      WHERE user_id = $1
+    `,
+    [id],
+  );
+
+  const user = rezultat.rows[0];
+
+  if (!user) {
+    return null;
+  }
+
+  // Uloge se dohvaćaju posebno jer se nalaze u tablici user_conf
+  user.conferenceRoles = await getConferenceRoles(user.user_id);
+
+  return user;
 }
 
 // Pronalazi korisnika prema e-mail adresi
@@ -35,7 +77,28 @@ async function findUserByEmail(email) {
     return null;
   }
 
-  return users.find((user) => user.email === normalizedEmail) || null;
+  const rezultat = await db.query(
+    `
+      SELECT
+        user_id,
+        ime,
+        prezime,
+        email,
+        password_hash,
+        email_verified,
+        email_verification_token_hash,
+        email_verification_expires_at,
+        ustanova,
+        orcid,
+        jeadmin AS "jeAdmin",
+        aktivan
+      FROM users
+      WHERE email = $1
+    `,
+    [normalizedEmail],
+  );
+
+  return rezultat.rows[0] || null;
 }
 
 // Pronalazi korisnika prema ORCID identifikatoru
@@ -46,20 +109,61 @@ async function findUserByOrcid(orcid) {
     return null;
   }
 
-  return users.find((user) => user.orcid === normalizedOrcid) || null;
+  const rezultat = await db.query(
+    `
+      SELECT
+        user_id,
+        ime,
+        prezime,
+        email,
+        email_verified,
+        email_verification_token_hash,
+        email_verification_expires_at,
+        ustanova,
+        orcid,
+        jeadmin AS "jeAdmin",
+        aktivan
+      FROM users
+      WHERE orcid = $1
+    `,
+    [normalizedOrcid],
+  );
+
+  return rezultat.rows[0] || null;
 }
 
 // Pronalazi korisnika prema hashu tokena za potvrdu e-maila
 async function findUserByEmailVerificationTokenHash(tokenHash) {
-  return (
-    users.find((user) => user.email_verification_token_hash === tokenHash) ||
-    null
+  if (!tokenHash) {
+    return null;
+  }
+
+  const rezultat = await db.query(
+    `
+      SELECT
+        user_id,
+        ime,
+        prezime,
+        email,
+        email_verified,
+        email_verification_token_hash,
+        email_verification_expires_at,
+        ustanova,
+        orcid,
+        jeadmin AS "jeAdmin",
+        aktivan
+      FROM users
+      WHERE email_verification_token_hash = $1
+    `,
+    [tokenHash],
   );
+
+  return rezultat.rows[0] || null;
 }
 
-// Stvara novog korisnika i sprema ga u privremenu pohranu
+// Stvara novog korisnika u PostgreSQL bazi
 async function createUser(userData) {
-  // Normaliziranje podataka prije provjere jedinstvenosti
+  // Normaliziranje podataka prije spremanja
   const email = normalizeEmail(userData.email);
   const orcid = normalizeOrcid(userData.orcid);
 
@@ -73,35 +177,57 @@ async function createUser(userData) {
     throw new Error("Korisnik s tim ORCID identifikatorom već postoji.");
   }
 
-  // Kreiranje novog objekta korisnika
-  const newUser = {
-    user_id: nextId++,
-    ime: userData.ime || null,
-    prezime: userData.prezime || null,
-    email: email,
-    password_hash: userData.password_hash || null,
-    email_verified: userData.email_verified ?? false,
-
-    // Podaci potrebni za potvrdu e-mail adrese
-    email_verification_token_hash:
+  // Dodavanje novog korisnika u bazu
+  const rezultat = await db.query(
+    `
+      INSERT INTO users (
+        ime,
+        prezime,
+        email,
+        password_hash,
+        email_verified,
+        email_verification_token_hash,
+        email_verification_expires_at,
+        ustanova,
+        orcid,
+        jeAdmin,
+        aktivan
+      )
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+      RETURNING
+        user_id,
+        ime,
+        prezime,
+        email,
+        password_hash,
+        email_verified,
+        email_verification_token_hash,
+        email_verification_expires_at,
+        ustanova,
+        orcid,
+        jeadmin AS "jeAdmin",
+        aktivan
+    `,
+    [
+      userData.ime || null,
+      userData.prezime || null,
+      email,
+      userData.password_hash || null,
+      userData.email_verified ?? false,
       userData.email_verification_token_hash || null,
-    email_verification_expires_at:
       userData.email_verification_expires_at || null,
+      userData.ustanova || null,
+      orcid,
+      userData.jeAdmin ?? false,
+      userData.aktivan ?? true,
+    ],
+  );
 
-    ustanova: userData.ustanova || null,
-    orcid: orcid,
-    jeAdmin: userData.jeAdmin ?? false,
-    aktivan: userData.aktivan ?? true,
+  const newUser = rezultat.rows[0];
 
-    // Uloge su vezane uz pojedine konferencije
-    // Jedan korisnik može imati samo jednu ulogu po konferenciji
-    conferenceRoles: [],
-  };
+  // Novi korisnik zasad nema dodijeljene konferencijske uloge
+  newUser.conferenceRoles = [];
 
-  // Dodavanje novog korisnika u privremeni memoriju
-  users.push(newUser);
-
-  // Vraća stvorenog korisnika
   return newUser;
 }
 
@@ -110,21 +236,20 @@ async function updateUser(id, changes) {
   // Pronalazi korisnika kojeg treba ažurirati
   const user = await findUserById(id);
 
-  // Ako korisnik ne postoji, vraća null
   if (!user) {
     return null;
   }
 
-  // Normaliziranje e-mail adrese ako se mijenja
+  // Normalizira e-mail ako se mijenja
   const email =
     changes.email !== undefined ? normalizeEmail(changes.email) : user.email;
 
-  // Normaliziranje ORCID-a ako se mijenja
+  // Normalizira ORCID ako se mijenja
   const orcid =
     changes.orcid !== undefined ? normalizeOrcid(changes.orcid) : user.orcid;
 
   // Provjera koristi li drugi korisnik već taj e-mail
-  if (email) {
+  if (email && email !== user.email) {
     const existingEmailUser = await findUserByEmail(email);
 
     if (existingEmailUser && existingEmailUser.user_id !== user.user_id) {
@@ -133,7 +258,7 @@ async function updateUser(id, changes) {
   }
 
   // Provjera koristi li drugi korisnik već taj ORCID
-  if (orcid) {
+  if (orcid && orcid !== user.orcid) {
     const existingOrcidUser = await findUserByOrcid(orcid);
 
     if (existingOrcidUser && existingOrcidUser.user_id !== user.user_id) {
@@ -141,72 +266,126 @@ async function updateUser(id, changes) {
     }
   }
 
-  // Primjenjuje dopuštene promjene na korisnika
-  Object.assign(user, changes);
+  // Dopuštena polja koja se mogu mijenjati
+  const allowedChanges = {
+    ime: changes.ime,
+    prezime: changes.prezime,
+    email,
+    password_hash: changes.password_hash,
+    email_verified: changes.email_verified,
+    email_verification_token_hash: changes.email_verification_token_hash,
+    email_verification_expires_at: changes.email_verification_expires_at,
+    ustanova: changes.ustanova,
+    orcid,
+    jeAdmin: changes.jeAdmin,
+    aktivan: changes.aktivan,
+  };
 
-  // Vraća normalizirane vrijednosti
-  user.email = email;
-  user.orcid = orcid;
+  // Izbacuje polja koja nisu poslana u promjeni
+  const entries = Object.entries(allowedChanges).filter(
+    ([, value]) => value !== undefined,
+  );
 
-  // Vraća ažuriranog korisnika
-  return user;
+  // Ako nema promjena, vraća postojeći zapis
+  if (entries.length === 0) {
+    return user;
+  }
+
+  // Pretvara dopuštena polja u SQL SET izraze
+  const setClauses = entries.map(([column], index) => {
+    // PostgreSQL jeAdmin tretira kao jeadmin jer naziv nije quoted
+    const sqlColumn = column === "jeAdmin" ? "jeadmin" : column;
+
+    return `${sqlColumn} = $${index + 1}`;
+  });
+
+  // Vrijednosti koje će biti proslijeđene parametriziranom SQL upitu
+  const values = entries.map(([, value]) => value);
+
+  // ID korisnika je zadnji parametar
+  values.push(id);
+
+  // Ažuriranje korisnika u bazi
+  const rezultat = await db.query(
+    `
+      UPDATE users
+      SET ${setClauses.join(", ")}
+      WHERE user_id = $${values.length}
+      RETURNING
+        user_id,
+        ime,
+        prezime,
+        email,
+        password_hash,
+        email_verified,
+        email_verification_token_hash,
+        email_verification_expires_at,
+        ustanova,
+        orcid,
+        jeadmin AS "jeAdmin",
+        aktivan
+    `,
+    values,
+  );
+
+  const updatedUser = rezultat.rows[0] || null;
+
+  if (updatedUser) {
+    // Ponovno dohvaća uloge korisnika iz user_conf
+    updatedUser.conferenceRoles = await getConferenceRoles(updatedUser.user_id);
+  }
+
+  return updatedUser;
 }
 
 // Postavlja ili mijenja korisnikovu ulogu na određenoj konferenciji
 async function setConferenceRole(userId, conferenceId, role) {
-  // Pronalazi korisnika kojem dodjeljujemo ulogu
+  // Provjera postoji li korisnik
   const user = await findUserById(userId);
 
-  // Ako korisnik ne postoji, prijavljuje grešku
   if (!user) {
     throw new Error("Korisnik ne postoji.");
   }
 
-  // Pretvorba ID konferencije u broj
-  const numericConferenceId = Number(conferenceId);
-
-  // Provjera postoji li već uloga za tu konferenciju
-  const existingRole = user.conferenceRoles.find(
-    (item) => item.conferenceId === numericConferenceId,
+  // Ako uloga već postoji, mijenja se na novu vrijednost
+  const rezultat = await db.query(
+    `
+      INSERT INTO user_conf (
+        conference_id,
+        user_id,
+        uloga
+      )
+      VALUES ($1, $2, $3)
+      ON CONFLICT (conference_id, user_id)
+      DO UPDATE SET uloga = EXCLUDED.uloga
+      RETURNING
+        conference_id AS "conferenceId",
+        uloga AS role
+    `,
+    [Number(conferenceId), Number(userId), role],
   );
 
-  // Ako postoji, mijenja se postojeća uloga
-  if (existingRole) {
-    existingRole.role = role;
-  } else {
-    // Ako ne postoji, dodaje se nova uloga za tu konferenciju
-    user.conferenceRoles.push({
-      conferenceId: numericConferenceId,
-      role: role,
-    });
-  }
-
-  // Vraća dodijeljenu ili promijenjenu ulogu
-  return user.conferenceRoles.find(
-    (item) => item.conferenceId === numericConferenceId,
-  );
+  return rezultat.rows[0];
 }
 
 // Dohvaća korisnikovu ulogu na određenoj konferenciji
 async function getConferenceRole(userId, conferenceId) {
-  // Pronalazi korisnika
-  const user = await findUserById(userId);
-
-  // Ako korisnik ne postoji, nema ni njegove uloge
-  if (!user) {
-    return null;
-  }
-
-  // Pronalazi ulogu za traženu konferenciju
-  const conferenceRole = user.conferenceRoles.find(
-    (item) => item.conferenceId === Number(conferenceId),
+  const rezultat = await db.query(
+    `
+      SELECT
+        conference_id AS "conferenceId",
+        uloga AS role
+      FROM user_conf
+      WHERE user_id = $1
+        AND conference_id = $2
+    `,
+    [userId, Number(conferenceId)],
   );
 
-  // Vraća pronađenu ulogu ili null
-  return conferenceRole || null;
+  return rezultat.rows[0] || null;
 }
 
-// Izvoz funkcija kako bi ih mogli koristiti servisi i middleware
+// Izvoz funkcija za servise i middleware
 module.exports = {
   findUserById,
   findUserByEmail,

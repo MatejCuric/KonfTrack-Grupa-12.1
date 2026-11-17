@@ -71,29 +71,39 @@ async function registerUser(userData) {
     Date.now() + EMAIL_TOKEN_EXPIRATION,
   );
 
-  // Stvaranje novog korisnika putem modela
-  const newUser = await userModel.createUser({
-    ime: ime,
-    prezime: prezime,
-    email: email,
-    password_hash: passwordHash,
+  // Stvaranje korisnika putem modela
+  let newUser;
 
-    // ORCID zasad nije obvezan
-    orcid: null,
+  try {
+    newUser = await userModel.createUser({
+      ime: ime,
+      prezime: prezime,
+      email: email,
+      password_hash: passwordHash,
 
-    // E-mail još nije potvrđen
-    email_verified: false,
+      // ORCID zasad nije obvezan
+      orcid: null,
 
-    // Sprema hash tokena i vrijeme njegova isteka
-    email_verification_token_hash: verificationTokenHash,
-    email_verification_expires_at: verificationTokenExpiresAt,
+      // E-mail još nije potvrđen
+      email_verified: false,
 
-    // Novi korisnički račun nije administratorski
-    jeAdmin: false,
+      // Podaci potrebni za potvrdu e-maila
+      email_verification_token_hash: verificationTokenHash,
+      email_verification_expires_at: verificationTokenExpiresAt,
 
-    // Novi korisnički račun je aktivan
-    aktivan: true,
-  });
+      // Novi korisnik nije administrator
+      jeAdmin: false,
+
+      // Novi korisnik je aktivan
+      aktivan: true,
+    });
+  } catch (error) {
+    if (error.code === "23505" && error.constraint === "users_email_key") {
+      throw new Error("Korisnik s tom e-mail adresom već postoji.");
+    }
+
+    throw error;
+  }
 
   // Određuje osnovnu adresu aplikacije
   // U produkciji se može postaviti kroz APP_BASE_URL
