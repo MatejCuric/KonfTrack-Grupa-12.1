@@ -23,18 +23,24 @@ async function validacijaRada(podatci,pdf){
 }
 
 
-async function spremiRad(podatci) {
+async function spremiRad(podatci,userId) {
     return await paperModel.spremiRad({
         tema: podatci.tema,
         naslov: podatci.naslov,
         sazetak: podatci.sazetak,
         kljucneRijeci: podatci.kljucneRijeci,
-        stanje: podatci.stanje || "predan",
-    });
+         stanje: podatci.akcija === "nacrt" ? "nacrt" : "predan",
+    }, userId);
+}
+
+
+async function dohvatiRadoveKorisnika(userId) {
+  return await paperModel.dohvatiRadoveKorisnika(userId);
 }
 
 
 module.exports={
     validacijaRada,
     spremiRad,
+    dohvatiRadoveKorisnika
 };

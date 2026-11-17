@@ -68,7 +68,10 @@ router.get("/", async (req, res) => {
       otvoreneKonferencije,
       nadolazeceKonferencije,
       currentUser: req.user || null,
+      poruka: req.session.poruka || null,
     });
+    delete req.session.poruka; // briše poruku nakon što je prikazana
+  
   } catch (error) {
     console.error("Greška pri dohvaćanju konferencija:", error);
     res.status(500).send("Došlo je do greške na poslužitelju.");
@@ -332,8 +335,24 @@ router.post("/logout", (req, res) => {
 });
 
 // Privatne stranice
-router.get("/moji-radovi", requireAuth, (req, res) => {
-  res.render("moji-radovi");
+router.get("/moji-radovi", async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.redirect("/login");
+    }
+
+    const radovi = await paperService.dohvatiRadoveKorisnika(
+      req.user.user_id
+    );
+
+    res.render("moji-radovi", {
+      radovi,
+      currentUser: req.user
+    });
+  } catch (err) {
+    console.error("Greška pri dohvaćanju radova:", err);
+    res.status(500).send("Greška pri dohvaćanju radova.");
+  }
 });
 
 router.get("/moje-konferencije", requireAuth, (req, res) => {
@@ -497,35 +516,39 @@ const primanjePdf = (req,res,next)=>{
   });
 };
 
-router.post("/spremi-rad", requireAuth, primanjePdf, async (req,res)=>{
-  try{
+
+router.post("/spremi-rad", requireAuth, primanjePdf, async (req, res) => {
+  try {
     const podatci = req.body;
     const pdf = req.file;
 
-    if(podatci.akcija==="nacrt"){
-      return res.send("Nacrt je uspješno zaprimljen(bez trajnog spremanja");
-    }
+    if (podatci.akcija === "predaj") {
+      const greske = await paperService.validacijaRada(podatci, pdf);
 
-    if(podatci.akcija==="predaj"){
-      const greske=await paperService.validacijaRada(podatci,pdf);
-
-      if(Object.keys(greske).length>0){
-        return prikazGresaka(req,res,greske);
+      if (Object.keys(greske).length > 0) {
+        return prikazGresaka(req, res, greske);
       }
-      const spremljeniRad = await paperService.spremiRad(podatci);
-      
-      return res.send("Rad je uspješno spremljen! ID rada: " + spremljeniRad.paper_id);
+    } else if (podatci.akcija !== "nacrt") {
+      return res.status(400).send("Nepoznata akcija obrasca");
     }
 
-    return res.status(400).send("Nepoznata akcija obrasca");
+    const spremljeniRad = await paperService.spremiRad(
+      podatci,
+      req.user.user_id
+    );
 
+    req.session.poruka =
+      podatci.akcija === "nacrt"
+        ? "Nacrt rada uspješno je spremljen!"
+        : "Rad je uspješno predan! ID rada: " + spremljeniRad.paper_id;
 
-  }catch (error){
+    return res.redirect("/");
+  } catch (error) {
     console.error("Greška pri obradi rada:", error);
-
     return res.status(500).send("Došlo je do greške pri obradi rada");
   }
 });
+
 
 // Administratorske stranice
 router.get("/admin", requireAdmin, (req, res) => {
