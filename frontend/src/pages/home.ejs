@@ -110,7 +110,7 @@
 
             <p>
               <strong>Rok za prijavu radova:</strong>
-              <%= new Date(conf.rokZaPrijavu).toLocaleDateString('hr-HR') %>
+              <%= new Date(conf.rokPredaja).toLocaleDateString('hr-HR') %>
             </p>
 
             <% if (currentUser) { %>
@@ -151,7 +151,7 @@
               <strong>Rok za prijavu radova:</strong>
               <span style="color: red; font-weight: bold;">
                 Rok za prijavu je istekao
-                (<%= new Date(conf.rokZaPrijavu).toLocaleDateString('hr-HR') %>)
+                (<%= new Date(conf.rokPredaja).toLocaleDateString('hr-HR') %>)
             </span>
             </p>
 

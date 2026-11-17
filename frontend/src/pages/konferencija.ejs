@@ -58,7 +58,7 @@
           </tr>
           <tr>
             <td>Predaja radova</td>
-            <td><%= konferencija.rokZaPrijavu ? new Date(konferencija.rokZaPrijavu).toLocaleDateString('hr-HR') : '-' %></td>
+            <td><%= konferencija.rokPredaja ? new Date(konferencija.rokPredaja).toLocaleDateString('hr-HR') : '-' %></td>
           </tr>
           <tr>
             <td>Recenzija</td>
@@ -78,7 +78,7 @@
       <section class="card">
         <h2>Predaja radova</h2>
         <% if (konferencija.prijavaOtvorena) { %>
-          <p>Prijava radova je otvorena do <strong><%= konferencija.rokZaPrijavu ? new Date(konferencija.rokZaPrijavu).toLocaleDateString('hr-HR') : '-' %></strong></p>
+          <p>Prijava radova je otvorena do <strong><%= konferencija.rokPredaja ? new Date(konferencija.rokPredaja).toLocaleDateString('hr-HR') : '-' %></strong></p>
           <a href="/predaj-rad?konferencija=<%= konferencija.conference_id %>" class="btn">Predaj rad</a>
         <% } else { %>
           <p style="color: red; font-weight: bold;">Prijava radova za ovu konferenciju nije otvorena.</p>

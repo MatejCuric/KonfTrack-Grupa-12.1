@@ -60,7 +60,7 @@ router.get("/", async (req, res) => {
     // Nadolazeće konferencije
     const nadolazeceKonferencije = sveKonferencije.filter(
       (conf) =>
-        new Date(conf.rokZaPrijavu) < trenutniDatum &&
+        new Date(conf.rokPredaja) < trenutniDatum &&
         new Date(conf.pocetak) >= trenutniDatum,
     );
     

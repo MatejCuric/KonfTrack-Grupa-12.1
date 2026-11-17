@@ -15,7 +15,7 @@ function pripremiKonferenciju(konferencija) {
   const danas = new Date(dohvatiDanasnjiDatum());
 
   const prijavaOtvorena =
-    konferencija.rokZaPrijavu >= danas && konferencija.pocetak >= danas;
+    konferencija.rokPredaja >= danas && konferencija.pocetak >= danas;
 
   return {
     ...konferencija,
