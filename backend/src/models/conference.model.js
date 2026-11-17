@@ -17,7 +17,18 @@ async function dohvatiKonferencijuPoId(id) {
   return rezultat.rows[0] || null;
 }
 
+// Dohvaća teme određene konferencije
+async function dohvatiTemeKonferencije(conferenceId) {
+  const rezultat = await db.query(
+    "SELECT * FROM topic WHERE conference_id = $1 ORDER BY topic_id",
+    [conferenceId]
+  );
+
+  return rezultat.rows;
+}
+
 module.exports = {
   dohvatiSveKonferencije,
   dohvatiKonferencijuPoId,
+  dohvatiTemeKonferencije
 };

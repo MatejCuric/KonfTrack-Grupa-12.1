@@ -427,9 +427,9 @@ router.get("/predaj-rad", requireAuth, async (req, res) => {
 });
 
 // pomocna funkcija za prikaz gresaka
-function prikazGresaka(req,res,greske){
+async function prikazGresaka(req,res,greske){
   const podatci = req.body;
-  const konferencija = conferenceService.dohvatiKonferencijuPoId(podatci.konferencija);
+  const konferencija = await conferenceService.dohvatiKonferencijuPoId(podatci.konferencija);
 
   function niz(val){
     if (Array.isArray(val)){
@@ -497,7 +497,7 @@ const primanjePdf = (req,res,next)=>{
   });
 };
 
-router.post("/spremi-rad", requireAuth, primanjePdf, (req,res)=>{
+router.post("/spremi-rad", requireAuth, primanjePdf, async (req,res)=>{
   try{
     const podatci = req.body;
     const pdf = req.file;
@@ -507,13 +507,14 @@ router.post("/spremi-rad", requireAuth, primanjePdf, (req,res)=>{
     }
 
     if(podatci.akcija==="predaj"){
-      const greske=paperService.validacijaRada(podatci,pdf);
+      const greske=await paperService.validacijaRada(podatci,pdf);
 
       if(Object.keys(greske).length>0){
         return prikazGresaka(req,res,greske);
       }
-
-      return res.send("Zahtjev za predaju rada je zaprimljen(bez trajnog spremanja)");
+      const spremljeniRad = await paperService.spremiRad(podatci);
+      
+      return res.send("Rad je uspješno spremljen! ID rada: " + spremljeniRad.paper_id);
     }
 
     return res.status(400).send("Nepoznata akcija obrasca");

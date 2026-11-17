@@ -112,7 +112,19 @@
             required
             data-odabrano="<%= vrijednosti.tema || '' %>"
           >
-            <option value="">-- Odaberite temu --</option>
+            
+<option value="">-- Odaberite temu --</option>
+<% if (konferencija && konferencija.teme) { %>
+  <% konferencija.teme.forEach(tema => { %>
+    <option
+      value="<%= tema.topic_id %>"
+      <%= String(vrijednosti.tema || '') === String(tema.topic_id) ? 'selected' : '' %>
+    >
+      <%= tema.naziv %>
+    </option>
+  <% }); %>
+<% } %>
+
           </select>
 
           <% if (greske.tema) { %>

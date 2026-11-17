@@ -29,7 +29,18 @@ function pripremiKonferenciju(konferencija) {
 async function dohvatiSveKonferencije() {
   const konferencije = await conferenceModel.dohvatiSveKonferencije();
 
-  return konferencije.map(pripremiKonferenciju);
+  return Promise.all(
+    konferencije.map(async (konferencija) => {
+      const teme = await conferenceModel.dohvatiTemeKonferencije(
+        konferencija.conference_id
+      );
+
+      return {
+        ...pripremiKonferenciju(konferencija),
+        teme,
+      };
+    })
+  );
 }
 
 // Dohvaća konferenciju prema ID-u
@@ -40,7 +51,12 @@ async function dohvatiKonferencijuPoId(id) {
     return null;
   }
 
-  return pripremiKonferenciju(konferencija);
+  const teme= await conferenceModel.dohvatiTemeKonferencije(id);
+
+  return {
+    ...pripremiKonferenciju(konferencija),
+    teme
+  };
 }
 
 // Dohvaća konferencije kod kojih je prijava radova otvorena

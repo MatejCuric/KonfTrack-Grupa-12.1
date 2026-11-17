@@ -41,7 +41,7 @@
         <ul style="padding-left: 20px;">
           <% if (konferencija.teme && Array.isArray(konferencija.teme) && konferencija.teme.length > 0) { %>
             <% konferencija.teme.forEach(tema => { %>
-              <li><%= tema %></li>
+              <li><%= tema.naziv %></li>
             <% }); %>
           <% } else { %>
             <li>Nema navedenih tema.</li>
