@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <script src="/js/script.js" defer></script>
+  <meta charset="UTF-8">
+  <title>KonfTrack - <%= konferencija ? konferencija.naziv : 'Konferencija nije pronađena' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>KonfTrack</h1>
+    <nav>
+      <a href="/">Početna</a>
+      <a href="/login" class="btn" style="padding: 6px 14px;">Prijava</a>
+    </nav>
+  </header>
+
+  <main>
+    <% if (!konferencija) { %>
+      <section class="card">
+        <h2>Konferencija nije pronađena</h2>
+        <p>Konferencija koju tražite ne postoji ili je uklonjena.</p>
+        <a href="/" class="btn">Povratak na početnu stranicu</a>
+      </section>
+    <% } else { %>
+      <section class="card">
+        <h2><%= konferencija.naziv %></h2>
+        <p>
+          <strong>Status:</strong>
+          <span class="znak <%= konferencija.statusKlasa %>"><%= konferencija.status %></span>
+        </p>
+        <p><%= konferencija.opis %></p>
+        <p>
+          <strong>Mjesto i datum održavanja:</strong>
+          <%= konferencija.mjesto %>, <%= konferencija.pocetak ? new Date(konferencija.pocetak).toLocaleDateString('hr-HR') : '-' %>
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Teme konferencije</h2>
+        <ul style="padding-left: 20px;">
+          <% if (konferencija.teme && Array.isArray(konferencija.teme) && konferencija.teme.length > 0) { %>
+            <% konferencija.teme.forEach(tema => { %>
+              <li><%= tema.naziv %></li>
+            <% }); %>
+          <% } else { %>
+            <li>Nema navedenih tema.</li>
+          <% } %>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Rokovi</h2>
+        <table>
+          <tr>
+            <th>Faza</th>
+            <th>Rok</th>
+          </tr>
+          <tr>
+            <td>Predaja radova</td>
+            <td><%= konferencija.rokPredaja ? new Date(konferencija.rokPredaja).toLocaleDateString('hr-HR') : '-' %></td>
+          </tr>
+          <tr>
+            <td>Recenzija</td>
+            <td><%= konferencija.rokRecenzija ? new Date(konferencija.rokRecenzija).toLocaleDateString('hr-HR') : '-' %></td>
+          </tr>
+          <tr>
+            <td>Obavijest autorima</td>
+            <td><%= konferencija.rokobavijest ? new Date(konferencija.rokobavijest).toLocaleDateString('hr-HR') : '-' %></td>
+          </tr>
+          <tr>
+            <td>Predaja konačnih verzija</td>
+            <td><%= konferencija.rokkonacna ? new Date(konferencija.rokkonacna).toLocaleDateString('hr-HR') : '-' %></td>
+          </tr>
+        </table>
+      </section>
+
+      <section class="card">
+        <h2>Predaja radova</h2>
+        <% if (konferencija.prijavaOtvorena) { %>
+          <p>Prijava radova je otvorena do <strong><%= konferencija.rokPredaja ? new Date(konferencija.rokPredaja).toLocaleDateString('hr-HR') : '-' %></strong></p>
+          <a href="/predaj-rad?konferencija=<%= konferencija.conference_id %>" class="btn">Predaj rad</a>
+        <% } else { %>
+          <p style="color: red; font-weight: bold;">Prijava radova za ovu konferenciju nije otvorena.</p>
+        <% } %>
+      </section>
+
+      <a href="/" class="btn">Povratak na početnu stranicu</a>
+    <% } %>
+  </main>
+</body>
+</html>

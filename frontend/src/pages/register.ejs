@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <title>KonfTrack - Registracija</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/script.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>KonfTrack</h1>
+
+    <nav>
+      <a href="/">Početna</a>
+      <a href="/login">Prijava</a>
+    </nav>
+  </header>
+
+  <!-- Glavni sadržaj -->
+  <main>
+    <!-- Obrazac za registraciju -->
+    <form action="/register" method="POST" class="card"
+          style="max-width: 400px; margin: 0 auto;">
+
+      <h2>Registracija</h2>
+
+      <!-- Prikazuje grešku ako registracija nije uspjela -->
+      <% if (error) { %>
+        <p style="color: crimson;">
+          <%= error %>
+        </p>
+      <% } %>
+
+      <!-- Polje za ime -->
+      <div class="form-group">
+        <label for="ime">Ime:</label>
+
+        <input
+          type="text"
+          id="ime"
+          name="ime"
+          required
+          maxlength="100"
+          placeholder="Unesite ime..."
+        >
+      </div>
+
+      <!-- Polje za prezime -->
+      <div class="form-group">
+        <label for="prezime">Prezime:</label>
+
+        <input
+          type="text"
+          id="prezime"
+          name="prezime"
+          required
+          maxlength="100"
+          placeholder="Unesite prezime..."
+        >
+      </div>
+
+      <!-- Polje za e-mail adresu -->
+      <div class="form-group">
+        <label for="email">E-mail adresa:</label>
+
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          maxlength="254"
+          placeholder="ime@example.com"
+        >
+      </div>
+
+      <!-- Polje za lozinku -->
+      <div class="form-group">
+        <label for="password">Lozinka:</label>
+
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          minlength="8"
+          autocomplete="new-password"
+          placeholder="Unesite lozinku..."
+        >
+      </div>
+
+      <!-- Polje za potvrdu lozinke -->
+      <div class="form-group">
+        <label for="passwordConfirm">Potvrdite lozinku:</label>
+
+        <input
+          type="password"
+          id="passwordConfirm"
+          name="passwordConfirm"
+          required
+          minlength="8"
+          autocomplete="new-password"
+          placeholder="Ponovno unesite lozinku..."
+        >
+      </div>
+
+      <!-- Button za slanje obrasca -->
+      <button type="submit" class="btn"
+              style="width: 100%; margin-top: 10px;">
+        Registriraj se
+      </button>
+
+      <!-- Poveznica za korisnike koji već imaju račun -->
+      <p>
+        Već imate račun?
+        <a href="/login">Prijavite se</a>.
+      </p>
+    </form>
+  </main>
+</body>
+</html>

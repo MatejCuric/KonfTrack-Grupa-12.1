@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="hr">
+  <head>
+    <script src="/js/script.js" defer></script>
+    <meta charset="UTF-8" />
+    <title>KonfTrack - Moji radovi</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>KonfTrack</h1>
+      <nav>
+        <a href="/">Početna</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="card">
+        <h2>Moji predani radovi</h2>
+
+        <% if (radovi && radovi.length > 0) { %>
+          <table>
+            <thead>
+              <tr>
+                <th>Naslov rada</th>
+                <th>Tema</th>
+                <th>Status</th>
+                <th>Izmjena</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% radovi.forEach(rad => { %>
+                <tr>
+                  <td><%= rad.naslov %></td>
+
+                  <td><%= rad.kategorija %></td>
+
+                  <td>
+                    <span class="znak u-obradi">
+                      <%= rad.stanje %>
+                    </span>
+                  </td>
+
+                  <td>
+                    <a href="/uredi-rad/<%= rad.paper_id %>" class="btn">
+                      Uredi
+                    </a>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+
+        <% } else { %>
+          <p>Još nemate predanih radova.</p>
+        <% } %>
+      </div>
+    </main>
+  </body>
+</html>

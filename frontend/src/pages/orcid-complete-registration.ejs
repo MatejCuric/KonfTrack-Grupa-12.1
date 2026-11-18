@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dovršetak registracije - KonfTrack</title>
+</head>
+<body>
+    <h1>Dovršetak registracije</h1>
+
+    <p>
+        ORCID nije uspio dohvatiti sve potrebne podatke.
+        Molimo unesite svoje ime i prezime kako biste dovršili registraciju.
+    </p>
+
+    <% if (error) { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+
+    <form action="/auth/orcid/complete-registration" method="POST">
+        <div>
+            <label for="ime">Ime:</label>
+            <input
+                type="text"
+                id="ime"
+                name="ime"
+                value="<%= ime %>"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="prezime">Prezime:</label>
+            <input
+                type="text"
+                id="prezime"
+                name="prezime"
+                value="<%= prezime %>"
+                required
+            >
+        </div>
+
+        <button type="submit">Dovrši registraciju</button>
+    </form>
+</body>
+</html>
