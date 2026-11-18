@@ -7,6 +7,8 @@ const { loadCurrentUser } = require("./middleware/auth.middleware");
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 // Lokacija EJS prikaza
 app.set("views", path.join(__dirname, "..", "..", "frontend", "src", "pages"));
 app.set("view engine", "ejs");
