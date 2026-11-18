@@ -79,7 +79,7 @@ entity "Konferencija" as Conference {
     odobrena:boolean
     rokPredaja: datetime
     rokRecenzija: datetime
-    rokObavijesti: datetime
+    rokObavijest: datetime
     rokKonacna: datetime
 
 }

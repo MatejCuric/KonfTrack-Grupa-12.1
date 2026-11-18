@@ -34,31 +34,14 @@ Za svaki UML dijagram čuvajte čitljivu sliku i PlantUML izvor, kako je opisano
 
 **Cilj:** Prikazati logičku podjelu programa na komponente, njihova sučelja i vanjske integracije. Dijagram komponenata prikazuje logičku organizaciju, dok dijagram razmještaja prikazuje fizičko izvođenje. Ovaj prikaz ažurirajte kako sustav poprima konačan oblik.
 
-**Dijagram komponenata:**
-
-![Dijagram komponenata sustava Konftrack](./assets/diagrams/4-1-konftrack-system-CMP.svg)
-
-**Slika 4.1. Dijagram komponenata sustava KonfTrack**
-
-**PlantUML izvor:**[izvor](./puml/4-1-konftrack-system-CMP.puml)
+**Dijagram komponenata:** [Ugradite čitljiv UML dijagram komponenata.]
+**PlantUML izvor:** [Poveznica na odgovarajuću .puml datoteku.]
 
 | Komponenta | Odgovornost | Razlog za ovu granicu |
 | --- | --- | --- |
-| Frontend | Prikaz podataka i prikupljanje unosa korisnika | Sučelje je odvojeno od pravila i pohrane |
-| Rute (API) | Primanje zahtjeva i vraćanje odgovora | HTTP je odvojen od obrade |
-| Posredničke funkcije | Provjera prijave, uloge i rokova | Sigurnost sustava na jednom mjestu |
-| Poslovna logika | Provođenje pravila sustava vezano uz radove, recenzije, odluke, program i anonimnost | Pravila su samo u backendu |
-| Planer rokova i podsjetnika | Blokiranje radnji nakon isteka roka i slanje podsjetnika | Odvajanje vremenskih okidača od zahtjeva |
-| Generator PDF sažetaka | Izrada PDF zbornika sažetaka prihvaćenih radova podijeljenog po sekcijama s kazalom autora | Zasebna zadaća odvojena od ostale logike |
-| Pristup bazi (repozitoriji) | Poseban sloj za komunikaciju s bazom | Servisi ne ovise o načinu pohrane |
-| Baza podataka | Trajna pohrana podataka | Podaci aplikacije su unutar granice |
-| Pohrana PDF datoteka | Čuva rukopise i izjave | Datoteke su odvojene od baze |
-| ORCID | Prijava, podaci o ustanovi i koautorstvu | Vanjska usluga |
-| Crossref | Provjera DOI-ja | Vanjska usluga |
-| E-pošta (SMTP) | Slanje pozivnica i obavijesti | Vanjska usluga |
-| Google Calendar | Prima izvezeni raspored | Vanjska usluga |
+| | | |
 
-**Tijek zahtjeva:** frontend → rute → posredničke funkcije → poslovna logika → repozitorij → baza
+Započnite crtanjem granice oko predloženog sustava. Unutar nje prepoznajte dijelove s različitim odgovornostima; planiranu bazu podataka aplikacije smjestite unutar granice, a usluge trećih strana izvan nje. Važne veze označite podatkom ili uslugom koja njima prolazi. Logička komponenta može biti modul unutar jedne poslužiteljske aplikacije: zaseban pravokutnik ne znači zasebno postavljenu uslugu. Tijekom implementacije ažurirajte dijagram kada se promijene odgovornosti ili veze. U završnoj inačici čitatelj treba moći povezati njegove dijelove s kodom. Dijagram razmještaja odgovara na pitanje gdje se ti dijelovi stvarno izvode.
 
 
 ## 4.3 Model podataka i oblikovanje razreda
@@ -83,7 +66,7 @@ Za svaki UML dijagram čuvajte čitljivu sliku i PlantUML izvor, kako je opisano
 **Slika 4.3. Reprezentativni UML dijagram razreda za obradu znanstvenih radova i recenziranje**
 **PlantUML izvor:** [izvor](./puml/4-3-konftrack-domain-CD.puml)  
 **Referenca na kod pri završnom pregledu:** 
-- [Servis za obradu znanstvenih radova](../backend/src/services/paper.service.js)
+- [Validacija i spremanje rada](../backend/src/services/paper.service.js)
 - [Kontroler aplikacije](../backend/src/controllers/konftrack.controller.js)
 - [Model korisnika](../backend/src/models/user.model.js)
 - [Servis autentifikacije](../backend/src/services/auth.service.js)
