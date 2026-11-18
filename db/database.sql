@@ -48,7 +48,7 @@ CREATE TABLE conference (
     vremZona        VARCHAR(64) NOT NULL,
     maxStranica     INT CHECK (maxStranica > 0),
     odobrena        BOOLEAN NOT NULL DEFAULT FALSE,
-    rokZaPrijavu    TIMESTAMP,
+    rokPredaja      TIMESTAMP,
     rokRecenzija    TIMESTAMP,
     rokObavijest    TIMESTAMP,
     rokKonacna      TIMESTAMP,

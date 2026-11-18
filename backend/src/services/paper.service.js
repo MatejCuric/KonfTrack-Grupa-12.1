@@ -1,6 +1,7 @@
-const conferneceService = require("./conference.service")
+const paperModel = require("../models/paper.model");
+const conferenceModel = require("../models/conference.model");
 
-function validacijaRada(podatci,pdf){
+async function validacijaRada(podatci,pdf){
     const greske ={};
 
     if(!podatci.naslov || !podatci.naslov.trim()){
@@ -10,13 +11,9 @@ function validacijaRada(podatci,pdf){
         greske.sazetak = "Sažetak rada je obvezan.";
     }
 
-    const konferencija = conferneceService.dohvatiKonferencijuPoId(podatci.konferencija);
+    const konferencija = await conferenceModel.dohvatiKonferencijuPoId(podatci.konferencija);
     if(!konferencija){
         greske.konferencija="Odabrana konferencija ne postoji";
-    }
-
-    if(konferencija && !konferencija.teme.includes(podatci.tema)){
-        greske.tema="Odabrana tema ne pripada konferenciji"
     }
 
     if(!pdf){
@@ -25,6 +22,25 @@ function validacijaRada(podatci,pdf){
     return greske;
 }
 
+
+async function spremiRad(podatci,userId) {
+    return await paperModel.spremiRad({
+        tema: podatci.tema,
+        naslov: podatci.naslov,
+        sazetak: podatci.sazetak,
+        kljucneRijeci: podatci.kljucneRijeci,
+         stanje: podatci.akcija === "nacrt" ? "nacrt" : "predan",
+    }, userId);
+}
+
+
+async function dohvatiRadoveKorisnika(userId) {
+  return await paperModel.dohvatiRadoveKorisnika(userId);
+}
+
+
 module.exports={
-    validacijaRada
+    validacijaRada,
+    spremiRad,
+    dohvatiRadoveKorisnika
 };

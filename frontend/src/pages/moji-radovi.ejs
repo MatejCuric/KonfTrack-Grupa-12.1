@@ -6,6 +6,7 @@
     <title>KonfTrack - Moji radovi</title>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
+
   <body>
     <header>
       <h1>KonfTrack</h1>
@@ -17,24 +18,44 @@
     <main>
       <div class="card">
         <h2>Moji predani radovi</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Naslov rada</th>
-              <th>Kategorija</th>
-              <th>Status</th>
-              <th>Izmjena</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Razvoj web aplikacija</td>
-              <td>Znanstveni rad</td>
-              <td><span class="znak u-obradi">U obradi</span></td>
-              <td><a href="#" class="btn">Uredi</a></td>
-            </tr>
-          </tbody>
-        </table>
+
+        <% if (radovi && radovi.length > 0) { %>
+          <table>
+            <thead>
+              <tr>
+                <th>Naslov rada</th>
+                <th>Tema</th>
+                <th>Status</th>
+                <th>Izmjena</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% radovi.forEach(rad => { %>
+                <tr>
+                  <td><%= rad.naslov %></td>
+
+                  <td><%= rad.kategorija %></td>
+
+                  <td>
+                    <span class="znak u-obradi">
+                      <%= rad.stanje %>
+                    </span>
+                  </td>
+
+                  <td>
+                    <a href="/uredi-rad/<%= rad.paper_id %>" class="btn">
+                      Uredi
+                    </a>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+
+        <% } else { %>
+          <p>Još nemate predanih radova.</p>
+        <% } %>
       </div>
     </main>
   </body>

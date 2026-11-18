@@ -14,9 +14,18 @@
     tema.innerHTML = '';
     tema.add(new Option(odabranaKonferencija ? '-- Odaberite temu --' : '-- Prvo odaberite konferenciju --', ''));
     if (odabranaKonferencija) {
-      odabranaKonferencija.teme.forEach(function (nazivTeme) {
-        tema.add(new Option(nazivTeme, nazivTeme, false, nazivTeme === odabrana));
-      });
+      
+odabranaKonferencija.teme.forEach(function (temaObj) {
+  tema.add(
+    new Option(
+      temaObj.naziv,
+      temaObj.topic_id,
+      false,
+      String(temaObj.topic_id) === String(odabrana)
+    )
+  );
+});
+
     }
   }
   konferencija.addEventListener('change', function () { osvjeziTeme(''); });
