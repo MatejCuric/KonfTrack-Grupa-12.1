@@ -6,28 +6,28 @@
 
 **Cilj:** Voditi kratak zapis projektnih sastanaka i tjedne koordinacije: tko je sudjelovao, što je odlučeno i koja je radnja uslijedila. Raspravu koja nije dovela do odluke zabilježite samo ako je važno pitanje ostalo otvoreno.
 
->Definirati prije prve uporabe:
-`[Inicijali/Kratica] = [Ime i prezime]` (npr. *AK = Ana Kovač; LM = Luka Marić; EP = Ema Petrović; NK = Nika Kralj*).																														
+MĆ - Matej Ćurić	
+AJ - Antonio Jović
+PP - Patrik Paradžik
+NMR - Nina Mare Rogulj 
+MČ - Martina Čulina
+NT - Nea Trumbić
+ST - Stella Tomeljak
+ 																								
 
-| Datum i sudionici | Glavna tema | Donesena odluka ili zadatak  | Poveznica na zadatak ili  rezultat, ako postoji |
-| --- | --- | --- | --- |
-|  |  |  |  |
+| Datum i sudionici | Glavna tema | Donesena odluka ili zadatak | Poveznica na zadatak ili rezultat, ako postoji |
+|---|---|---|---|
+| 22. 10. 2026.; MĆ, AJ, PP, NMR, NT, ST, MČ | Početni sastanak: podjela zadataka i plan prvih koraka | Do 29. 10. 2026. izraditi grubu početnu stranicu, README, stranicu s routanjem i osnovnu dokumentaciju. MĆ: routanje i autentifikacija te README; AJ: osnovna Express aplikacija i lokalno pokretanje; PP: osnovna korisnička stranica i frontend struktura; NMR: početni model baze (PostgreSQL); MČ: arhitektura sustava; NT: opis glavnih slučajeva uporabe; ST: osnovna projektna dokumentacija i ova evidencija. | #1, #2, #3, #4, #5, #6, #7, #8 |
+| 29.10.2026. ; MĆ, AJ, PP, NMR, NT, ST, MČ | Obavezni labos: provjera napisanog i konzulacija s profesorom; napravljen plan za dalje| Do 12.11.2026 Implementirati osnovne funkcionalnosti aplikacije. MĆ: autentifikacija korisnika putem vanjskog pružatelja identiteta ; MČ: osnovna struktura za pregled i unos recenzija te obrazac za predaju znanstvenog rada, s PP ; NT: pregled konferencija kojima upravlja predsjednik programskog odbora ; AJ: privremeno spremanje predanih radova i pregled „Moji radovi”, s PP ; PP: osnovne korisničke stranice i frontend struktura, dinamički prikaz konferencija na početnoj stranici , stranica s detaljima pojedine konferencije, sa ST, te sudjelovanje na #20 i #21; ST: stranica s detaljima pojedine konferencije, s PP ; NMR: dohvat i obrada podataka o konferencijama. | #9, #10, #17, #18, #19, #20, #21, #22, #23 |
+
 
 Za svaki relevantan sastanak ili zapis tjedne koordinacije upišite jedan sažet redak. Dodijeljeni zadatak treba imati odgovornu osobu; za neriješeno pitanje treba navesti tko će ga dalje obraditi. Sam naslov sastanka ne pokazuje što se promijenilo. U ovu evidenciju nemojte kopirati cijeli popis issuea ni prijepis razgovora.
 
+<!--  NAPRAVI
+**Ishod i odgovornost:** Zapisi jasno definiraju tko je odgovoran za koji dio posla i koji je provjerljivi rezultat dogovoren. npr Rečenica „Raspravljali smo o obradi lokacije” prikrila bi je li se itko obvezao na promjenu. Ovi redci navode odluku ili otvorenu radnju, odgovornu osobu i rezultat koji se može pregledati.-->
+
 <details>
 <summary><strong>Primjer evidencije sastanaka (CrisisMap)</strong></summary>
-
-**Primjer — CrisisMap:**
-
-**Kratice članova tima:** AK = Ana Kovač; LM = Luka Marić; EP = Ema Petrović; NK = Nika Kralj.
-
-| Datum i sudionici | Glavna tema | Odluka, radnja ili otvoreno pitanje | Poveznica na zadatak ili nastali rezultat, ako postoji |
-| --- | --- | --- | --- |
-| 15. 11. 2025.; AK, LM, EP | Lokacija kada je pristup preglednika odbijen | Dodati ručni odabir položaja na karti u obrazac za prijavu. AK obrađuje obrazac; LM provjerava valjanost lokacije. | Zadataka #21 i #23. |
-| 22. 11. 2025.; AK, EP | Usklađivanje formata lokacijskih podataka | klijentski dio i poslužiteljski API koriste neusklađene formate koordinata. EP će uskladiti format zahtjeva i demonstrira spremanje na sljedećem pregledu. | Zadatak #25. |
-
-**Ishod i odgovornost:** Zapisi jasno definiraju tko je odgovoran za koji dio posla i koji je provjerljivi rezultat dogovoren. npr Rečenica „Raspravljali smo o obradi lokacije” prikrila bi je li se itko obvezao na promjenu. Ovi redci navode odluku ili otvorenu radnju, odgovornu osobu i rezultat koji se može pregledati.
 
 </details>
 
@@ -39,21 +39,13 @@ Za svaki relevantan sastanak ili zapis tjedne koordinacije upišite jedan sažet
 
 | Razdoblje/Tjedan | Glavni planirani rad | Odgovorni članovi | Poveznica na zadatke |
 | --- | --- | --- | --- |
-|  |  |  |  |
+| Projektni tjedan 3 | Gruba početna stranica, README, stranica s routanjem, osnovna dokumentacija | MĆ, AJ, PP, NMR, NT, ST | Zadaci #1, #2, #3, #4, #5, #6, #7, #8 |
+| Projektni tjedni 3 i 4 | Osnovne funkcionalnosti: autentifikacija, prikaz konferencija i detalji konferencije, obrazac za predaju rada, "Moji radovi", pregled za predsjednika, struktura za recenzije | MĆ, MČ, NT, AJ, PP, ST, NMR | Zadaci #9, #10, #17, #18, #19, #20, #21, #22, #23 |
 
 Ako koristite tablicu, plan vodite na korisnoj tjednoj razini i ažurirajte ga kada se prioriteti promijene. Kratice članova tima definirajte  u A.1 i ovdje ih primjenjujte dosljedno; ako dva člana imaju iste inicijale, proširite kraticu. Plan nije dokaz da je planirani rad dovršen (to dokazuje kod i dokumentacija).
 
 <details>
 <summary><strong>Primjer plana rada</strong></summary>
-
-**Primjer — CrisisMap:** Plan rada obuhvaća razvoj prijava, karte i postavljanja aplikacije. Za svako razdoblje navedeni su glavni zadaci i odgovorni članovi.
-
-| Razdoblje | Glavni planirani rad | Odgovorni članovi | Poveznica na zadatke/opis |
-| --- | --- | --- | --- |
-| Projektni tjedan 6 | Obrazac za prijavu i provjera valjanosti lokacije | AK, LM | Zadataka #21 i #23. |
-| Projektni tjedan 7 | Povezivanje obrasca s API-jem za prijave | EP | Zadatak #25. |
-
-**Čitanje plana:** Kratice štede prostor u sažetom planu; njihove definicije s početka A.1 vrijede u cijelom ovom primjeru. Kada rad kasni, ažurirajte stvarni zadatak i očekivanje u planu; nemojte tvrditi da je nedovršena funkcionalnost završena samo zato što je predviđeni tjedan prošao.
 
 </details>
 

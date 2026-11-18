@@ -6,14 +6,20 @@
 
 **Cilj:** Jasno razgraničiti problem koji se rješava od predloženog rješenja i stvarne koristi za korisnika.
 
-[Problem, cilj i očekivana korist vlastitim riječima tima.]
+Organizacija znanstvene konferencije danas je razbacana po raznim alatima: mailovima, Excel tablicama i različitim web aplikacijama za predaju radova. Zbog toga je teško zadržati anonimnost dvostruko slijepe recenzije. Recenzenti se najčešće dodjeljuju ručno, a sukobi interesa ne provjeravaju se sustavno. Rokovi, podsjetnici i statusi radova prate se na ruke, pa se lako dogodi da nešto promakne, recenzenti zabroavljaju rokove, autori tjednima ne znaju u kojoj je fazi rad, a program se često danima ručno slaže.
+
+KonfTrack je web sustav koji na jednom mjestu vodi cijelu konferenciju: od objave poziva i predaje rada, preko recenzije, odluke i revizije, do programa i zbornika sažetaka. Sustav korisnika vodi korak po korak kroz svaku fazu, a svaka uloga vidi samo ono što joj treba.
+
+Očekujemo da će KonfTrack:
+    - smanjiti ručni posao predsjedniku programskog odbora (automatski prijedlog recenzenata, skupne obavijesti, podsjetnici)
+    - povećati pravednost recenzije (automatska provjera sukoba interesa: ista ustanova, koautorstvo u zadnje tri godine) i bolje čuvati anonimnost
+    - povećati transparentnost za autore, koji na jednom mjestu vide status rada i rokove
+    - olakšati iskustvo svim sudionicima konferencije.
+
+Navedene koristi su očekivane, a ne izmjerene.
 
 <details>
 <summary><strong>Očekivane koristi i potkrepljujući dokazi</strong></summary>
-
-**Primjer — CrisisMap:** „Tijekom teških vremenskih prilika građaninu mogu trebati prijave kriznih događaja relevantne za njegovu lokaciju. CrisisMap ima za cilj prikazati lokacijski relevantne prijave kriznih događaja na karti kako bi ih građanin mogao pronaći na jednom mjestu.” Time su navedeni problem, ciljani korisnik, predložena mogućnost i očekivana korist. Ne tvrdi se da je izmjereno smanjenje vremena reagiranja niti da aplikacija ima integraciju sa službom za hitne intervencije. Tim i dalje mora opisati opseg odobren za vlastiti projekt.
-
-„Aplikacija smanjuje vrijeme odgovora na krizni događaj za 30 % na temelju simulacija.” Broj očekivanu korist čini konkretnijom, ali odmah zahtijeva provjeru: **gdje je simulacija i kako je postotak izračunan?** Ako takav dokaz ne postoji, očekivanu korist navedite bez brojčanog rezultata.
 
 </details>
 
@@ -22,23 +28,17 @@
 **Cilj:** Utvrditi osobe, uloge i organizacije čije potrebe i interesi određuju projektni zadatak.
 
 | Skupina korisnika ili dionika | Potreba ili interes relevantan za ovaj projekt |
-| --- | --- |
-|  |  |
+|---|---|
+| Javni posjetitelj | Nije potrebna prijava, pregledava javne konferencije, pozive, teme, rokove i objavljeni program |
+| Autor | Predaje i uređuje rad do roka; upravlja koautorima, kontakt-autorom i verzijama; provjera PDF-a i DOI-ja; anonimnost; praćenje statusa i rokova; predaje reviziju ili konačnu verziju |
+| Recenzent | Prihvaća/odbija poziv; iskazuje interes i sukobe interesa; recenzira dodijeljene radove; sudjeluje u anonimnoj raspravi; prati rokove (jasno naglašeni uz podsjetnike) |
+| Predsjednik programskog odbora | Upravlja konferencijom i rokovima; poziva recenzente; potvrđuje raspodjelu; donosi odluke; slaže program; pregledava statistiku i generira zbornik |
+| Administrator | Odobrava nove konferencije; imenuje predsjednika programskog odbora; upravlja korisnicima i konferencijama; uređuje predloške e-pošte; pregledava statistiku korištenja; deaktivira račune |
+
+-PRIMJER(osoba) : Pojedinac koji na jednoj konferenciji ima ulogu autora dok je na drugoj recenzent. Obe uloge prikazane različito ovisno o zadaoj konferenciji. Ali ako unutar jedne konferencije osoba ima dvije uloge oba dvije titule će imati dodjeljeno od jednom.
 
 <details>
 <summary><strong>Korisnici, dionici i neobavezna persona</strong></summary>
-
-**Primjer — CrisisMap:**
-
-| Skupina korisnika ili dionika | Potreba ili interes relevantan za ovaj projekt |
-| --- | --- |
-| Građanin | Pronaći informacije o obližnjim kriznim događajima i podnijeti prijavu kriznog događaja s lokacijom. |
-| Koordinator pomoći | Pregledati prijave relevantne za područje i dostupne resurse, ako je koordinacija unutar odobrenog opsega. |
-| Regulatorno tijelo / Agencija za zaštitu podataka (Dionik) | Zahtijeva osiguravanje anonimnosti prijavitelja i zaštitu osobnih podataka (npr. usklađenost s GDPR-om). Ovaj dionik ne koristi aplikaciju, ali definira ograničenja sustava. |
-
-Riječ je o dvjema različitim potrebama, a ne o dvjema izmišljenim biografijama. Akter komunicira s aplikacijom; demonstrator na kolegiju kojem je rezultat zanimljiv ne mora biti akter aplikacije. Koristite uloge i ovlasti iz svojeg odobrenog zadatka. Persona je neobavezna i korisna je kada pomaže riješiti konkretno projektno pitanje.
-
-**Neobavezni primjer persone:** Ana, koordinatorica pomoći, treba aktualne informacije o resursima kako bi mogla rasporediti pomoć. To može pomoći kada tim odlučuje koje informacije koordinator treba vidjeti prve. Personu opišite samo ako objašnjava projektnu odluku; popis izmišljenih biografija nije obavezni rezultat kolegija.
 
 </details>
 
@@ -46,9 +46,10 @@ Riječ je o dvjema različitim potrebama, a ne o dvjema izmišljenim biografijam
 
 **Cilj:** Jasno definirati granice sustava — što je obuhvaćeno odobrenim zadatkom, što je svjesno izostavljeno ili odgođeno te o kojim vanjskim uslugama sustav izravno ovisi.
 
-**Uključeno:** [Glavne mogućnosti.]  
-**Izvan opsega ili odgođeno:** [Navedite funkcionalnosti koje su namjerno izostavljene ili prebačene u buduće verzije, uz kratko inženjersko ili vremensko obrazloženje.] 
-**Vanjske ovisnosti:** [Navedite nužne vanjske usluge, API-je, baze podataka ili izvore informacija bez kojih sustav ne može funkcionirati (npr. Google Maps, platni pristupnici, vanjski pružatelj identiteta (OAuth)).]
+**Uključeno:** 
+**Izvan opsega ili odgođeno:** 
+**Vanjske ovisnosti:** 
+
 
 <details>
 <summary><strong>Primjer početne granice projekta</strong></summary>
@@ -72,7 +73,7 @@ Ovaj pregled zadržite na razini opsega: navedite glavnu mogućnost i njezinu gr
 
 **Cilj:** Objasniti kako korisnici trenutačno rješavaju problem i koja preostala potreba opravdava odobreni projekt.
 
-[U dvije do četiri rečenice opišite jedan postojeći postupak ili relevantno rješenje, što ono već omogućuje i koja konkretna potreba motivira ovaj projekt. Činjenične tvrdnje o vanjskim proizvodima ili praksama potkrijepite izvorom.]
+Organizatori konferencija danas često koriste razlučite sustave za praćenje konferecija koji također pokrivaju dosta značajki(predaja radova, recenzije...). KonfTrack se razlikuje po tome što je izgrađen tako da se sukobi interesa automatski prepoznaju iz ORCID podataka(ista ustanova, koautorstvo kroz zadnje tri godine), anonimnost se čuva kroz sve korake. Također pojedinac može imati jedan račun gdje će se uloge određivati po konferenciji.
 
 <details>
 <summary><strong>Postojeći pristupi i opravdanost projekta</strong></summary>

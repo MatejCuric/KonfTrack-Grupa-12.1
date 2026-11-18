@@ -1,0 +1,199 @@
+' ==============================================================================
+' 3-1-KonfTrack.puml
+'
+ 'Svrha:    Prikazuje tko i s kojim ciljem koristi sustav KonfTrack (javni
+'           posjetitelji, autori, recenzenti, predsjednici programskog odbora,
+'           administratori) te koje vanjske sustave sustav koristi (ORCID,
+'           Crossref, Google Calendar, e-pošta). Interna logika, pohrana
+'           podataka i korisničko sučelje namjerno nisu obuhvaćeni.
+' Autor:    Nea Trumbić, kolegij Programsko inženjerstvo
+' AI:       Dijagram je izradio autor. AI je pomogao u reviziji i komentarima;
+'           autor ih je pregledao i odgovara za konačni sadržaj.
+' Zahtjevi: UC-01 do UC-21 (F-001 do F-028, vidi tablicu u 3-Obrasci-uporabe.md)
+'
+' Diagram level: System Requirements
+' Diagram type:  Use Case Diagram
+' Version:       1.3
+' ==============================================================================
+
+@startuml
+title Sustav KonfTrack - slučajevi uporabe
+left to right direction
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam ArrowColor #212529
+
+skinparam actor {
+    BackgroundColor #F8F9FA
+    BorderColor #212529
+    BackgroundColor<<external system>> #FFF3CD
+    BorderColor<<external system>> #856404
+}
+
+skinparam usecase {
+    BackgroundColor #E7F1FF
+    BorderColor #0D6EFD
+}
+
+' ==============================================================================
+' Primarni akteri
+' ==============================================================================
+
+actor User as "Korisnik aplikacije"
+actor Visitor as "Javni posjetitelj"
+actor Author as "Autor/koautor"
+actor Reviewer as "Recenzent"
+actor Administrator as "Administrator"
+actor Chair as "Predsjednik programskog odbora"
+
+' Nasljeđivanje: specijalizirani -> opći (u istom stupcu)
+Author -right-|> User
+Reviewer -right-|> User
+Chair -right-|> User
+Administrator -right-|> User
+User -right-|> Visitor
+
+' Samo za raspored: svi akteri u jednom stupcu lijevo
+Visitor -[hidden]right- User
+User -[hidden]right- Author
+Author -[hidden]right- Reviewer
+Reviewer -[hidden]right- Chair
+Chair -[hidden]right- Administrator
+
+' ==============================================================================
+' Sekundarni akteri (vanjski sustavi)
+' ==============================================================================
+
+actor "ORCID" as ORCID <<external system>>
+actor "Crossref" as Crossref <<external system>>
+actor "Google Calendar" as Calendar <<external system>>
+actor "e-pošta" as Mail <<external system>>
+
+' Samo za raspored: vanjski sustavi u jednom stupcu desno
+ORCID -[hidden]right- Crossref
+Crossref -[hidden]right- Calendar
+Calendar -[hidden]right- Mail
+
+' ==============================================================================
+' Granica sustava
+' ==============================================================================
+
+rectangle "Sustav za upravljanje konferencijom" as ConferenceSystem {
+
+    ' Javni pristup i korisnički račun
+    (UC-01\nPregled javne stranice konferencije) as UC_PublicPage
+    (UC-02\nRegistracija ili Prijava) as UC_SignIn
+     (UC-19\nUpravljanje osobnim rasporedom) as UC_Schedule
+
+    (UC-03\nUređivanje profila i raspored) as UC_Account 
+
+    (UC-04\nPredaja rada) as UC_SubmitPaper
+    (UC-05\nPraćenje i upravljanje radom) as UC_ManagePaper
+    'fc11 i fc12' 
+    (UC-06\nPredaja revizije i konačne verzije) as UC_Revision
+
+    ' Recenziranje
+    (UC-07\nOdgovor na poziv u programski odbor) as UC_Invitation
+    (UC-08\nIskazivanje interesa za radove) as UC_Interest
+    (UC-09\nRecenziranje i rasprava o radu) as UC_Review
+
+    ' Upravljanje konferencijom i recenzentima
+    (UC-10\nDefiniranje konferencije i recenzenata) as UC_Setup 
+    (UC-20\nPozivanje recenzenata) as UC_InviteReviewers
+    (UC-11\nRaspodjela radova recenzentima) as UC_Assignment
+    (UC-12\nDonošenje odluka o radovima) as UC_Decisions
+
+    ' Program i zbornik
+    (UC-13\nSlaganje programa) as UC_Program
+    (UC-21\nGeneriranje i objava zbornika) as UC_Proceedings
+
+    ' Administracija
+    (UC-14\nAktivacija konferencije) as UC_Approval
+
+    (UC-15\nUpravljanje platformom) as UC_Platform
+
+    ' Dodatni 
+
+    (UC-16\nProvjera PDF-a) as UC_AuthorName
+    'tu spada i provjera imena autora'
+    (UC-17\nProvjera sukoba interesa) as UC_CheckConflict
+    (UC-18\nDodjela zamjenskog recenzenta) as UC_ReplacementReviewer
+' 
+'note bottom of UC_SubmitPaper
+'  F-007: Nakon isteka roka predaje sustav
+'  automatski onemogućuje predaju i izmjenu rada.
+'  Isto vrijedi za rokove recenzija, obavijesti
+'  autorima i konačne verzije (UC-05, UC-06, UC-09).
+'end note
+
+note bottom of UC_Review
+  F-020: Sustav automatski šalje recenzentima
+  podsjetnike e-poštom 7 i 2 dana prije roka
+  recenzije i označava kasne recenzije.
+end note
+ 
+}
+
+'  ==============================================================================
+' Asocijacije aktera i slučajeva uporabe
+' ==============================================================================
+
+' Javni posjetitelj
+Visitor -- UC_PublicPage
+Visitor -- UC_SignIn
+
+'Prijavljeni korisnik
+User -- UC_Account
+User -- UC_Schedule
+' Autor
+Author -- UC_SubmitPaper
+Author -- UC_ManagePaper
+Author -- UC_Revision
+
+' Recenzent
+Reviewer -- UC_Invitation
+Reviewer -- UC_Review
+Reviewer -- UC_Interest
+
+' Predsjednik programskog odbora
+Chair -- UC_Setup
+Chair -- UC_InviteReviewers
+Chair -- UC_Assignment
+Chair -- UC_Decisions
+Chair -- UC_Program
+Chair -- UC_Proceedings
+
+' Administrator
+Administrator -- UC_Approval
+Administrator -- UC_Platform
+
+
+' ==============================================================================
+' Veze između slučajeva uporabe
+' ==============================================================================
+
+UC_SubmitPaper ..> UC_AuthorName : <<include>>
+
+UC_Assignment ..> UC_CheckConflict : <<include>>
+
+UC_ReplacementReviewer ..> UC_Assignment : <<extend>>\n[recenzija kasni]
+
+
+' ==============================================================================
+' Interakcije sa sekundarnim akterima (obrazac lijevo, vanjski sustav desno)
+' ==============================================================================
+
+' ORCID – registracija i prijava korisnika
+UC_SignIn -- ORCID
+UC_CheckConflict -- ORCID
+
+UC_SubmitPaper -- Crossref
+
+' Google Calendar – izvoz osobnog rasporeda
+UC_Schedule -- Calendar
+
+' Servis e-pošte – pozivanje recenzenata i slanje odluka
+UC_Setup -- Mail
+
+@enduml
