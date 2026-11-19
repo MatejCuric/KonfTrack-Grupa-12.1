@@ -79,6 +79,7 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 | Claude | Sonnet 5.5 | Nea Trumbić | Pomoć pri pisanju obrazaca uporabe i provjera povezanosti funkcijskih uvjeta s obrascima |
 | ChatGPT | GPT-6 | Martina Čulina | Pomoć pri nalaženju rješenja za pohranu PDF datoteke, pomoć pri shvaćanju PlantUML sintakse, otklanjanje grešaka u kodu |
 | Claude | Sonnet 5.5 | Stella Tomeljak | Informiranje i objašnjavanje, pronalazak pogrešaka i otklanjanje istih |
+| Claude | Sonnet 5.5 | Patrik Paradžik | Pomoć pri otklanjanju pogrešaka i provjeri ispravnosti koda, davanje ideja za rješenja te objašnjavanje načina rada koda i Git naredbi |
 
 ### Opseg doprinosa umjetne inteligencije
 
