@@ -9,7 +9,7 @@
 ' Autor:    Nea Trumbić, kolegij Programsko inženjerstvo
 ' AI:       Dijagram je izradio autor. AI je pomogao u reviziji i komentarima;
 '           autor ih je pregledao i odgovara za konačni sadržaj.
-' Zahtjevi: UC-01 do UC-21 (F-001 do F-028, vidi tablicu u 3-Obrasci-uporabe.md)
+' Zahtjevi: UC-01 do UC-32 (F-001 do F-029, vidi tablicu u 3-Obrasci-uporabe.md)
 '
 ' Diagram level: System Requirements
 ' Diagram type:  Use Case Diagram
@@ -65,15 +65,16 @@ Chair -[hidden]right- Administrator
 ' Sekundarni akteri (vanjski sustavi)
 ' ==============================================================================
 
+actor "e-pošta" as Mail <<external system>>
 actor "ORCID" as ORCID <<external system>>
 actor "Crossref" as Crossref <<external system>>
 actor "Google Calendar" as Calendar <<external system>>
-actor "e-pošta" as Mail <<external system>>
 
 ' Samo za raspored: vanjski sustavi u jednom stupcu desno
 ORCID -[hidden]right- Crossref
-Crossref -[hidden]right- Calendar
-Calendar -[hidden]right- Mail
+Crossref -[hidden]down- Calendar
+Calendar -[hidden]down- Mail
+Crossref -[hidden]down- ORCID
 
 ' ==============================================================================
 ' Granica sustava
@@ -83,55 +84,60 @@ rectangle "Sustav za upravljanje konferencijom" as ConferenceSystem {
 
     ' Javni pristup i korisnički račun
     (UC-01\nPregled javne stranice konferencije) as UC_PublicPage
-    (UC-02\nRegistracija ili Prijava) as UC_SignIn
-     (UC-19\nUpravljanje osobnim rasporedom) as UC_Schedule
+    (UC-02\nRegistracija ili prijava) as UC_SignIn
+    (UC-19\nUpravljanje osobnim rasporedom) as UC_Schedule
+    (UC-22\nPregled zbornika sažetaka) as UC_Collection
+    (UC-03\nUređivanje profila) as UC_Account 
 
-    (UC-03\nUređivanje profila i raspored) as UC_Account 
-
-    (UC-04\nPredaja rada) as UC_SubmitPaper
-    (UC-05\nPraćenje i upravljanje radom) as UC_ManagePaper
-    'fc11 i fc12' 
-    (UC-06\nPredaja revizije i konačne verzije) as UC_Revision
+    'Autor/koautor
+    (UC-04\nPredaja i promjena rada) as UC_SubmitPaper
+    (UC-05\nPovlačenje rada) as UC_Return
+    (UC-06\nPredaja revizije) as UC_Revision
+    (UC-23\nPredaja neanonimizirane konačne verzije) as UC_Final
 
     ' Recenziranje
     (UC-07\nOdgovor na poziv u programski odbor) as UC_Invitation
     (UC-08\nIskazivanje interesa za radove) as UC_Interest
-    (UC-09\nRecenziranje i rasprava o radu) as UC_Review
+    (UC-09\nRasprava s recenzentima) as UC_Discourse
+    (UC-31\nPregled "Moje recenzije") as UC_AllReviews
+    (UC-32\nPredaja ocjene) as UC_Grade
 
     ' Upravljanje konferencijom i recenzentima
-    (UC-10\nDefiniranje konferencije i recenzenata) as UC_Setup 
+    (UC-10\nDefiniranje konferencije) as UC_Setup 
     (UC-20\nPozivanje recenzenata) as UC_InviteReviewers
-    (UC-11\nRaspodjela radova recenzentima) as UC_Assignment
-    (UC-12\nDonošenje odluka o radovima) as UC_Decisions
+    (UC-11\nUređivanje raspodjele radova recenzentima) as UC_Assignment
+    (UC-12\nOdluke o radovima) as UC_Decisions
 
-    ' Program i zbornik
-    (UC-13\nSlaganje programa) as UC_Program
-    (UC-21\nGeneriranje i objava zbornika) as UC_Proceedings
+    (UC-13\nSlaganje programa konferencije) as UC_Program
+    (UC-21\nPregled "Moji radovi") as UC_PaperManagement
+    (UC-24\nPregled "Statistika") as UC_Statistics
+    (UC-25\nPregled "Odluke") as UC_Ideas
+    (UC-15\nObavijest o odluci) as UC_Notify
 
     ' Administracija
-    (UC-14\nAktivacija konferencije) as UC_Approval
-
-    (UC-15\nUpravljanje platformom) as UC_Platform
+    (UC-14\nOdobravanje konferencije) as UC_Approval
+    (UC-27\nDeaktivacija korisničkog računa) as UC_UserManagement
+    (UC-28\nUređivanje predložaka e-pošte) as UC_EmailManagement
+    (UC-29\nPregled statistike korištenja) as UC_UserStatistic
+    
 
     ' Dodatni 
 
     (UC-16\nProvjera PDF-a) as UC_AuthorName
-    'tu spada i provjera imena autora'
     (UC-17\nProvjera sukoba interesa) as UC_CheckConflict
     (UC-18\nDodjela zamjenskog recenzenta) as UC_ReplacementReviewer
-' 
-'note bottom of UC_SubmitPaper
-'  F-007: Nakon isteka roka predaje sustav
-'  automatski onemogućuje predaju i izmjenu rada.
-'  Isto vrijedi za rokove recenzija, obavijesti
-'  autorima i konačne verzije (UC-05, UC-06, UC-09).
-'end note
+    (UC-26\nProvjera konflikata rasporeda) as UC_ConflictProgram
+    (UC-30\nImenovanje predsjednika) as UC_NameChair
 
-note bottom of UC_Review
-  F-020: Sustav automatski šalje recenzentima
-  podsjetnike e-poštom 7 i 2 dana prije roka
-  recenzije i označava kasne recenzije.
-end note
+    UC_ConflictProgram-[hidden]down- UC_Assignment
+    UC_AuthorName -[hidden]-UC_NameChair
+
+
+'note bottom of UC_Grade
+'  F-020: Sustav automatski šalje recenzentima
+'  podsjetnike e-poštom 7 i 2 dana prije roka
+'  recenzije i označava kasne recenzije.
+'end note
  
 }
 
@@ -142,19 +148,27 @@ end note
 ' Javni posjetitelj
 Visitor -- UC_PublicPage
 Visitor -- UC_SignIn
+User -- UC_Collection
+
 
 'Prijavljeni korisnik
 User -- UC_Account
 User -- UC_Schedule
+
 ' Autor
 Author -- UC_SubmitPaper
-Author -- UC_ManagePaper
+Author -- UC_Return
 Author -- UC_Revision
+Author -- UC_Final
+Author -- UC_PaperManagement
 
 ' Recenzent
 Reviewer -- UC_Invitation
-Reviewer -- UC_Review
 Reviewer -- UC_Interest
+Reviewer -- UC_Discourse
+Reviewer -- UC_AllReviews
+Reviewer --UC_Grade
+
 
 ' Predsjednik programskog odbora
 Chair -- UC_Setup
@@ -162,11 +176,17 @@ Chair -- UC_InviteReviewers
 Chair -- UC_Assignment
 Chair -- UC_Decisions
 Chair -- UC_Program
-Chair -- UC_Proceedings
+Chair -- UC_Ideas
+Chair -- UC_Statistics
+Chair -- UC_Notify
+
 
 ' Administrator
 Administrator -- UC_Approval
-Administrator -- UC_Platform
+Administrator -- UC_UserManagement
+Administrator -- UC_EmailManagement
+Administrator -- UC_UserStatistic
+
 
 
 ' ==============================================================================
@@ -175,9 +195,13 @@ Administrator -- UC_Platform
 
 UC_SubmitPaper ..> UC_AuthorName : <<include>>
 
+UC_Program ..> UC_ConflictProgram : <<include>>
+
 UC_Assignment ..> UC_CheckConflict : <<include>>
 
-UC_ReplacementReviewer ..> UC_Assignment : <<extend>>\n[recenzija kasni]
+UC_ReplacementReviewer ..> UC_Assignment : <<extend>>\n[recenzija kasni ili konflikt]
+
+UC_Approval ..>UC_NameChair : <<include>>
 
 
 ' ==============================================================================
@@ -186,6 +210,7 @@ UC_ReplacementReviewer ..> UC_Assignment : <<extend>>\n[recenzija kasni]
 
 ' ORCID – registracija i prijava korisnika
 UC_SignIn -- ORCID
+UC_SignIn -- Mail
 UC_CheckConflict -- ORCID
 
 UC_SubmitPaper -- Crossref
@@ -193,7 +218,9 @@ UC_SubmitPaper -- Crossref
 ' Google Calendar – izvoz osobnog rasporeda
 UC_Schedule -- Calendar
 
-' Servis e-pošte – pozivanje recenzenata i slanje odluka
-UC_Setup -- Mail
+' Servis e-pošte 
+UC_InviteReviewers -- Mail
+UC_Notify -- Mail
+UC_SubmitPaper -- Mail
 
 @enduml
