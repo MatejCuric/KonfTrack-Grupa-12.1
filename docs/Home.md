@@ -4,7 +4,7 @@
 **Akademska godina:** 2026./2027.  
 **Tim:** Grupa-12.1  
 **Nastavnik:** Vlado Sruk  
-**Asistent / demonstrator:** Saša Kendjel - Asistent
+**Asistent / demonstrator:** Saša Kendjel - asistent / Helena Floreani - demonstrator
 
 ## Pregled projekta
 
@@ -34,7 +34,7 @@ Ažurirani popis članova, njihovih GitHub profila i glavnih uloga ili doprinosa
 
 | Kontrolna točka | Demonstracija | Video |
 | --- | --- | --- |
-| Iteracija 1 | [Poveznica na demonstraciju ili inačicu projekta] | [Poveznica na video Demo 1, ako je snimljen] |
+| Iteracija 1 | [KonfTrack – javno dostupna aplikacija](https://konftrack.onrender.com) | [Poveznica na video Demo 1, ako je snimljen] |
 | Završni pregled | [Poveznica na završnu inačicu projekta] | [Poveznica na video završne demonstracije, ako je snimljen] |
 
 Dokumentacija se kontinuirano ažurira kako se aplikacija razvija.
@@ -74,49 +74,31 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 
 | Alat | Inačica ili model | Koristio/la | Glavna svrha |
 | --- | --- | --- | --- |
-| [Naziv alata] | [Inačica ili model, ako je poznat] | [Član/članovi tima] | [npr. izrada nacrta dokumentacije, generiranje izvora dijagrama] |
+| ChatGPT | GPT-6 | Matej Ćurić | Pomoć pri razvoju koda, otklanjanju pogrešaka i izradi dokumentacije |
 
 ### Opseg doprinosa umjetne inteligencije
 
 | Stranica, datoteka ili artefakt | Vrsta pomoći | Što je alat proizveo | Što je tim zadao i promijenio | Lokacija |
 | --- | --- | --- | --- | --- |
-| [npr. 3. Obrasci uporabe, UC-002] | [Izrada nacrta / preoblikovanje / prijevod / izvor dijagrama / sažimanje] | [Kratak opis] | [Ulaz zadan alatu; dodane, ispravljene ili uklonjene činjenice] | [Stranica dokumentacije, `.puml` datoteka, PR] |
+| Autentifikacija i povezani kod | Pomoć pri implementaciji i otklanjanju pogrešaka | Prijedloge koda, objašnjenja i moguće načine rješavanja problema | Kod je prilagođen stvarnoj strukturi KonfTracka, zahtjevima projekta i postojećem kodu | [PR #26](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/pull/26) |
+| Dokumentacija projekta | Izrada nacrta / preoblikovanje | Prijedloge teksta i strukture dokumentacije | Tekst je provjeren, prilagođen stvarnom stanju projekta i dopunjen podacima tima | [README](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/main/README.md) |
+| Postavljanje aplikacije | Pomoć pri otklanjanju pogrešaka | Objašnjenja konfiguracije i prijedloge za rješavanje problema | Postupci su provjereni na stvarno deployanoj aplikaciji | [README – Postavljanje](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/main/README.md#postavljanje-engl-deployment) |
 
-Stranice i artefakti koji nisu navedeni iznad izrađeni su bez pomoći generativne umjetne inteligencije. [Po želji: kao dodatne retke navedite kod ili ispitivanja izrađena uz pomoć umjetne inteligencije.]
+Stranice i artefakti koji nisu navedeni iznad izrađeni su bez pomoći generativne umjetne inteligencije. 
 
 ### Provjera generiranog sadržaja
 
 | Provjera | Kako je provedena | Dokaz |
 | --- | --- | --- |
-| Činjenična točnost | [Svaka tvrdnja o funkcionalnostima, ponašanju ili arhitekturi uspoređena je s pokrenutom aplikacijom i kodom] | [Imena pregledavatelja; poveznice na zahtjev za uključivanje promjena (PR) ili zadatak] |
-| Nema tvrdnji o neostvarenim funkcionalnostima | [Provjereno je da opisane funkcionalnosti, ispitivanja i rezultati stvarno postoje; planirani rad označen je kao planiran] | [Usporedba s odjeljkom 5.4 (Ispitivanje) i odjeljkom 7.1 (Zaključak)] |
-| Dosljednost s drugim stranicama | [Nazivi, ID-ovi i dijagrami provjereni su prema Analizi zahtjeva, Obrascima uporabe, Arhitekturi i oblikovanju te Ispitivanju] | [Kontrolni popis ili bilješka pregleda] |
-| Izvori dijagrama | [Generirani PlantUML je iscrtan, ispravljen i odgovara implementiranom sustavu] | [`.puml` datoteka i izrađena slika] |
-| Povjerljivi sadržaj | [Kako je tim osigurao da u upite ili dokumentaciju nisu unesene tajne, pristupni podaci ni osobni podaci] | [Primijenjeni postupak] |
+| Činjenična točnost | Prijedlozi i generirani tekst uspoređeni su sa stvarnim kodom, zahtjevima projekta i ponašanjem pokrenute aplikacije. | [Analiza zahtjeva](2-Analiza-zahtjeva.md), [Arhitektura i oblikovanje](4-Arhitektura-i-oblikovanje.md), [GitHub Issues](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/issues) i [PR za integraciju trenutačne inačice koda projekta](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/pull/37) |
+| Nema tvrdnji o neostvarenim funkcionalnostima | Generirani sadržaj uspoređen je s trenutnim stanjem implementacije kako bi se osiguralo da se implementirane funkcionalnosti ne predstavljaju drugačije od stvarnog stanja, a planirane funkcionalnosti ne navode kao ostvarene. | [Analiza zahtjeva](2-Analiza-zahtjeva.md), [GitHub Issues](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/issues) |
+| Dosljednost s drugim stranicama | Nazivi, zahtjevi, korisničke uloge, funkcionalnosti i opisi sustava uspoređeni su između povezanih stranica dokumentacije kako bi se izbjegle međusobne proturječnosti. | [Analiza zahtjeva](2-Analiza-zahtjeva.md), [Obrasci uporabe](3-Obrasci-uporabe.md), [Arhitektura i oblikovanje](4-Arhitektura-i-oblikovanje.md) |
+| Izvori dijagrama | PlantUML izvori generirani ili dopunjeni pomoću umjetne inteligencije provjereni su prema stvarnoj arhitekturi i implementaciji sustava te su po potrebi ručno ispravljeni. | [PlantUML datoteka obrazaca uporabe](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/main/docs/puml/3-1-KonfTrack.puml),[Slika dijagrama obrazaca uporabe](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/main/docs/assets/diagrams/3-1-KonfTrack.svg), [PlantUML datoteka ER dijagrama](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/main/docs/puml/4-2-konftrack-data-ERD.puml), [Slika ER dijagrama](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/main/docs/assets/diagrams/4-2-konftrack-data-ERD.svg), [PlantUML datoteka dijagrama razreda](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/main/docs/puml/4-3-konftrack-domain-CD.puml), [Slika dijagrama razreda](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/main/docs/assets/diagrams/4-3-konftrack-domain-CD.svg) |
+| Povjerljivi sadržaj | Pri korištenju umjetne inteligencije, te pri dodavanju promjena na GitHub nisu uključivani pristupni podaci, tajne iz konfiguracije ni drugi povjerljivi podaci. Primjeri koda i konfiguracije prije slanja provjereni su kako bi se uklonile takve vrijednosti. | Pregled korištenih upita i materijala prije njihovog unosa, te prije dodavanja na GitHub |
 
 ### Pogreške pronađene u izlazu umjetne inteligencije
 
 | Problem | Kako je pronađen | Rješenje |
 | --- | --- | --- |
-| [Netočna, izmišljena ili iz predloška preuzeta tvrdnja] | [Pregled, ispitivanje ili usporedba s aplikacijom] | [Ispravak s poveznicom] |
-
-<!-- UPUTA: Zabilježite stvarne ispravke ili napišite „Nisu utvrđene”. Općenita tvrdnja poput „sav tekst je pregledan” nije dokaz; dokaz su prethodne tablice. Tim mora moći objasniti svaku rečenicu koju objavi. -->
-
-<details>
-<summary><strong>Primjer zapisa uporabe umjetne inteligencije</strong></summary>
-
-**Primjer — CrisisMap:**
-
-| Stranica ili artefakt | Vrsta pomoći | Što je alat proizveo | Što je tim zadao i promijenio | Lokacija |
-| --- | --- | --- | --- | --- |
-| 3. Obrasci uporabe, UC-002 | Izrada nacrta | Prvu inačicu glavnog i alternativnih tijekova | Tim je zadao stvarna polja obrasca i uklonio granu prijave u sustav koja u aplikaciji ne postoji | Primjer PR #31 |
-| Sekvencijski dijagram, podnošenje prijave | Izvor dijagrama | Nacrt PlantUML-a | Tim je uskladio nazive sudionika s komponentama i uklonio korak slanja obavijesti koji nije implementiran | `diagrams/report-submission.puml` (primjer) |
-
-| Problem | Kako je pronađen | Rješenje |
-| --- | --- | --- |
-| U tekstu je stajalo da se obavijesti dostavljaju unutar jedne minute | Usporedba s Ispitivanjem (5.4): dostava nikada nije ispitana | Tvrdnja je uklonjena; obavijesti su navedene pod Budućim radom |
-| Nacrt je kopirao primjer zahtjeva F-005 iz predloška kao projektni zahtjev | Usporedba s vlastitim popisom zahtjeva tima | Zamijenjeno stvarnim zahtjevom tima |
-
-**Analiza primjera:** Svaki redak navodi stranicu ili datoteku, ono što je alat generirao i ono što je tim promijenio. Pogreške su tipične za generiranu dokumentaciju: funkcionalnost koja ne postoji i tekst predloška prikazan kao činjenica o projektu. Tvrdnje poput „AI je korišten svugdje” ili „sav tekst je pregledan” nije moguće provjeriti. Ovo je nastavni scenarij, a ne opis objavljenog projekta.
-
-</details>
+| U uputama za postavljanje `APP_BASE_URL` korišten je `http://localhost:10000` iako se aplikacija postavljala na Render. | Problem je uočen tijekom provjere deployane aplikacije i OAuth toka na Renderu. | Konfiguracija je prilagođena javnoj Render adresi aplikacije, a OAuth redirect URI usklađen je s deployanom aplikacijom. |
+| U uputama za konfiguraciju ORCID aplikacije pogrešno je izjednačena važnost `Application URI` i OAuth `Redirect URI`. | Usporedbom ORCID konfiguracije sa stvarnim OAuth tijekom prijave i callback zahtjevom aplikacije. | Konfiguracija je razjašnjena tako da se OAuth `Redirect URI` registrira kao točna callback adresa deployane aplikacije. |
