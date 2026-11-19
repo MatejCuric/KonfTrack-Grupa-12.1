@@ -113,8 +113,6 @@ package "Domenski sloj" {
     -rok:DateTime
     -redniBroj:Integer
     -jeZamjena:boolean
-    +acceptInvitation():void
-    +declineInvitation():void
   }
 
   class Review <<Entity>>{
@@ -143,6 +141,7 @@ package "Domenski sloj" {
     REJECTED
     FINAL_VERSION_SUBMITTED
     INCLUDED_IN_PROGRAM
+    WITHDRAWN
   }
 
   enum Decision {
