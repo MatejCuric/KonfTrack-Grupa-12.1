@@ -43,8 +43,8 @@ ST - Stella Tomeljak
 | Prijava putem ORCID-a (OAuth 2.0) i sesije | MĆ | 8 | `orcid.service.js`, `auth.middleware.js`, `orcid-complete-registration.ejs` |
 | Trajno spremanje korisnika u PostgreSQL | MĆ | 3 | `user.model.js`; usklađen `db/database.sql` |
 | Usklađivanje frontenda s podacima iz backenda; ruta za detalje konferencije | MĆ | 2 | `GET /konferencije/:id`, proširena ruta `GET /predaj-rad` |
-| Frontend: EJS stranice, CSS i klijentske skripte | PP | [h] | `frontend/src/pages/*.ejs`, `style.css`, `script.js` |
-| Dinamički prikaz konferencija i stranica s detaljima konferencije | PP, ST | [h] | `home.ejs`, `konferencija.ejs` |
+| Frontend: EJS stranice, CSS i klijentske skripte | PP | 4 | `frontend/src/pages/*.ejs`, `style.css`, `script.js` |
+| Dinamički prikaz konferencija i stranica s detaljima konferencije | PP, ST | 3 | `home.ejs`, `konferencija.ejs` |
 | Obrazac za predaju rada | PP, MČ | 4 | `predaj-rad.ejs`, `predaj-rad.js` |
 | Validacija predaje rada i primanje PDF-a | MČ | 6 | `paper.service.js` (`validacijaRada`), `POST /spremi-rad` |
 | Arhitektura: dijagram komponenata, ključne odluke, ER dijagram i dijagram razreda | MČ | 5 | Poglavlje 4; `4-1-konftrack-system-CMP.puml`, `4-3-konftrack-domain-CD.puml` |
@@ -52,9 +52,11 @@ ST - Stella Tomeljak
 | Povezivanje backenda s bazom (Neon PostgreSQL) | NMR | 4 | `backend/src/db.js` |
 | Dohvat konferencija iz baze | NMR | 3 | `conference.model.js`, `conference.service.js` |
 | Spremanje predanog rada u bazu i pregled „Moji radovi” | NMR | 4 | `paper.model.js`; `moji-radovi.ejs` |
-| Obrasci uporabe (UC-01 do UC-32) i UML dijagram obrazaca uporabe | NT | [h] | Poglavlje 3; `3-1-KonfTrack.puml` |
-| Opis projekta, analiza zahtjeva i evidencija aktivnosti | ST | [h] | Poglavlja 1, 2 i A |
+| Obrasci uporabe (UC-01 do UC-32) i UML dijagram obrazaca uporabe | NT | 15 | Poglavlje 3; `3-1-KonfTrack.puml` |
+| Opis projekta, analiza zahtjeva i evidencija aktivnosti | ST | 12 | Poglavlja 1, 2 i A |
 | Pregled i spajanje pull requestova | MĆ | 4 | PR #33–#37 |
+| Izrada PDF dokumentacije | ST | 1 | /docs/deliverables |
+| Definiranje Sprinta i DoD | NMR | 2 | docs/meeting-notes/sprint-01.md |
 
 ## A.4 Pregled promjena u repozitoriju
 
