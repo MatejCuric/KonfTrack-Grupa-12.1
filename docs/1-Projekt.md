@@ -43,9 +43,6 @@ Navedene koristi su očekivane, a ne izmjerene.
 
 ## 1.3 Granice projekta
 
-<details>
-<summary><strong>Primjer početne granice projekta</strong></summary>
-
 **Uključeno:** Cijeli životni ciklus rada na konferenciji: predaja rada, anonimna dvostruko slijepa recenzija s automatskom provjerom sukoba interesa, odluka programskog odbora, revizija i konačna verzija, slaganje programa te generiranje zbornika sažetaka.
 
 **Izvan opsega ili odgođeno:** Sustav se razvija kao projektni prototip i nije namijenjen za stvarnu konferenciju; upravljanje prostorom i logistikom konferencije (kapaciteti, raspored i rezervacija dvorana, tehnička oprema), u zadatku spomenuta organizacija dvorane od strane predsjednika.
@@ -58,7 +55,6 @@ Navedene koristi su očekivane, a ne izmjerene.
 - Google Calendar (izvoz osobnog rasporeda)
 - Neon (hosting PostgreSQL baza podataka)
 
-</details>
 
 ## 1.4 Postojeći pristupi i opravdanost projekta
 

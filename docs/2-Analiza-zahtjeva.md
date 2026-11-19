@@ -51,9 +51,6 @@ Svaki zahtjev treba imati stabilan ID. Izvor svih zahtjeva je odobreni projektni
 
 ## 2.2 Nefunkcijski zahtjevi
 
-<details>
-<summary><strong>Nefunkcijski zahtjevi za analizu</strong></summary>
-
 | ID | Opis | Prioritet | Izvor | Način provjere |
 | --- | --- | --- | --- | --- |
 | NF-01 | Anonimnost dvostruko slijepe recenzije jamči se u UI-ju, nazivima preuzetih datoteka, e-pošti i API odgovorima. | Visok | Odobreni zadatak | Pregled API odgovora, naziva datoteka i poruka kao autor i kao recenzent; nigdje nema identiteta druge strane. |
@@ -67,7 +64,6 @@ Svaki zahtjev treba imati stabilan ID. Izvor svih zahtjeva je odobreni projektni
 | NF-09 | Sustav se integrira s vanjskim servisima ORCID (prijava i podaci o ustanovi i koautorstvu), Crossref (provjera DOI-ja), Google Calendar (izvoz rasporeda). | Visok | Odobreni zadatak | Testni scenariji s ispravnim odgovorom svakog servisa. |
 | NF-10 | Zbornik sažetaka generira se u PDF formatu, a izvoz statistike u CSV formatu. | Srednji | Odobreni zadatak | Datoteke se otvaraju u standardnim čitačima (PDF, CSV). |
 
-</details>
 
 ## 2.3 Dionici i akteri
 
@@ -130,22 +126,36 @@ Ograničenje je uvjet koji tim mora poštovati; pretpostavka je uvjet na koji se
 
 | ID zahtjeva | Obrazac uporabe / modul | Arhitekturna realizacija | Ispitivanje ili provjera |
 | --- | --- | --- | --- |
-| F-001 | [UC-001] | [Komponenta, modul ili drugo mjesto realizacije] | [ST-01, CT-01 ili druga provjera] |
-|  |  |  |  |
+| F-001 | UC-02 Registracija ili prijava | Frontend: `register.ejs`, `login.ejs`, `orcid-complete-registration.ejs`; rute `/register`, `/verify-email`, `/login`, `/logout`, `/auth/orcid`, `/auth/orcid/callback`, `/auth/orcid/complete-registration` (`konftrack.controller.js`); `auth.service.js` (`registerUser`, `verifyEmail`, `loginUser`, `findOrcidUser`, `createOrcidUser`); `orcid.service.js` (OAuth 2.0); `email.service.js` (`sendVerificationEmail`, Brevo); `auth.middleware.js` (`loadCurrentUser`, `requireAuth`); `user.model.js` | *na čekanju* |
+| F-002 | UC-03 Uređivanje profila | *na čekanju* | *na čekanju* |
+| F-003 | UC-01 Pregled javne stranice konferencije | Frontend: `home.ejs`, `konferencija.ejs`; rute `GET /`, `GET /konferencije/:id`; `conference.service.js` (`dohvatiSveKonferencije`, `dohvatiKonferencijuPoId`); `conference.model.js` (`dohvatiTemeKonferencije`). Prikaz programa još nije implementiran | *na čekanju* |
+| F-004 | UC-24 Pregled „Statistika" | *na čekanju* | *na čekanju* |
+| F-005 | UC-29 Pregled statistike korištenja | Djelomično: `statistika.ejs`, ruta `GET /statistika` zaštićena s `requireAdmin` (`auth.middleware.js`); brojke su zasad fiksne u predlošku i ne dohvaćaju se iz baze | *na čekanju* |
+| F-006 | UC-10 Definiranje konferencije | *na čekanju* | *na čekanju* |
+| F-007 | UC-27 Deaktivacija korisničkog računa | Djelomično: `auth.service.loginUser` i `auth.middleware.loadCurrentUser` odbijaju korisnika s `aktivan = false`; gumb „Deaktiviraj" u `admin.ejs` (`GET /admin`, `requireAdmin`) još nije povezan s pozadinskom radnjom | *na čekanju* |
+| F-008 | UC-04 Predaja i promjena rada | Frontend: `predaj-rad.ejs`, `predaj-rad.js`; rute `GET /predaj-rad`, `POST /spremi-rad` (`requireAuth`, `primanjePdf` — multer); `paper.service.js` (`validacijaRada`, `spremiRad`); `paper.model.js` (`spremiRad` — tablice `paper`, `paper_author`, `paper_version`); `conference.service.dohvatiOtvoreneKonferencije` | *na čekanju* |
+| F-009 | UC-16 Provjera PDF-a | Djelomično: `primanjePdf` u `konftrack.controller.js` (najviše 10 MB) i `paper.service.validacijaRada` (PDF je obavezan); provjera broja stranica i metapodataka nije implementirana | *na čekanju* |
+| F-010 | UC-04 Predaja i promjena rada | *na čekanju* | *na čekanju* |
+| F-011 | UC-04 Predaja i promjena rada; UC-05 Povlačenje rada | *na čekanju* | *na čekanju* |
+| F-012 | UC-21 Pregled „Moji radovi" | `moji-radovi.ejs`; ruta `GET /moji-radovi`; `paper.service.dohvatiRadoveKorisnika`; `paper.model.dohvatiRadoveKorisnika` | *na čekanju* |
+| F-013 | UC-07 Odgovor na poziv u programski odbor; UC-20 Pozivanje recenzenata | *na čekanju* | *na čekanju* |
+| F-014 | UC-08 Iskazivanje interesa za radove | *na čekanju* | *na čekanju* |
+| F-015 | UC-14 Odobravanje konferencije; UC-30 Imenovanje predsjednika | *na čekanju* | *na čekanju* |
+| F-016 | UC-17 Provjera sukoba interesa | *na čekanju* | *na čekanju* |
+| F-017 | UC-11 Uređivanje raspodjele radova recenzentima | *na čekanju* | *na čekanju* |
+| F-018 | UC-31 Pregled „Moje recenzije"; UC-32 Predaja ocjene | Djelomično: `moje-recenzije.ejs`, ruta `GET /moje-recenzije` (`requireAuth`); stranica zasad prikazuje fiksne podatke, a predaja ocjene nije implementirana | *na čekanju* |
+| F-019 | UC-09 Rasprava s recenzentima | *na čekanju* | *na čekanju* |
+| F-020 | UC-18 Dodjela zamjenskog recenzenta; UC-32 Predaja ocjene | *na čekanju* | *na čekanju* |
+| F-021 | UC-12 Odluke o radovima; UC-25 Pregled „Odluke" | *na čekanju* | *na čekanju* |
+| F-022 | UC-15 Obavijest o odluci | *na čekanju* | *na čekanju* |
+| F-023 | UC-06 Predaja revizije | *na čekanju* | *na čekanju* |
+| F-024 | UC-23 Predaja neanonimizirane konačne verzije | *na čekanju* | *na čekanju* |
+| F-025 | UC-13 Slaganje programa konferencije; UC-26 Provjera konflikata rasporeda | *na čekanju* | *na čekanju* |
+| F-026 | UC-19 Upravljanje osobnim rasporedom | *na čekanju* | *na čekanju* |
+| F-027 | UC-22 Pregled zbornika sažetaka | *na čekanju* | *na čekanju* |
+| F-028 | UC-28 Uređivanje predložaka e-pošte | *na čekanju* | *na čekanju* |
+| F-029 | UC-10 Definiranje konferencije | *na čekanju* | *na čekanju* |
 
-<details>
-<summary><strong>Sljedivost zahtjeva do obrazaca uporabe i ispitivanja</strong></summary>
-
-**Primjer — poveznice zahtjeva CrisisMapa:**
-
-| ID zahtjeva | Obrazac uporabe / ponašanje | Arhitekturna realizacija | Ispitivanje / provjera |
-| --- | --- | --- | --- |
-| F-004 | UC-002 Podnošenje prijave kriznog događaja | Web-klijent; API za prijave; usluga za prijave | ST-01 Valjano podnošenje prijave; ST-02 Nedostaje obavezna lokacija; ST-03 Dopuštenje geolokacije odbijeno |
-| F-005 | Odabir primatelja obavijesti | Proces za obavijesti | CT-06 Primatelji obavijesti; potpuna dostava obavijesti nije pokrivena ovom provjerom |
-
-**Pokrivenost i dokazi:** CT-06 provjerava odabir primatelja za F-005, ali sam po sebi ne dokazuje da je obavijest stvarno dostavljena; ako projekt zahtijeva potpunu dostavu od početka do kraja, za taj dio treba postojati zasebna provjera. Svaki redak pokazuje gdje je zahtjev opisan kao ponašanje, gdje je ostvaren u sustavu i gdje se nalazi dokaz njegove provjere. Zahtjev ne mora imati zaseban obrazac uporabe ako ne opisuje korisničku interakciju; tada navedite relevantno ponašanje, arhitekturni element ili drugi prikladan način realizacije. U svojem projektu koristite stvarne nazive komponenata, modula i provjera iz dokumentacije i implementacije. Nedostajuću poveznicu ostavite praznom ili označite kao *na čekanju* uz kratak razlog. Stvarni rezultati ispitivanja bilježe se uz ispitne slučajeve; ova tablica pokazuje gdje ih pronaći.
-
-</details>
 
 ---
 

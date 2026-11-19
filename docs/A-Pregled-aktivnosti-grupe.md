@@ -1,10 +1,6 @@
 # A. Pregled aktivnosti grupe
 
-**Cilj:** Prikazati kako je tim organizirao projekt, raspodijelio rad, reagirao na važne probleme i pridonio rezultatu. Zapisi trebaju opisivati ishode, a ne samo navoditi da je sastanak održan ili da se o nekoj temi raspravljalo.
-
 ## A.1 Evidencija sastanaka
-
-**Cilj:** Voditi kratak zapis projektnih sastanaka i tjedne koordinacije: tko je sudjelovao, što je odlučeno i koja je radnja uslijedila. Raspravu koja nije dovela do odluke zabilježite samo ako je važno pitanje ostalo otvoreno.
 
 MĆ - Matej Ćurić	
 AJ - Antonio Jović
@@ -13,21 +9,12 @@ NMR - Nina Mare Rogulj
 MČ - Martina Čulina
 NT - Nea Trumbić
 ST - Stella Tomeljak
- 																								
 
 | Datum i sudionici | Glavna tema | Donesena odluka ili zadatak | Poveznica na zadatak ili rezultat, ako postoji |
 |---|---|---|---|
 | 22. 10. 2026.; MĆ, AJ, PP, NMR, NT, ST, MČ | Početni sastanak: podjela zadataka i plan prvih koraka | Do 29. 10. 2026. izraditi grubu početnu stranicu, README, stranicu s routanjem i osnovnu dokumentaciju. MĆ: routanje i autentifikacija te README; AJ: osnovna Express aplikacija i lokalno pokretanje; PP: osnovna korisnička stranica i frontend struktura; NMR: početni model baze (PostgreSQL); MČ: arhitektura sustava; NT: opis glavnih slučajeva uporabe; ST: osnovna projektna dokumentacija i ova evidencija. | #1, #2, #3, #4, #5, #6, #7, #8 |
-| 29.10.2026. ; MĆ, AJ, PP, NMR, NT, ST, MČ | Obavezni labos: provjera napisanog i konzulacija s profesorom; napravljen plan za dalje| Do 12.11.2026 Implementirati osnovne funkcionalnosti aplikacije. MĆ: autentifikacija korisnika putem vanjskog pružatelja identiteta ; MČ: osnovna struktura za pregled i unos recenzija te obrazac za predaju znanstvenog rada, s PP ; NT: pregled konferencija kojima upravlja predsjednik programskog odbora ; AJ: privremeno spremanje predanih radova i pregled „Moji radovi”, s PP ; PP: osnovne korisničke stranice i frontend struktura, dinamički prikaz konferencija na početnoj stranici , stranica s detaljima pojedine konferencije, sa ST, te sudjelovanje na #20 i #21; ST: stranica s detaljima pojedine konferencije, s PP ; NMR: dohvat i obrada podataka o konferencijama. | #9, #10, #17, #18, #19, #20, #21, #22, #23 |
-
-
-Za svaki relevantan sastanak ili zapis tjedne koordinacije upišite jedan sažet redak. Dodijeljeni zadatak treba imati odgovornu osobu; za neriješeno pitanje treba navesti tko će ga dalje obraditi. Sam naslov sastanka ne pokazuje što se promijenilo. U ovu evidenciju nemojte kopirati cijeli popis issuea ni prijepis razgovora.
-
-<!--  NAPRAVI
-**Ishod i odgovornost:** Zapisi jasno definiraju tko je odgovoran za koji dio posla i koji je provjerljivi rezultat dogovoren. npr Rečenica „Raspravljali smo o obradi lokacije” prikrila bi je li se itko obvezao na promjenu. Ovi redci navode odluku ili otvorenu radnju, odgovornu osobu i rezultat koji se može pregledati.-->
-
-<details>
-<summary><strong>Primjer evidencije sastanaka (CrisisMap)</strong></summary>
+| 29.10.2026. ; MĆ, AJ, PP, NMR, NT, ST, MČ | Obavezni labos: provjera napisanog i konzulacija s profesorom; napravljen plan za dalje| Do 17.11.2026 Implementirati osnovne funkcionalnosti aplikacije. MĆ: autentifikacija korisnika putem vanjskog pružatelja identiteta ; MČ: osnovna struktura za pregled i unos recenzija te obrazac za predaju znanstvenog rada, s PP ; NT: pregled konferencija kojima upravlja predsjednik programskog odbora ; AJ: privremeno spremanje predanih radova i pregled „Moji radovi”, s PP ; PP: osnovne korisničke stranice i frontend struktura, dinamički prikaz konferencija na početnoj stranici , stranica s detaljima pojedine konferencije, sa ST, te sudjelovanje na #20 i #21; ST: stranica s detaljima pojedine konferencije, s PP ; NMR: dohvat i obrada podataka o konferencijama. | #9, #10, #17, #18, #19, #20, #21 |
+| 12.10.2026. ; MĆ, AJ, PP, NMR, NT, ST, MČ | Konzultacije, završavanje otvorenih zadataka |
 
 </details>
 
@@ -39,41 +26,35 @@ Za svaki relevantan sastanak ili zapis tjedne koordinacije upišite jedan sažet
 
 | Razdoblje/Tjedan | Glavni planirani rad | Odgovorni članovi | Poveznica na zadatke |
 | --- | --- | --- | --- |
-| Projektni tjedan 3 | Gruba početna stranica, README, stranica s routanjem, osnovna dokumentacija | MĆ, AJ, PP, NMR, NT, ST | Zadaci #1, #2, #3, #4, #5, #6, #7, #8 |
-| Projektni tjedni 4 i 5 | Osnovne funkcionalnosti: autentifikacija, prikaz konferencija i detalji konferencije, obrazac za predaju rada, "Moji radovi", pregled za predsjednika, struktura za recenzije | MĆ, MČ, NT, AJ, PP, ST, NMR | Zadaci #9, #10, #17, #18, #19, #20, #21, #22, #23 |
-
-Ako koristite tablicu, plan vodite na korisnoj tjednoj razini i ažurirajte ga kada se prioriteti promijene. Kratice članova tima definirajte  u A.1 i ovdje ih primjenjujte dosljedno; ako dva člana imaju iste inicijale, proširite kraticu. Plan nije dokaz da je planirani rad dovršen (to dokazuje kod i dokumentacija).
-
-<details>
-<summary><strong>Primjer plana rada</strong></summary>
-
-</details>
+| Projektni tjedan 1 (5. 10. – 11. 10. 2026.) | Formiranje tima i dodjela projektnog zadatka "KonfTrack"; upoznavanje sa zadatkom i pravilima kolegija | MĆ, AJ, PP, NMR, MČ, NT, ST | – |
+| Projektni tjedan 2 (12. 10. – 18. 10. 2026.) | Izrada GitHub repozitorija iz predloška kolegija (MĆ, 16. 10.); proučavanje zadatka, dogovor o tehnologijama i priprema za početni sastanak| MĆ, AJ, PP, NMR, MČ, NT, ST | – |
+| Projektni tjedan 3 (19. 10. – 25. 10. 2026.) | Početni sastanak (22. 10.) i podjela zadataka. Do 29. 10. izraditi grubu početnu stranicu, README, stranicu s routanjem i osnovnu dokumentaciju: routanje, autentifikacija i README (MĆ); osnovna Express aplikacija i lokalno pokretanje (AJ); osnovna korisnička stranica i frontend struktura (PP); početni model baze u PostgreSQL-u (NMR); arhitektura sustava (MČ); opis glavnih obrazaca uporabe (NT); osnovna projektna dokumentacija i evidencija rada (ST) | MĆ, AJ, PP, NMR, MČ, NT, ST | Zadaci #1, #2, #3, #4, #5, #6, #7, #8 |
+| Projektni tjedan 4 (26. 10. – 1. 11. 2026.) | Obavezni labos (29. 10.): pregled dosadašnjeg rada, konzultacije s profesorom i plan do 17. 11. Početak implementacije osnovnih funkcionalnosti | MĆ, AJ, PP, NMR, MČ, NT, ST | Zadaci #9, #10, #17, #18, #19, #20, #21 |
+| Projektni tjedni 5 i 6 (2. 11. – 15. 11. 2026.) | Osnovne funkcionalnosti: prijava preko vanjskog pružatelja identiteta (MĆ); obrazac za predaju rada (MČ, s PP); privremeno spremanje predanih radova i pregled „Moji radovi” (AJ i PP); korisničke stranice, frontend struktura i dinamički prikaz konferencija na početnoj stranici (PP, uz sudjelovanje na #20 i #21); stranica s detaljima konferencije (ST i PP); dohvat i obrada podataka o konferencijama (NMR). Konzultacije (12. 11.) i završavanje otvorenih zadataka te dokumentaciju (ST i NT) | MĆ, MČ, NT, AJ, PP, ST, NMR | Zadaci #9, #10, #17, #18, #19, #20, #21 |
+| Projektni tjedan 7 (16. 11. – 22. 11. 2026.) | Rok za osnovne funkcionalnosti (20. 11.); dovršavanje otvorenih zadataka iz tjedana 5 i 6 uz popunjavanje dokumentacije| MĆ, MČ, NT, AJ, PP, ST, NMR | Zadaci #9, #10, #17, #18, #19, #20, #21, #22, #23 |
 
 ## A.3 Aktivnosti i doprinosi članova
 
-**Cilj:** Prikazati koji su članovi radili na važnim projektnim aktivnostima i približan trud koji prijavljuju. Uz implementaciju uključite oblikovanje, dokumentaciju, integraciju, ispitivanje i postavljanje.
-
 | Aktivnost ili rezultat | Član | Prijavljeni sati | Reprezentativni rezultat ili poveznica |
 | --- | --- | --- | --- |
-|  |  |  |  |
-
-Koristite aktivnosti specifične za projekt umjesto obaveznog retka za svako poglavlje dokumentacije ili svaki UML dijagram. Tim treba dosljedno bilježiti sate i izbjegavati dvostruko brojanje zajedničkog rada; reprezentativni rezultat objašnjava što je prijavljeni trud proizveo. Sati su samoprijavljena procjena uloženog rada, a ne mjera kvalitete niti zamjena za pregled koda i artefakata.
-
-<details>
-<summary><strong>Primjer aktivnosti i rezultata rada</strong></summary>
-
-**Primjer — CrisisMap:** Tablica razlikuje implementaciju, integraciju i dokumentaciju te svaku aktivnost povezuje s rezultatom.
-
-| Aktivnost ili rezultat | Član | Prijavljeni sati | Reprezentativni rezultat ili poveznica |
-| --- | --- | --- | --- |
-| Ručni unos položaja na karti | AK | 8 | Zadatak #21; promjena klijentskog dijela. |
-| Provjera valjanosti i trajna pohrana prijave | LM | 10 | Zadatak #23; promjena pozadinskog sustava i ispitivanje. |
-| Integracija klijenta i API-ja te javno postavljanje | EP | 7 | Zadatak #25; konfiguracija u `render.yaml` i `dist/` |
-| Obrazac uporabe za podnošenje prijave i provjera odbijenog dopuštenja | NK | 5 | Završene izmjene UC-002 i ispitivanje ST-03. |
-
-**Trud i rezultat:** Završni stupac omogućuje raspravu o doprinosu bez tretiranja velikog broja sati kao dokaza isporuke. Tim može prijaviti stvarno dugotrajan, još neriješen problem integracije kao obavljen rad i iskreno opisati njegov ishod.
-
-</details>
+| Postavljanje repozitorija, README i početna stranica dokumentacije | MĆ | [h] | Zadatak #2; `README.md`, `docs/Home.md` |
+| Osnovna Express aplikacija i rute za EJS prikaze | MĆ, AJ | [h] | `backend/src/app.js`, `konftrack.controller.js` |
+| Registracija i prijava e-poštom s potvrdom adrese | MĆ | [h] | `auth.service.js`, `email.service.js`, `register.ejs`, `login.ejs` |
+| Prijava putem ORCID-a (OAuth 2.0) i sesije | MĆ | [h] | `orcid.service.js`, `auth.middleware.js`, `orcid-complete-registration.ejs` |
+| Trajno spremanje korisnika u PostgreSQL | MĆ | [h] | `user.model.js`; usklađen `db/database.sql` |
+| Usklađivanje frontenda s podacima iz backenda; ruta za detalje konferencije | MĆ | [h] | `GET /konferencije/:id`, proširena ruta `GET /predaj-rad` |
+| Frontend: EJS stranice, CSS i klijentske skripte | PP | [h] | `frontend/src/pages/*.ejs`, `style.css`, `script.js` |
+| Dinamički prikaz konferencija i stranica s detaljima konferencije | PP, ST | [h] | `home.ejs`, `konferencija.ejs` |
+| Obrazac za predaju rada | PP, MČ | [h] | `predaj-rad.ejs`, `predaj-rad.js` |
+| Validacija predaje rada i primanje PDF-a | MČ | [h] | `paper.service.js` (`validacijaRada`), `POST /spremi-rad` |
+| Arhitektura: dijagram komponenata, ključne odluke, ER dijagram i dijagram razreda | MČ | [h] | Poglavlje 4; `4-1-konftrack-system-CMP.puml`, `4-3-konftrack-domain-CD.puml` |
+| Model baze podataka: ER dijagram i SQL skripta | NMR | [h] | `4-2-Konftrack-data-ERD.puml`, `db/database.sql` |
+| Povezivanje backenda s bazom (Neon PostgreSQL) | NMR | [h] | `backend/src/db.js` |
+| Dohvat konferencija iz baze | NMR | [h] | `conference.model.js`, `conference.service.js` |
+| Spremanje predanog rada u bazu i pregled „Moji radovi” | NMR | [h] | `paper.model.js`; `moji-radovi.ejs` |
+| Obrasci uporabe (UC-01 do UC-32) i UML dijagram obrazaca uporabe | NT | [h] | Poglavlje 3; `3-1-KonfTrack.puml` |
+| Opis projekta, analiza zahtjeva i evidencija aktivnosti | ST | [h] | Poglavlja 1, 2 i A |
+| Pregled i spajanje pull requestova | MĆ | [h] | PR #33–#37 |
 
 ## A.4 Pregled promjena u repozitoriju
 
@@ -89,21 +70,6 @@ Graf može pokazati kada su zapisi promjena napravljeni i tko ih je napravio, al
 
 | Izazov | Poduzeta radnja | Ishod ili preostalo ograničenje |
 | --- | --- | --- |
-|  |  |  |
+| Frontend i backend razvijani su usporedno, pa EJS stranice za detalje konferencije i predaju rada nisu očekivale iste podatke koje backend šalje. Nakon prelaska na bazu konferencije su imale identifikator `conference_id`, a postojeći dijelovi sustava očekivali su `id`. | MĆ je uskladio prikaze `konferencija.ejs` i `predaj-rad.ejs` s podacima iz `conference.service.js` , a zatim u `pripremiKonferenciju` dodao atribut `id` izveden iz `conference_id`. | Početna stranica, detalji konferencije i obrazac za predaju ponovno prikazuju podatke iz baze. Ostaje ograničenje: u kodu se za isti podatak koriste dva naziva, što treba ujednačiti. |
+| Shema baze razvijala se na više grana istodobno, pa se `db/database.sql` na `main` grani razlikovao od verzije uz koju je pisan kod za autentifikaciju i predaju rada. Nazivi atributa u bazi i kodu nisu se podudarali. | MĆ je uskladio SQL s `main` granom: dodao stupce za token potvrde e-pošte i uklonio obaveznost stupca `datoteka`. NMR je ispravila nazive atributa u bazi i kodu . | Registracija i predaja rada spremaju se u bazu. Ostaje ograničenje: PDF datoteka zasad se ne pohranjuje, pa je `datoteka` u `paper_version` prazna. |
 
-<details>
-<summary><strong>Rješavanje nesklada formata lokacije</strong></summary>
-
-**Primjer — CrisisMap:**
-
-| Izazov | Poduzeta radnja | Ishod ili preostalo ograničenje |
-| --- | --- | --- |
-| Odabrani položaj na karti prikazivao se u klijentu, ali podnesena prijava nije zadržavala koordinate. | AK i EP usporedile su zahtjev preglednika s poljima lokacije koje očekuje API; AK je uskladila format zahtjeva, a LM je dodao provjeru valjanosti lokacije. | Nova prijava u ovom se scenariju može dohvatiti sa spremljenim položajem; tim povezuje odgovarajuću promjenu integracije i provjeru. |
-
-**Problem, odgovor i ishod:** Svaki se dio može provjeriti u projektu. Rečenica poput „imali smo poteškoće s integracijom i riješili ih timskim radom” ne bi čitatelju rekla što nije radilo ni kako je rješenje promijenjeno.
-
-</details>
-
----
-
->**Završna provjera:** Sastanci navode smislene ishode i odgovorne osobe; plan odražava namjeravani rad; tablica uloženog rada i generirani prikaz repozitorija odnose na ovaj vidljivi projekt; konkretni izazovi povezani su s radnjama i njihovim rezultatima. 
