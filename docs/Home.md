@@ -75,6 +75,7 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 | Alat | Inačica ili model | Koristio/la | Glavna svrha |
 | --- | --- | --- | --- |
 | ChatGPT | GPT-6 | Matej Ćurić | Pomoć pri razvoju koda, otklanjanju pogrešaka i izradi dokumentacije |
+| ChatGPT | GPT-6 | Antonio Jović | Tumačenje različitih Node/Express middleware-a |
 
 ### Opseg doprinosa umjetne inteligencije
 
