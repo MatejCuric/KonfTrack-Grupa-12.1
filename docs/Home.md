@@ -76,6 +76,7 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 | --- | --- | --- | --- |
 | ChatGPT | GPT-6 | Matej Ćurić | Pomoć pri razvoju koda, otklanjanju pogrešaka i izradi dokumentacije |
 | ChatGPT | GPT-6 | Antonio Jović | Tumačenje različitih Node/Express middleware-a |
+| Claude | Sonnet 5.5 | Nea Trumbić | Pomoć pri pisanju obrazaca uporabe i provjera povezanosti funkcijskih uvjeta s obrascima |
 
 ### Opseg doprinosa umjetne inteligencije
 
@@ -84,6 +85,7 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 | Autentifikacija i povezani kod | Pomoć pri implementaciji i otklanjanju pogrešaka | Prijedloge koda, objašnjenja i moguće načine rješavanja problema | Kod je prilagođen stvarnoj strukturi KonfTracka, zahtjevima projekta i postojećem kodu | [PR #26](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/pull/26) |
 | Dokumentacija projekta | Izrada nacrta / preoblikovanje | Prijedloge teksta i strukture dokumentacije | Tekst je provjeren, prilagođen stvarnom stanju projekta i dopunjen podacima tima | [README](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/main/README.md) |
 | Postavljanje aplikacije | Pomoć pri otklanjanju pogrešaka | Objašnjenja konfiguracije i prijedloge za rješavanje problema | Postupci su provjereni na stvarno deployanoj aplikaciji | [README – Postavljanje](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/main/README.md#postavljanje-engl-deployment) |
+| Dokumentacija: obrasci uporabe | Pomoć pri definiranju obrazaca i otklanjanju sintaktičkih pogrešaka | Prijedloge strukture dokumentacije, usklađene s UML dijagramom obrazaca uporabe | Tekst dokumentacije je prilagođen projektu i provjerena je pokrivenost zahtjeva F-001 do F-030 | [3-Obrasci-uporabe](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/main/docs/3-Obrasci-uporabe.md) |
 
 Stranice i artefakti koji nisu navedeni iznad izrađeni su bez pomoći generativne umjetne inteligencije. 
 
