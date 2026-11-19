@@ -45,9 +45,9 @@ ST - Stella Tomeljak
 | Usklađivanje frontenda s podacima iz backenda; ruta za detalje konferencije | MĆ | 2 | `GET /konferencije/:id`, proširena ruta `GET /predaj-rad` |
 | Frontend: EJS stranice, CSS i klijentske skripte | PP | [h] | `frontend/src/pages/*.ejs`, `style.css`, `script.js` |
 | Dinamički prikaz konferencija i stranica s detaljima konferencije | PP, ST | [h] | `home.ejs`, `konferencija.ejs` |
-| Obrazac za predaju rada | PP, MČ | [h] | `predaj-rad.ejs`, `predaj-rad.js` |
-| Validacija predaje rada i primanje PDF-a | MČ | [h] | `paper.service.js` (`validacijaRada`), `POST /spremi-rad` |
-| Arhitektura: dijagram komponenata, ključne odluke, ER dijagram i dijagram razreda | MČ | [h] | Poglavlje 4; `4-1-konftrack-system-CMP.puml`, `4-3-konftrack-domain-CD.puml` |
+| Obrazac za predaju rada | PP, MČ | 4 | `predaj-rad.ejs`, `predaj-rad.js` |
+| Validacija predaje rada i primanje PDF-a | MČ | 6 | `paper.service.js` (`validacijaRada`), `POST /spremi-rad` |
+| Arhitektura: dijagram komponenata, ključne odluke, ER dijagram i dijagram razreda | MČ | 5 | Poglavlje 4; `4-1-konftrack-system-CMP.puml`, `4-3-konftrack-domain-CD.puml` |
 | Model baze podataka: ER dijagram i SQL skripta | NMR | [h] | `4-2-Konftrack-data-ERD.puml`, `db/database.sql` |
 | Povezivanje backenda s bazom (Neon PostgreSQL) | NMR | [h] | `backend/src/db.js` |
 | Dohvat konferencija iz baze | NMR | [h] | `conference.model.js`, `conference.service.js` |
