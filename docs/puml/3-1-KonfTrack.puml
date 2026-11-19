@@ -4,12 +4,12 @@
  'Svrha:    Prikazuje tko i s kojim ciljem koristi sustav KonfTrack (javni
 '           posjetitelji, autori, recenzenti, predsjednici programskog odbora,
 '           administratori) te koje vanjske sustave sustav koristi (ORCID,
-'           Crossref, Google Calendar, e-pošta). Interna logika, pohrana
+'           Crossref, Google Calendar, e-pošta, baza podataka). Interna logika, pohrana
 '           podataka i korisničko sučelje namjerno nisu obuhvaćeni.
 ' Autor:    Nea Trumbić, kolegij Programsko inženjerstvo
 ' AI:       Dijagram je izradio autor. AI je pomogao u reviziji i komentarima;
 '           autor ih je pregledao i odgovara za konačni sadržaj.
-' Zahtjevi: UC-01 do UC-32 (F-001 do F-029, vidi tablicu u 3-Obrasci-uporabe.md)
+' Zahtjevi: UC-01 do UC-32 (F-001 do F-030, vidi tablicu u 3-Obrasci-uporabe.md)
 '
 ' Diagram level: System Requirements
 ' Diagram type:  Use Case Diagram
@@ -21,6 +21,8 @@ title Sustav KonfTrack - slučajevi uporabe
 left to right direction
 
 skinparam shadowing false
+skinparam nodesep 25
+skinparam ranksep 120
 skinparam defaultFontName Arial
 skinparam ArrowColor #212529
 
@@ -69,12 +71,17 @@ actor "e-pošta" as Mail <<external system>>
 actor "ORCID" as ORCID <<external system>>
 actor "Crossref" as Crossref <<external system>>
 actor "Google Calendar" as Calendar <<external system>>
+actor "Baza podataka" as DB <<external system>>
 
 ' Samo za raspored: vanjski sustavi u jednom stupcu desno
+' Samo za raspored: vanjski sustavi u jednom stupcu desno
 ORCID -[hidden]right- Crossref
-Crossref -[hidden]down- Calendar
-Calendar -[hidden]down- Mail
-Crossref -[hidden]down- ORCID
+Crossref -[hidden]right- Calendar
+Calendar -[hidden]right- Mail
+Mail -[hidden]right- DB
+
+
+
 
 ' ==============================================================================
 ' Granica sustava
@@ -131,7 +138,7 @@ rectangle "Sustav za upravljanje konferencijom" as ConferenceSystem {
 
     UC_ConflictProgram-[hidden]down- UC_Assignment
     UC_AuthorName -[hidden]-UC_NameChair
-
+    
 
 'note bottom of UC_Grade
 '  F-020: Sustav automatski šalje recenzentima
@@ -165,7 +172,7 @@ Author -- UC_PaperManagement
 ' Recenzent
 Reviewer -- UC_Invitation
 Reviewer -- UC_Interest
-Reviewer -- UC_Discourse
+Reviewer "3..*" -- UC_Discourse
 Reviewer -- UC_AllReviews
 Reviewer --UC_Grade
 
@@ -222,5 +229,18 @@ UC_Schedule -- Calendar
 UC_InviteReviewers -- Mail
 UC_Notify -- Mail
 UC_SubmitPaper -- Mail
+
+UC_PaperManagement -- DB
+UC_Statistics -- DB
+UC_Ideas -- DB
+UC_UserStatistic -- DB
+UC_AllReviews -- DB
+
+' Samo za raspored: vanjski sustavi desno od granice
+UC_CheckConflict -[hidden]down- ORCID
+UC_CheckConflict -[hidden]down- Crossref
+UC_CheckConflict -[hidden]down- Calendar
+UC_CheckConflict -[hidden]down- Mail
+UC_CheckConflict -[hidden]down- DB 
 
 @enduml
