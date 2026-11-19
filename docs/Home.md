@@ -80,6 +80,7 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 | ChatGPT | GPT-6 | Martina Čulina | Pomoć pri nalaženju rješenja za pohranu PDF datoteke, pomoć pri shvaćanju PlantUML sintakse, otklanjanje grešaka u kodu |
 | Claude | Sonnet 5.5 | Stella Tomeljak | Informiranje i objašnjavanje, pronalazak pogrešaka i otklanjanje istih |
 | Claude | Sonnet 5.5 | Patrik Paradžik | Pomoć pri otklanjanju pogrešaka i provjeri ispravnosti koda, davanje ideja za rješenja te objašnjavanje načina rada koda i Git naredbi |
+| ChatGPT | GPT-6 | Nina Mare Rogulj | Pomoć pri rješavanju nedoumica vezanih uz potrebne atribute u SQL bazi, upute o funkcionalnostima Gita, savjeti o načinu povezivanja baze s backendom
 
 ### Opseg doprinosa umjetne inteligencije
 
@@ -94,6 +95,7 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 | Frontend datoteke | Pomoć pri implementaciji, otklanjanju pogrešaka, provjeri točnosti i sintakse (Claude) | Prijedlozi ispravaka i provjera sintaktičke i logičke ispravnosti koda | Kod je testiran i prilagođen stvarnom izgledu i funkcionalnostima aplikacije | [frontend/src/pages](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/tree/main/frontend/src/pages), [frontend/public](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/tree/main/frontend/public) |
 | Backend logika i inicijalizacija aplikacije | Pomoć pri implementaciji i objašnjavanju arhitekture i načina rada (Claude) | Prijedlozi strukture koda i objašnjenja funkcioniranja ruta i kontrolera | Kod je prilagođen stvarnoj arhitekturi KonfTracka, bazi podataka i projektnim zahtjevima | [konftrack.controller.js](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/main/backend/src/controllers/konftrack.controller.js), [app.js](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/main/backend/src/app.js) |
 | Privremeni backend za prikaz sučelja | Pomoć pri izradi privremenog poslužitelja za testiranje izgleda stranica (Claude) | Primjeri jednostavnih ruta i lažnih (mock) podataka za prikaz pogleda | Iskorišteno isključivo lokalno za vizualnu provjeru frontenda, a kasnije zamijenjeno stvarnim backendom | Lokalni razvoj (zamijenjeno stvarnim backendom) |
+| SQL kod za kreiranje baze podataka | Pomoć pri odlukama o potrebnim tablicama i atributima | Prijedlozi ispravaka koda i provjera ispravnosti strukture baze |Kod je prilagođen stvarnim zahtjevima projekta i dogovorima tima |[database.sql](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/blob/db/database.sql) |
 
 Stranice i artefakti koji nisu navedeni iznad izrađeni su bez pomoći generativne umjetne inteligencije. 
 
