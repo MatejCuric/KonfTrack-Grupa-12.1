@@ -25,8 +25,6 @@ Navedene koristi su očekivane, a ne izmjerene.
 </details>
 
 ## 1.2 Ciljani korisnici i dionici
-<details>
-<summary><strong>Korisnici, dionici i neobavezna persona</strong></summary>
 
 | Skupina korisnika ili dionika | Potreba ili interes relevantan za ovaj projekt |
 |---|---|
@@ -35,6 +33,7 @@ Navedene koristi su očekivane, a ne izmjerene.
 | Recenzent | Prihvaća/odbija poziv; iskazuje interes i sukobe interesa; recenzira dodijeljene radove; sudjeluje u anonimnoj raspravi; prati rokove i prima podsjetnike |
 | Predsjednik programskog odbora | Upravlja konferencijom i rokovima; poziva recenzente; potvrđuje raspodjelu; donosi odluke; slaže program; produljuje rokove; šalje obavijesti autorima; određuje zamjenske recenzente; pregledava statistiku i generira zbornik |
 | Administrator | Odobrava nove konferencije; imenuje predsjednika programskog odbora; upravlja korisnicima i konferencijama; uređuje predloške e-pošte; pregledava statistiku korištenja; deaktivira račune |
+| Baza podataka (Dionik) | PostgreSQL na platformi Neon. Pohranjuje korisnike, konferencije, radove, recenzije, odluke i program. |
 
 **Primjer (osoba):** Pojedinac koji na jednoj konferenciji ima ulogu autora, a na drugoj recenzenta. Sustav mu prikazuje samo onu ulogu koja vrijedi za odabranu konferenciju. Ako ista osoba unutar jedne konferencije ima obje uloge, dobiva ih istodobno, ali joj je zabranjeno recenzirat vlastiti rad.
 
@@ -45,7 +44,7 @@ Navedene koristi su očekivane, a ne izmjerene.
 
 **Uključeno:** Cijeli životni ciklus rada na konferenciji: predaja rada, anonimna dvostruko slijepa recenzija s automatskom provjerom sukoba interesa, odluka programskog odbora, revizija i konačna verzija, slaganje programa te generiranje zbornika sažetaka.
 
-**Izvan opsega ili odgođeno:** Sustav se razvija kao projektni prototip i nije namijenjen za stvarnu konferenciju; upravljanje prostorom i logistikom konferencije (kapaciteti, raspored i rezervacija dvorana, tehnička oprema), u zadatku spomenuta organizacija dvorane od strane predsjednika.
+**Izvan opsega ili odgođeno:** Sustav se razvija kao projektni prototip i nije namijenjen za stvarnu konferenciju; upravljanje prostorom i logistikom konferencije (kapaciteti, raspored i rezervacija dvorana, tehnička oprema), u zadatku spomenuta organizacija dvorane od strane predsjednika. Odgođeno modeliranje ponašanja i arhitekture, ispitivanje komponenti i sustava, potpuna fonkcionalnost sustave te demonstracija i isporuka.
 
 **Vanjske ovisnosti:**
 
