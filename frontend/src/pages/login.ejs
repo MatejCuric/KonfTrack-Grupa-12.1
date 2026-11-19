@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>KonfTrack - Prijava</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/script.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <h1>KonfTrack</h1>
+
+        <nav>
+            <a href="/">Početna</a>
+            <a href="/register">Registracija</a>
+        </nav>
+    </header>
+
+    <!-- Glavni sadržaj -->
+    <main>
+
+        <!-- Obrazac za prijavu -->
+        <form action="/login" method="POST" class="card"
+              style="max-width: 400px; margin: 0 auto;">
+
+            <h2>Prijava u sustav</h2>
+
+            <!-- Poruka nakon uspješne registracije -->
+            <% if (registered) { %>
+                <p style="color: green;">
+                    Registracija je uspješna.
+                    Poslali smo vam e-mail s poveznicom za potvrdu adrese.
+                    Provjerite svoju e-poštu prije prijave.
+                </p>
+            <% } %>
+
+            <!-- Poruka nakon uspješne potvrde e-maila -->
+            <% if (verified) { %>
+                <p style="color: green;">
+                    Vaša e-mail adresa uspješno je potvrđena.
+                    Sada se možete prijaviti.
+                </p>
+            <% } %>
+
+            <!-- Poruka ako poveznica za potvrdu nije valjana ili je istekla -->
+            <% if (verificationError) { %>
+                <p style="color: red;">
+                    Poveznica za potvrdu nije valjana ili je istekla.
+                </p>
+            <% } %>
+
+            <% if (orcidError) { %>
+                <p style="color: red;">
+                ORCID prijava nije uspjela. Pokušajte ponovno.
+                </p>
+            <% } %>
+
+            <!-- Prikazuje grešku ako prijava nije uspjela -->
+            <% if (error) { %>
+                <p style="color: red;">
+                    <%= error %>
+                </p>
+            <% } %>
+
+            <!-- Polje za e-mail adresu -->
+            <div class="form-group">
+                <label for="email">E-mail adresa:</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    autocomplete="email"
+                    placeholder="Unesite e-mail adresu..."
+                >
+            </div>
+
+            <!-- Polje za lozinku -->
+            <div class="form-group">
+                <label for="password">Lozinka:</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                    autocomplete="current-password"
+                    placeholder="Unesite lozinku..."
+                >
+            </div>
+
+            <!-- Gumb za slanje obrasca -->
+            <button type="submit" class="btn"
+                    style="width: 100%; margin-top: 10px;">
+                Prijavi se
+            </button>
+
+            <!-- Poveznica na registraciju -->
+            <p>
+                Nemate račun?
+                <a href="/register">Registrirajte se</a>.
+            </p>
+
+            <a href="/auth/orcid" class="orcid-btn">Prijava putem ORCID-a</a>
+
+        </form>
+    </main>
+</body>
+</html>
