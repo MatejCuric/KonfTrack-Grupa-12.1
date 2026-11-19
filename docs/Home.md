@@ -78,6 +78,7 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 | ChatGPT | GPT-6 | Antonio Jović | Tumačenje različitih Node/Express middleware-a |
 | Claude | Sonnet 5.5 | Nea Trumbić | Pomoć pri pisanju obrazaca uporabe i provjera povezanosti funkcijskih uvjeta s obrascima |
 | ChatGPT | GPT-6 | Martina Čulina | Pomoć pri nalaženju rješenja za pohranu PDF datoteke, pomoć pri shvaćanju PlantUML sintakse, otklanjanje grešaka u kodu |
+| Claude | Sonnet 5.5 | Stella Tomeljak | Informiranje i objašnjavanje, pronalazak pogrešaka i otklanjanje istih |
 
 ### Opseg doprinosa umjetne inteligencije
 
