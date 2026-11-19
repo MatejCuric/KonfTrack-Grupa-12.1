@@ -37,12 +37,12 @@ ST - Stella Tomeljak
 
 | Aktivnost ili rezultat | Član | Prijavljeni sati | Reprezentativni rezultat ili poveznica |
 | --- | --- | --- | --- |
-| Postavljanje repozitorija, README i početna stranica dokumentacije | MĆ | [h] | Zadatak #2; `README.md`, `docs/Home.md` |
-| Osnovna Express aplikacija i rute za EJS prikaze | MĆ, AJ | [h] | `backend/src/app.js`, `konftrack.controller.js` |
-| Registracija i prijava e-poštom s potvrdom adrese | MĆ | [h] | `auth.service.js`, `email.service.js`, `register.ejs`, `login.ejs` |
-| Prijava putem ORCID-a (OAuth 2.0) i sesije | MĆ | [h] | `orcid.service.js`, `auth.middleware.js`, `orcid-complete-registration.ejs` |
-| Trajno spremanje korisnika u PostgreSQL | MĆ | [h] | `user.model.js`; usklađen `db/database.sql` |
-| Usklađivanje frontenda s podacima iz backenda; ruta za detalje konferencije | MĆ | [h] | `GET /konferencije/:id`, proširena ruta `GET /predaj-rad` |
+| Postavljanje repozitorija, README i početna stranica dokumentacije | MĆ | 3 | Zadatak #2; `README.md`, `docs/Home.md` |
+| Osnovna Express aplikacija i rute za EJS prikaze | MĆ, AJ | 4 | `backend/src/app.js`, `konftrack.controller.js` |
+| Registracija i prijava e-poštom s potvrdom adrese | MĆ | 8 | `auth.service.js`, `email.service.js`, `register.ejs`, `login.ejs` |
+| Prijava putem ORCID-a (OAuth 2.0) i sesije | MĆ | 8 | `orcid.service.js`, `auth.middleware.js`, `orcid-complete-registration.ejs` |
+| Trajno spremanje korisnika u PostgreSQL | MĆ | 3 | `user.model.js`; usklađen `db/database.sql` |
+| Usklađivanje frontenda s podacima iz backenda; ruta za detalje konferencije | MĆ | 2 | `GET /konferencije/:id`, proširena ruta `GET /predaj-rad` |
 | Frontend: EJS stranice, CSS i klijentske skripte | PP | [h] | `frontend/src/pages/*.ejs`, `style.css`, `script.js` |
 | Dinamički prikaz konferencija i stranica s detaljima konferencije | PP, ST | [h] | `home.ejs`, `konferencija.ejs` |
 | Obrazac za predaju rada | PP, MČ | [h] | `predaj-rad.ejs`, `predaj-rad.js` |
@@ -54,7 +54,7 @@ ST - Stella Tomeljak
 | Spremanje predanog rada u bazu i pregled „Moji radovi” | NMR | [h] | `paper.model.js`; `moji-radovi.ejs` |
 | Obrasci uporabe (UC-01 do UC-32) i UML dijagram obrazaca uporabe | NT | [h] | Poglavlje 3; `3-1-KonfTrack.puml` |
 | Opis projekta, analiza zahtjeva i evidencija aktivnosti | ST | [h] | Poglavlja 1, 2 i A |
-| Pregled i spajanje pull requestova | MĆ | [h] | PR #33–#37 |
+| Pregled i spajanje pull requestova | MĆ | 4 | PR #33–#37 |
 
 ## A.4 Pregled promjena u repozitoriju
 
