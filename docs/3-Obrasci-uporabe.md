@@ -25,6 +25,8 @@ Dijagram prikazuje cijeli životni ciklus rada na konferenciji, od predaje i rec
 - **Google Calendar** prima izvezeni osobni raspored.
 - **e-pošta** služi za registraciju, pozive i obavijesti.
 
+Također definiramo dionika **Baza podataka** koja sudjeluje u obrascima vezanim za pregled dostupnih podataka (u dijagramu je predstavljen kao sekundarni akter).
+
 Budući da projekt ovisi o tim sustavima, ta se ovisnost prikazuje i u dijagramu obrazaca uporabe. Tehnički detalji integracije pripadaju arhitekturnoj dokumentaciji.
 
 **Odabir aktera i ciljeva:**
@@ -35,7 +37,7 @@ Granica sustava pokazuje što platforma nudi. Akteri su uloge, a ne osobe: isti 
 - **predsjednik programskog odbora** vodi recenziju i slaže program
 - **administrator** održava platformu
 
-Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju aktera koji ih pokreće, pa nisu prikazane kao zasebni obrasci uporabe. Dijagram treba usporediti s odobrenim funkcijskim zahtjevima (F-001 do F-029) i akterima.
+Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju aktera koji ih pokreće, pa nisu prikazane kao zasebni obrasci uporabe. Dijagram treba usporediti s odobrenim funkcijskim zahtjevima (F-001 do F-030) i akterima.
 
 </details>
 
@@ -46,11 +48,7 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
 **Za svaki obrazac uporabe koristite jednu okomitu tablicu.** Navedite samo onoliko pojedinosti koliko interakcija zahtijeva; neprimjenjivu alternativu izostavite umjesto da je popunjavate samo radi forme.
 
 
-**KonfTrack**
-
-## 3.2 Specifikacije obrazaca uporabe
-
-**Opća pravila:** Isti korisnik može imati različite uloge na različitim konferencijama, a ovlasti se određuju zasebno za svaku konferenciju. Nakon isteka roka sustav onemogućuje odgovarajuće radnje (predaja, recenzije, obavijesti, konačne verzije).Zbornik je dostupan samo prijavljenim korisnicima.
+**Opća pravila:** Isti korisnik može imati različite uloge na različitim konferencijama, a ovlasti se određuju zasebno za svaku konferenciju. Nakon isteka roka sustav onemogućuje odgovarajuće radnje (predaja, recenzije, obavijesti, konačne verzije). Zbornik je dostupan samo prijavljenim korisnicima. Sustav sam predlaže raspodjelu recenzenata.
 
 **UC-01: Pregled javne stranice konferencije.**
 
@@ -145,7 +143,7 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
 | --- | --- |
 | Primarni akter | Recenzent (A-03) |
 | ID zahtjeva | F-019 |
-| Preduvjeti, ako postoje | Recenzent je dodijeljen radu i sve recenzije za taj rad su predane. |
+| Preduvjeti, ako postoje | Radu je dodijeljeno najmanje tri recenzenta (UC-11) i sve recenzije za taj rad su predane (UC-32). |
 | Glavni tijek | 1. Recenzent otvara raspravu rada.<br>2. Sustav prikazuje recenzije ostalih recenzenata tog rada.<br>3. Recenzent piše komentare u raspravi; sudionici su prikazani kao „Recenzent 1”, „Recenzent 2” itd. |
 | Rezultat | Recenzenti raspravljaju o radu bez otkrivanja vlastitih identiteta; autori raspravu ne vide. |
 
@@ -155,7 +153,7 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
 | Polje | Opis |
 | --- | --- |
 | Primarni akter | Predsjednik programskog odbora (A-04) |
-| ID zahtjeva | F-006, F-29|
+| ID zahtjeva | F-006, F-029|
 | Preduvjeti, ako postoje | Administrator je odobrio konferenciju i imenovao predsjednika (UC-14). |
 | Glavni tijek | 1. Predsjednik unosi naziv, mjesto, datume održavanja, vremenska zonu i teme.<br>2. Predsjednik određuje rokove: predaja radova, recenzije, obavijest autorima, predaja konačnih verzija.<br>3. Sustav sprema podatke i prikazuje ih na javnoj stranici konferencije. |
 | Alternativni ili neuspješni tijekovi, ako postoje | **1a — Nedostaju obavezni podaci:** sustav ne sprema nepotpune podatke.<br>**2a — Predsjednik produljuje rok (F-029):** sustav ažurira rok i obavještava sve zahvaćene korisnike.|
@@ -166,11 +164,11 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
 | Polje | Opis |
 | --- | --- |
 | Primarni akter | Predsjednik programskog odbora (A-04) |
-| ID zahtjeva |F-017; uključuje UC-17; proširuje ga UC-18|
-| Preduvjeti, ako postoje | Rok predaje radova je istekao, recenzenti su iskazali interes (UC-08) i sustav je predložio raspodjelu: najmanje tri recenzenta po radu, ravnomjerno opterećenje, bez sukoba interesa.|
-| Glavni tijek | 1. Predsjednik otvara prijedlog raspodjele koji je izradio sustav.<br>2. Sustav provjerava sukobe interesa.<br>3. Predsjednik po potrebi ručno mijenja dodjele.<br>4. Predsjednik potvrđuje raspodjelu. |
-| Alternativni ili neuspješni tijekovi, ako postoje | **3a — Recenzent je autor rada:** sustav blokira dodjelu uz poruku.<br>**3b — Recenzija kasni ili je utvrđen sukob interesa:** predsjednik dodjeljuje zamjenskog recenzenta (UC-18). |
-| Rezultat | Radovi su dodijeljeni recenzentima bez sukoba interesa i bez recenziranja vlastitog rada. |
+| ID zahtjeva |F-017, F-030|
+| Preduvjeti, ako postoje | Rok predaje radova je istekao, recenzenti su iskazali interes (UC-08) i sustav je predložio raspodjelu radova recenzentima. |
+| Glavni tijek | 1. Predsjednik otvara prijedlog raspodjele koji je izradio sustav (najmanje tri recenzenta po radu, ravnomjerno opterećenje).<br>2. Sustav provjerava sukobe interesa (UC-17).<br>3. Predsjednik po potrebi ručno mijenja dodjele.<br>4. Predsjednik potvrđuje raspodjelu. |
+| Alternativni ili neuspješni tijekovi, ako postoje |**3a — Recenzent je autor rada:** sustav blokira dodjelu uz poruku.<br>**3b — Recenzija kasni ili je utvrđen sukob interesa:** predsjednik dodjeljuje zamjenskog recenzenta (UC-18).<br>**4a — Rad ima manje od tri recenzenta:** sustav upozorava predsjednika i ne dopušta potvrdu raspodjele; predsjednik može dodijeliti zamjenskog recenzenta (UC-18) i ponovno potvrđuje raspodjelu.|
+| Rezultat | Svaki rad ima najmanje tri recenzenta, bez sukoba interesa i bez recenziranja vlastitog rada. |
 
 **UC-12: Odluke o radovima.**
  
@@ -178,7 +176,7 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
 | --- | --- |
 | Primarni akter | Predsjednik programskog odbora (A-04) |
 | ID zahtjeva | F-021 |
-| Preduvjeti, ako postoje | Predsjednik je otvorio pregled „Odluke” (UC-25) i minimalno 3 recenzije rada su predane. |
+| Preduvjeti, ako postoje | Predsjednik je otvorio pregled „Odluke” (UC-25) i za rad o kojem odlučuje predane su sve recenzije (UC-32). |
 | Glavni tijek | 1. Predsjednik odabire rad.<br>2. Predsjednik bira odluku: prihvaćen, potrebna revizija ili odbijen.<br>3. Sustav sprema odluku i ažurira stanje rada. |
 | Rezultat | Odluka je spremljena, a stanje rada ažurirano. |
 
@@ -218,7 +216,7 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Autor/koautor (A-02), preko UC-04 |
+| Primarni akter | Autor/koautor (A-02) |
 | ID zahtjeva | F-009 |
 | Preduvjeti, ako postoje | Autor je priložio PDF tijekom predaje rada (UC-04). |
 | Glavni tijek | 1. Sustav provjerava format PDF-a i najveći dopušteni broj stranica.<br>2. Sustav provjerava sadrže li metapodaci imena autora.<br>3. Ako su uvjeti zadovoljeni, sustav dopušta nastavak predaje. |
@@ -229,7 +227,7 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Predsjednik programskog odbora (A-04), preko UC-11; sekundarni akter: ORCID (A-06) |
+| Primarni akter | Predsjednik programskog odbora (A-04); sekundarni akter: ORCID (A-06) |
 | ID zahtjeva | F-016 |
 | Preduvjeti, ako postoje | Postoji prijedlog raspodjele radova (UC-11). |
 | Glavni tijek | 1. Sustav uzima sukobe interesa koje su recenzenti sami prijavili (UC-08).<br>2. Sustav iz ORCID-a dohvaća podatke o ustanovama i koautorstvima.<br>3. Sustav utvrđuje sukob ako recenzent radi na istoj ustanovi kao neki od autora ili je s nekim od autora bio koautor u posljednje tri godine.<br>4. Recenzenti u sukobu isključuju se iz dodjele tog rada. |
@@ -272,10 +270,10 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Autor/koautor (A-02) |
+| Primarni akter | Autor/koautor (A-02); dionik: Baza podataka (D-01) |
 | ID zahtjeva | F-012 |
 | Preduvjeti, ako postoje | Autor je prijavljen.|
-| Glavni tijek | 1. Autor otvara pregled „Moji radovi”.<br>2. Sustav prikazuje radove i njihova stanja (nacrt, predan, u recenziji, potrebna revizija, prihvaćen, odbijen, konačna verzija predana, uvršten u program); stanje nije označeno samo bojom. |
+| Glavni tijek | 1. Autor otvara pregled „Moji radovi”.<br>2. Sustav dohvaća radove autora iz baze podataka.<br>3. Sustav prikazuje radove i njihova stanja (nacrt, predan, u recenziji, potrebna revizija, prihvaćen, odbijen, konačna verzija predana, uvršten u program); stanje nije označeno samo bojom. |
 | Rezultat | Autor vidi aktualna stanja svih svojih radova. |
 
 **UC-22: Pregled zbornika sažetaka.**
@@ -305,20 +303,20 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Predsjednik programskog odbora (A-04) |
+| Primarni akter | Predsjednik programskog odbora (A-04); dionik: Baza podataka (D-01) |
 | ID zahtjeva | F-004 |
 | Preduvjeti, ako postoje | Predsjednik je prijavljen. |
-| Glavni tijek | 1. Predsjednik otvara pregled „Statistika”.<br>2. Sustav prikazuje broj predanih radova po temama, udio prihvaćenih radova, prosječno trajanje recenzije i opterećenje pojedinih recenzenata.<br>3. Predsjednik po potrebi izvozi podatke u CSV formatu. |
+| Glavni tijek | 1. Predsjednik otvara pregled „Statistika”.<br>2. Sustav dohvaća podatke konferencije iz baze podataka.<br>3. Sustav prikazuje broj predanih radova po temama, udio prihvaćenih radova, prosječno trajanje recenzije i opterećenje pojedinih recenzenata.<br>4. Predsjednik po potrebi izvozi podatke u CSV formatu.|
 | Rezultat | Predsjednik vidi statistiku konferencije i može je izvesti. |
 
 **UC-25: Pregled „Odluke”.**
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Predsjednik programskog odbora (A-04) |
+| Primarni akter | Predsjednik programskog odbora (A-04); dionik: Baza podataka (D-01) |
 | ID zahtjeva | F-021 |
 | Preduvjeti, ako postoje | Postoje radovi u recenziji. |
-| Glavni tijek | 1. Predsjednik otvara pregled „Odluke”.<br>2. Sustav prikazuje tablicu radova s prosječnom ocjenom, brojem pristiglih recenzija i oznakom znatnog neslaganja ocjena recenzenata. |
+| Glavni tijek | 1. Predsjednik otvara pregled „Odluke”.<br>2. Sustav dohvaća radove i recenzije iz baze podataka<br>3. Sustav prikazuje tablicu radova s prosječnom ocjenom, brojem pristiglih recenzija i oznakom znatnog neslaganja ocjena recenzenata. |
 | Rezultat | Predsjednik ima na jednom mjestu podatke potrebne za odluke. |
 
  
@@ -326,7 +324,7 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Predsjednik programskog odbora (A-04), preko UC-13 |
+| Primarni akter | Predsjednik programskog odbora (A-04) |
 | ID zahtjeva | F-025 |
 | Preduvjeti, ako postoje | Predsjednik je rasporedio radove u sekcije (UC-13). |
 | Glavni tijek | 1. Sustav provjerava da nijedan izlagač nema dva izlaganja u isto vrijeme.<br>2. Sustav provjerava da predsjedavajući sekcije nije autor nekog od radova u toj sekciji. |
@@ -357,17 +355,17 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Administrator (A-05) |
+| Primarni akter | Administrator (A-05); dionik: Baza podataka(D-01) |
 | ID zahtjeva | F-005 |
 | Preduvjeti, ako postoje | Administrator je prijavljen. |
-| Glavni tijek | 1. Administrator otvara statistiku korištenja sustava.<br>2. Sustav prikazuje podatke o korištenju platforme. |
+| Glavni tijek | 1. Administrator otvara statistiku korištenja sustava.<br>2. Sustav dohvaća podatke o korištenju iz baze podataka.<br>3. Sustav prikazuje podatke o korištenju platforme. |
 | Rezultat | Administrator vidi statistiku korištenja sustava. |
 
 **UC-30: Imenovanje predsjednika** *(uključen u UC-14).*
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Administrator (A-05), preko UC-14 |
+| Primarni akter | Administrator (A-05)|
 | ID zahtjeva | F-015 |
 | Preduvjeti, ako postoje | Administrator odobrava konferenciju (UC-14). |
 | Glavni tijek | 1. Administrator odabire registriranog korisnika.<br>2. Sustav tom korisniku dodjeljuje ulogu predsjednika programskog odbora za tu konferenciju. |
@@ -377,10 +375,10 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Recenzent (A-03) |
+| Primarni akter | Recenzent (A-03); dionik: Baza podataka(D-01) |
 | ID zahtjeva | F-018 |
 | Preduvjeti, ako postoje | Recenzentu su dodijeljeni radovi (UC-11). |
-| Glavni tijek | 1. Recenzent otvara pregled „Moje recenzije”.<br>2. Sustav prikazuje dodijeljene radove i rokove, bez imena autora; recenzije koje kasne posebno su označene. |
+| Glavni tijek | 1. Recenzent otvara pregled „Moje recenzije”.<br>2. Sustav dohvaća dodijeljene radove i rokove iz baze podataka.<br>3. Sustav prikazuje dodijeljene radove i rokove, bez imena autora; recenzije koje kasne posebno su označene. |
 | Rezultat | Recenzent ima pregled svojih obveza i rokova. |
 
 **UC-32: Predaja ocjene.**
@@ -390,8 +388,7 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
 | Primarni akter | Recenzent (A-03) |
 | ID zahtjeva | F-018, F-020 (podsjetnici i oznaka kasnih recenzija) |
 | Preduvjeti, ako postoje | Recenzentu je dodijeljen rad i rok za recenziju nije istekao. |
-| Glavni tijek | 1. Recenzent na pregledu „Moje recenzije” odabire rad i preuzima anonimizirani rukopis.<br>2. Recenzent upisuje ocjenu (od −3 do +3), procjenu vlastite stručnosti (od 1 do 5), komentar za autore i povjerljivi komentar za programski odbor.<br>3. Sustav sprema recenziju. |
-| Alternativni ili neuspješni tijekovi, ako postoje | **Ponašanje sustava:** sustav šalje podsjetnike e-poštom 7 i 2 dana prije roka i vidljivo označava recenzije koje kasne. |
+| Glavni tijek | 1. Sustav šalje recenzentu podsjetnike e-poštom 7 i 2 dana prije roka i vidljivo označava recenzije koje kasne.<br>2. Recenzent na pregledu „Moje recenzije” odabire rad i preuzima anonimizirani rukopis.<br>3. Recenzent upisuje ocjenu (od −3 do +3), procjenu vlastite stručnosti (od 1 do 5), komentar za autore i povjerljivi komentar za programski odbor.<br>4. Sustav sprema recenziju. |
 | Rezultat | Recenzija je spremljena; identitet autora ostaje skriven recenzentu, a identitet recenzenta autoru. |
 
  
@@ -404,9 +401,9 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
 
 | Provjera | Pitanje za tim |
 | --- | --- |
-| Zahtjev | Je li svaki važan obrazac uporabe povezan s postojećim zahtjevom? |
-| Akter | Odgovara li akter naveden ovdje prethodno utvrđenoj ulozi i dopuštenoj interakciji? |
-| Aplikacija | Može li tim demonstrirati opisani glavni rezultat i važnu alternativu ili je opis jasno označen kao trenutačno oblikovanje? |
+| Zahtjev | Je li svaki važan obrazac uporabe povezan s postojećim zahtjevom? Da. |
+| Akter | Odgovara li akter naveden ovdje prethodno utvrđenoj ulozi i dopuštenoj interakciji? Da. |
+| Aplikacija | Može li tim demonstrirati opisani glavni rezultat i važnu alternativu ili je opis jasno označen kao trenutačno oblikovanje? Da.|
 
 ---
 
@@ -429,7 +426,7 @@ Povezivanje zahtjev → obrazac uporabe → ispitivanje održavajte **samo jedno
 | UC-08 | Iskazivanje interesa za radove | F-014: Iskazivanje interesa za radove |
 | UC-09 | Rasprava s recenzentima | F-019: Anonimna rasprava recenzenata |
 | UC-10 | Definiranje konferencije | F-006: Podaci, vremenska zona i rokovi konferencije; F-029: Produljenje roka |
-| UC-11 | Uređivanje raspodjele radova recenzentima | F-017: Ručna izmjena raspodjele |
+| UC-11 | Uređivanje raspodjele radova recenzentima | F-017: Ručna izmjena raspodjele, F-030: Minimalno 3 recenzenta po radu |
 | UC-12 | Odluke o radovima | F-021: Odabir odluke o radu |
 | UC-13 | Slaganje programa konferencije | F-025: Slaganje programa konferencije |
 | UC-14 | Odobravanje konferencije | F-015: Odobravanje nove konferencije |
@@ -452,13 +449,13 @@ Povezivanje zahtjev → obrazac uporabe → ispitivanje održavajte **samo jedno
 | UC-31 | Pregled „Moje recenzije” | F-018: Pregled dodijeljenih radova i rokova |
 | UC-32 | Predaja ocjene | F-018: Predaja recenzije; F-020: Podsjetnici i oznaka kasnih recenzija |
 
-Svi funkcijski zahtjevi od F-001 do F-029 pokriveni su barem jednim obrascem uporabe.
+Svi funkcijski zahtjevi od F-001 do F-030 pokriveni su barem jednim obrascem uporabe.
  
-**Zahtjevi i pravila bez zasebnog obrasca:** Pravila o ulogama po konferenciji i o onemogućavanju radnji nakon isteka roka proizlaze iz zadatka i opisana su kao opća pravila na početku odjeljka 3.2. Automatske radnje sustava nemaju aktera koji ih pokreće, pa su opisane unutar obrazaca kojih se tiču: podsjetnici recenzentima (F-020) kao ponašanje sustava u UC-32, generiranje zbornika (F-027) kao preduvjet UC-22, a prijedlog raspodjele radova kao preduvjet UC-11.
+**Zahtjevi i pravila bez zasebnog obrasca:**Pravila o ulogama po konferenciji i o onemogućavanju radnji nakon isteka roka proizlaze iz zadatka i opisana su kao opća pravila na početku odjeljka 3.2. Automatske radnje sustava nemaju aktera koji ih pokreće, pa su opisane unutar obrazaca kojih se tiču: podsjetnici recenzentima (F-020) kao korak 1 glavnog tijeka u UC-32, generiranje zbornika (F-027) kao preduvjet UC-22, a prijedlog raspodjele radova s najmanje tri recenzenta po radu (F-030) kao preduvjet i korak 1 u UC-11.
 
 **Problemi pokrivenosti koje treba riješiti:**
 
-- **Prijedlog raspodjele bez zahtjeva:** zadatak traži da sustav predloži raspodjelu (najmanje tri recenzenta po radu, ravnomjerno opterećenje), ali u 2.1 za to ne postoji zaseban funkcijski zahtjev; F-017 pokriva samo ručnu izmjenu raspodjele.
+- **Prijedlog raspodjele bez zahtjeva:** 
 
 </details>
 

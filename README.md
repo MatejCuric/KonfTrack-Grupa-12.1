@@ -84,7 +84,7 @@ Uloge se tijekom projekta mogu mijenjati. Repozitorij i dogovoreni alat za prać
 
 ## Doprinos projektu
 
-Zadaci i uočeni nedostaci evidentiraju se putem [GitHub Issues](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/issues), gdje članovi tima preuzimaju zadatke povezane sa svojim područjem odgovornosti. Promjene koda razvijaju se na zasebnim granama te se putem Pull Requestova predlažu za spajanje u odgovarajuću ciljnu granu (`dev` ili `main`), kako bi se mogle pregledati prije spajanja. Aktualni zadaci i nedostaci prate se putem GitHub Issues, a povijest promjena dostupna je u GitHub repozitoriju.
+Zadaci i uočeni nedostaci evidentiraju se putem [GitHub Issues](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/issues) i [Github Projects](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/projects), gdje članovi tima preuzimaju zadatke povezane sa svojim područjem odgovornosti. Promjene koda razvijaju se na zasebnim granama te se putem Pull Requestova predlažu za spajanje u odgovarajuću ciljnu granu (`dev` ili `main`), kako bi se mogle pregledati prije spajanja. Aktualni zadaci i nedostaci prate se putem GitHub Projects, a povijest promjena dostupna je u GitHub repozitoriju.
 
 <a id="license"></a>
 
