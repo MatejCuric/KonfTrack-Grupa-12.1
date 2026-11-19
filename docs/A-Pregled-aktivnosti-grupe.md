@@ -40,7 +40,7 @@ Za svaki relevantan sastanak ili zapis tjedne koordinacije upišite jedan sažet
 | Razdoblje/Tjedan | Glavni planirani rad | Odgovorni članovi | Poveznica na zadatke |
 | --- | --- | --- | --- |
 | Projektni tjedan 3 | Gruba početna stranica, README, stranica s routanjem, osnovna dokumentacija | MĆ, AJ, PP, NMR, NT, ST | Zadaci #1, #2, #3, #4, #5, #6, #7, #8 |
-| Projektni tjedni 3 i 4 | Osnovne funkcionalnosti: autentifikacija, prikaz konferencija i detalji konferencije, obrazac za predaju rada, "Moji radovi", pregled za predsjednika, struktura za recenzije | MĆ, MČ, NT, AJ, PP, ST, NMR | Zadaci #9, #10, #17, #18, #19, #20, #21, #22, #23 |
+| Projektni tjedni 4 i 5 | Osnovne funkcionalnosti: autentifikacija, prikaz konferencija i detalji konferencije, obrazac za predaju rada, "Moji radovi", pregled za predsjednika, struktura za recenzije | MĆ, MČ, NT, AJ, PP, ST, NMR | Zadaci #9, #10, #17, #18, #19, #20, #21, #22, #23 |
 
 Ako koristite tablicu, plan vodite na korisnoj tjednoj razini i ažurirajte ga kada se prioriteti promijene. Kratice članova tima definirajte  u A.1 i ovdje ih primjenjujte dosljedno; ako dva člana imaju iste inicijale, proširite kraticu. Plan nije dokaz da je planirani rad dovršen (to dokazuje kod i dokumentacija).
 
