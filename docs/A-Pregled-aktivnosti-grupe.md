@@ -60,11 +60,27 @@ ST - Stella Tomeljak
 
 ## A.4 Pregled promjena u repozitoriju
 
-**Cilj:** Prikazati kada su promjene napravljene u repozitoriju i tko ih je napravio, uz napomenu da sam broj zapisa promjena ne mjeri kvalitetu doprinosa.
+**Prikaz aktivnosti repozitorija:** Grafovi su generirani iz GitHubovog prikaza
+[Contributors](https://github.com/MatejCuric/KonfTrack-Grupa-12.1/graphs/contributors)
+za razdoblje od 15. 8. 2026. do 20. 11. 2026. (snimljeno 20. 11. 2026.).
 
-**Prikaz aktivnosti repozitorija:** [Ugradite ili povežite GitHubov prikaz `Contributors` i generirani graf za projektni repozitorij; navedite razdoblje koje obuhvaća.]
+### Ukupni broj commitova po tjednima
 
-Graf može pokazati kada su zapisi promjena napravljeni i tko ih je napravio, ali ne prikazuje sav rad na oblikovanju, ispitivanju, integraciji, pregledu ili dokumentaciji. Ako postoji uočljiv nesklad s tablicom aktivnosti, kratko ga objasnite; nemojte iz grafa izvoditi broj sati. Generirani prikaz neka bude vezan uz stvarni repozitorij umjesto da se ručno crta drugi graf.
+![Broj commitova po tjednima](slike/commits-over-time.png)
+
+### Doprinos po članovima
+
+| Član | Graf |
+| --- | --- |
+| Matej Ćurić | ![Matej Ćurić](slike/matej.png) |
+| Nina Mare Rogulj | ![Nina Mare Rogulj](slike/nina.png) |
+| Stella Tomeljak | ![Stella Tomeljak](slike/stella.png) |
+| Patrik Paradžik | ![Patrik Paradžik](slike/patrik.png) |
+| Martina Čulina | ![Martina Čulina](slike/martina.png) |
+| Nea Trumbić | ![Nea Trumbić](slike/nea.png) |
+| Antonio Jović | ![Antonio Jović](slike/antonio1.png) ![Antonio Jović](slike/antoni2.png) |
+
+Graf broji samo commitove na grani `main` i isključuje merge commitove, pa ne prikazuje sav rad na oblikovanju, ispitivanju, integraciji, pregledu i dokumentaciji. Broj commitova ne mjeri kvalitetu doprinosa niti uloženo vrijeme
 
 ## A.5 Ključni inženjerski izazovi i rješenja
 
