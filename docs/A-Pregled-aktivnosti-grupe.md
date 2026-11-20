@@ -56,7 +56,7 @@ ST - Stella Tomeljak
 | Opis projekta, analiza zahtjeva i evidencija aktivnosti | ST | 12 | Poglavlja 1, 2 i A |
 | Pregled i spajanje pull requestova | MĆ | 4 | PR #33–#37 |
 | Izrada PDF dokumentacije | ST | 1 | /docs/deliverables |
-| Definiranje Sprinta i DoD | NMR | 2 | docs/meeting-notes/sprint-01.md |
+| Definiranje Sprinta i DoD | NMR, NT | 2 | docs/meeting-notes/sprint-01.md |
 
 ## A.4 Pregled promjena u repozitoriju
 
