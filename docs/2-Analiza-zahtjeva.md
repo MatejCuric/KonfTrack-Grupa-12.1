@@ -59,10 +59,11 @@ Svaki zahtjev treba imati stabilan ID. Izvor svih zahtjeva je odobreni projektni
 | NF-03 | Rokovi se izražavaju u vremenskoj zoni koju odabere predsjednik, a korisniku se prikazuju i u lokalnom vremenu. | Visok | Odobreni zadatak | Testni scenarij s rokom u drugoj vremenskoj zoni. |
 | NF-04 | Sustav podržava istodobni rad većeg broja korisnika, osobito pred istek roka za predaju. | Srednji | Odobreni zadatak; brojka: odluka tima | Test opterećenja (50 istodobnih korisnika uz odziv do 2s). |
 | NF-05 | Isti korisnički račun može istodobno sudjelovati na više konferencija s različitom ulogom na svakoj, a na svakoj vidi samo ono što ta uloga dopušta | Visok | Odobreni zadatak; dio o prikazu prema ulozi: odluka tima | Testni scenarij: korisnik je autor na jednoj, a recenzent na drugoj konferenciji i na svakoj vidi samo ono što ta uloga dopušta. |
-| NF-06 | Autorizacija se provodi putem OAuth 2.0 tokena koji se ne prikazuju u sučelju. | Visok | Odobreni zadatak | Pregled sučelja i API odgovora; tokeni nisu vidljivi korisniku. |
+| NF-06 | Autorizacija se provodi putem OAuth 2.0 tokena koji se ne prikazuju u sučelju. | Visok | Sigurnost podataka | Pregled sučelja i API odgovora; tokeni nisu vidljivi korisniku; zaštita podataka. |
 | NF-07 | Povjerljivi komentar recenzenta vidljiv je samo programskom odboru, a nikad autorima ni drugim recenzentima. | Visok | Odobreni zadatak | Testni scenarij: povjerljivi komentar se ne pojavljuje u sučelju, e-pošti ni API odgovorima autora i recenzenata. |
 | NF-08 | Nedostupnost vanjskog servisa (ORCID, Crossref, Google Calendar) ne onemogućuje rad ostatka sustava, a korisnik dobiva razumljivu poruku. | Visok | Odluka | Testni scenarij: servis je isključen ili vraća grešku; ostale funkcije rade i prikazuje se poruka. |
 | NF-09 | Zbornik sažetaka generira se u PDF formatu, a izvoz statistike u CSV formatu. | Srednji | Odobreni zadatak | Testni scenarij: servis je isključen ili vraća grešku; ostale funkcije rade i prikazuje se poruka. |
+
 
 
 ## 2.3 Dionici i akteri

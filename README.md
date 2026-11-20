@@ -72,13 +72,13 @@ Nakon postavljanja varijabli okruženja pokrenite aplikaciju naredbom `npm start
 
 | Član | Glavna uloga ili doprinos |
 | --- | --- |
-| Antonio Jović | Backend |
-| Matej Ćurić | Backend, autentifikacija i deployment|
-| Patrik Paradžik | Frontend |
-| Nina Mare Rogulj | Izrada modela baze podataka, deployment baze na vanjski servis i povezivanje baze i backenda |
-| Stella Tomeljak | Izlučivanje, analiza i dokumentacija funkcijskih i nefunkcijskih zahtjeva, te sudjelovanje u implementaciji stvarnih funkcionalnosti sustava |
-| Nea Trumbić | Izrada i dokumentiranje obrazaca uporabe i pripadajućih dijagrama na osnovu zahtjeva aplikacije, te sudjelovanje u implementaciji |
-| Martina Čulina | Izrada, analiza i dokumentiranje arhitekture sustava i pripadajućih dijagrama, te sudjelovanje u implementaciji|
+| Antonio Jović - antonio.jovic@fer.unizg.hr | Backend |
+| Matej Ćurić - matej.curic@fer.unizg.hr | Backend, autentifikacija i deployment|
+| Patrik Paradžik - patrik.paradzik@fer.unizg.hr | Frontend |
+| Nina Mare Rogulj - Nina-Mare.Rogulj@fer.unizg.hr | Izrada modela baze podataka, deployment baze na vanjski servis i povezivanje baze i backenda |
+| Stella Tomeljak - stella.tomeljak@fer.unizg.hr | Izlučivanje, analiza i dokumentacija funkcijskih i nefunkcijskih zahtjeva, te sudjelovanje u implementaciji stvarnih funkcionalnosti sustava |
+| Nea Trumbić - nea.trumbic@fer.unizg.hr | Izrada i dokumentiranje obrazaca uporabe i pripadajućih dijagrama na osnovu zahtjeva aplikacije, te sudjelovanje u implementaciji |
+| Martina Čulina - martina.culina@fer.unizg.hr| Izrada, analiza i dokumentiranje arhitekture sustava i pripadajućih dijagrama, te sudjelovanje u implementaciji|
 
 Uloge se tijekom projekta mogu mijenjati. Repozitorij i dogovoreni alat za praćenje zadataka (engl. task tracker) služe kao dodatni dokazi timskog rada.
 
