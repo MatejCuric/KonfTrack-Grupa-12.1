@@ -155,8 +155,8 @@ Ograničenje je uvjet koji tim mora poštovati; pretpostavka je uvjet na koji se
 | Kontrolna točka | Povratna informacija ili nalaz | Odluka o zahtjevu ili opsegu |
 | --- | --- | --- |
 | Iteracija 1 (19.11.2026.) | Asistent je zatražio da se baza podataka uključi među sekundarne aktere. | Baza podataka (PostgreSQL na platformi Neon) dodana je u tablicu aktera i dionika u A-06 s ostalim sekundarnim akterima, uz povezane zahtjeve F-004, F-005, F-012, F-018 i F-021. |
-| Iteracija 1 (19.11.2026.) | Asistent je zatražio da se nadopuni definicija gotovosti (DoD) te popuni dokumentacija za Sprint | Definirana je definicija gotovosti; rezultat Sprinta je inkrement koji zadovoljava DoD. |
-| Iteracija 1 (19.11.2026) | Demosica je zatražila dodavanje vizualne ploče | Vizualna ploča dodana te dodani svi zadaci. |
-| Iteracija 1 (19.11.2026.) | Asistent je zatražio proširenje funkcijskih zahtjeva. | F-030 je dodan (Sustav predlaže raspodjelu radova recenzentima tako da svaki rad ima najmanje tri recenzenta, da je opterećenje recenzenata ravnomjerno i da se poštuju sukobi interesa). |
+| Iteracija 2 (19.11.2026.) | Asistent je zatražio da se nadopuni definicija gotovosti (DoD) te popuni dokumentacija za Sprint | Definirana je definicija gotovosti; rezultat Sprinta je inkrement koji zadovoljava DoD. |
+| Iteracija 3 (19.11.2026) | Demosica je zatražila dodavanje vizualne ploče | Vizualna ploča dodana te dodani svi zadaci. |
+| Iteracija 4 (19.11.2026.) | Asistent je zatražio proširenje funkcijskih zahtjeva. | F-030 je dodan (Sustav predlaže raspodjelu radova recenzentima tako da svaki rad ima najmanje tri recenzenta, da je opterećenje recenzenata ravnomjerno i da se poštuju sukobi interesa). |
 | Demo 2  | [Povratna informacija] | [Odluka; vidi odjeljak 2.5] |
 | Završni pregled | [Povratna informacija] | [Odluka; vidi odjeljak 2.5] |
