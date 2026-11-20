@@ -47,11 +47,12 @@ Navedene koristi su očekivane, a ne izmjerene.
 
 **Vanjske ovisnosti:**
 
-- ORCID (prijava, dohvat ustanove i koautorstva za prepoznavanje sukoba interesa)
-- OAuth 2.0 (autorizacija unutar aplikacije)
+- ORCID (prijava putem OAuth 2.0 protokola (autorizacija), dohvat ustanove i koautorstva za prepoznavanje sukoba interesa)
 - Crossref (provjera DOI oznaka referenci)
 - Google Calendar (izvoz osobnog rasporeda)
 - Neon (hosting PostgreSQL baza podataka)
+- Brevo API (slanje e-mail poruka, npr. potvrda registracije)
+- Render (hosting web aplikacije)
 
 
 ## 1.4 Postojeći pristupi i opravdanost projekta
