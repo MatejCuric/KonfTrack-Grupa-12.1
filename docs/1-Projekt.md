@@ -33,7 +33,6 @@ Navedene koristi su očekivane, a ne izmjerene.
 | Recenzent | Prihvaća/odbija poziv; iskazuje interes i sukobe interesa; recenzira dodijeljene radove; sudjeluje u anonimnoj raspravi; prati rokove i prima podsjetnike |
 | Predsjednik programskog odbora | Upravlja konferencijom i rokovima; poziva recenzente; potvrđuje raspodjelu; donosi odluke; slaže program; produljuje rokove; šalje obavijesti autorima; određuje zamjenske recenzente; pregledava statistiku i generira zbornik |
 | Administrator | Odobrava nove konferencije; imenuje predsjednika programskog odbora; upravlja korisnicima i konferencijama; uređuje predloške e-pošte; pregledava statistiku korištenja; deaktivira račune |
-| Baza podataka (Dionik) | PostgreSQL na platformi Neon. Pohranjuje korisnike, konferencije, radove, recenzije, odluke i program. |
 
 **Primjer (osoba):** Pojedinac koji na jednoj konferenciji ima ulogu autora, a na drugoj recenzenta. Sustav mu prikazuje samo onu ulogu koja vrijedi za odabranu konferenciju. Ako ista osoba unutar jedne konferencije ima obje uloge, dobiva ih istodobno, ali joj je zabranjeno recenzirat vlastiti rad.
 
