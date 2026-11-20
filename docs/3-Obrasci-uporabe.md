@@ -24,8 +24,7 @@ Dijagram prikazuje cijeli životni ciklus rada na konferenciji, od predaje i rec
 - **Crossref** sudjeluje u predaji rada i dohvaća metapodatke referenci s DOI oznakom.
 - **Google Calendar** prima izvezeni osobni raspored.
 - **e-pošta** služi za registraciju, pozive i obavijesti.
-
-Također definiramo dionika **Baza podataka** koja sudjeluje u obrascima vezanim za pregled dostupnih podataka (u dijagramu je predstavljen kao sekundarni akter).
+- **Baza podataka** koja sudjeluje u obrascima vezanim za pregled dostupnih podataka.
 
 Budući da projekt ovisi o tim sustavima, ta se ovisnost prikazuje i u dijagramu obrazaca uporabe. Tehnički detalji integracije pripadaju arhitekturnoj dokumentaciji.
 
@@ -270,7 +269,7 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Autor/koautor (A-02); dionik: Baza podataka (D-01) |
+| Primarni akter | Autor/koautor (A-02); sekundarni akter: Baza podataka (A-06) |
 | ID zahtjeva | F-012 |
 | Preduvjeti, ako postoje | Autor je prijavljen.|
 | Glavni tijek | 1. Autor otvara pregled „Moji radovi”.<br>2. Sustav dohvaća radove autora iz baze podataka.<br>3. Sustav prikazuje radove i njihova stanja (nacrt, predan, u recenziji, potrebna revizija, prihvaćen, odbijen, konačna verzija predana, uvršten u program); stanje nije označeno samo bojom. |
@@ -303,7 +302,7 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Predsjednik programskog odbora (A-04); dionik: Baza podataka (D-01) |
+| Primarni akter | Predsjednik programskog odbora (A-04); sekundarni akter: Baza podataka (A-06) |
 | ID zahtjeva | F-004 |
 | Preduvjeti, ako postoje | Predsjednik je prijavljen. |
 | Glavni tijek | 1. Predsjednik otvara pregled „Statistika”.<br>2. Sustav dohvaća podatke konferencije iz baze podataka.<br>3. Sustav prikazuje broj predanih radova po temama, udio prihvaćenih radova, prosječno trajanje recenzije i opterećenje pojedinih recenzenata.<br>4. Predsjednik po potrebi izvozi podatke u CSV formatu.|
@@ -313,7 +312,7 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Predsjednik programskog odbora (A-04); dionik: Baza podataka (D-01) |
+| Primarni akter | Predsjednik programskog odbora (A-04); sekundarni akter: Baza podataka (A-06) |
 | ID zahtjeva | F-021 |
 | Preduvjeti, ako postoje | Postoje radovi u recenziji. |
 | Glavni tijek | 1. Predsjednik otvara pregled „Odluke”.<br>2. Sustav dohvaća radove i recenzije iz baze podataka<br>3. Sustav prikazuje tablicu radova s prosječnom ocjenom, brojem pristiglih recenzija i oznakom znatnog neslaganja ocjena recenzenata. |
@@ -355,7 +354,7 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Administrator (A-05); dionik: Baza podataka(D-01) |
+| Primarni akter | Administrator (A-05); sekundarni akter: Baza podataka (A-06) |
 | ID zahtjeva | F-005 |
 | Preduvjeti, ako postoje | Administrator je prijavljen. |
 | Glavni tijek | 1. Administrator otvara statistiku korištenja sustava.<br>2. Sustav dohvaća podatke o korištenju iz baze podataka.<br>3. Sustav prikazuje podatke o korištenju platforme. |
@@ -375,7 +374,7 @@ Automatske radnje sustava, poput prijedloga raspodjele i podsjetnika, nemaju akt
  
 | Polje | Opis |
 | --- | --- |
-| Primarni akter | Recenzent (A-03); dionik: Baza podataka(D-01) |
+| Primarni akter | Recenzent (A-03); sekundarni akter: Baza podataka (A-06) |
 | ID zahtjeva | F-018 |
 | Preduvjeti, ako postoje | Recenzentu su dodijeljeni radovi (UC-11). |
 | Glavni tijek | 1. Recenzent otvara pregled „Moje recenzije”.<br>2. Sustav dohvaća dodijeljene radove i rokove iz baze podataka.<br>3. Sustav prikazuje dodijeljene radove i rokove, bez imena autora; recenzije koje kasne posebno su označene. |
@@ -459,4 +458,4 @@ Svi funkcijski zahtjevi od F-001 do F-030 pokriveni su barem jednim obrascem upo
 
 </details>
 
-**Završna provjera:** Dijagram, specifikacije obrazaca uporabe i matrica sljedivosti međusobno su usklađeni. Svaki važan obrazac uporabe povezan je s postojećim zahtjevom, akteri odgovaraju stvarnim ulogama u aplikaciji, a opisani glavni i alternativni tijekovi odgovaraju ponašanju koje sustav stvarno podržava.
+**Završna provjera:** Dijagram, specifikacije obrazaca uporabe i matrica sljedivosti međusobno su usklađeni. Svaki važan obrazac uporabe povezan je s postojećim zahtjevom, akteri odgovaraju stvarnim ulogama u aplikaciji, a opisani glavni i alternativni tijekovi odgovaraju ponašanju koje sustav stvarno podržava. Provjereno.
