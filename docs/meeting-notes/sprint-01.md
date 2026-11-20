@@ -32,7 +32,7 @@ Postaviti osnovu projekta (repozitorij, dokumentacija, arhitektura, baza) i impl
 ## Definicija dovršenosti (DoD)
 Zadatak je gotov kad su ispunjeni svi uvjeti:
 
-- Promjene su pregledane i spojene u granu `dev` putem pull requesta. Grana `dev` spaja se u `main` prije predaje projekta.Dokumentacija se može izravno ažurirati na grani `main` nakon povlačenja najnovijih promjena.
+- Promjene su pregledane i spojene u granu `dev` putem pull requesta. Grana `dev` spaja se u `main` prije predaje projekta. Dokumentacija se može izravno ažurirati na grani `main` nakon povlačenja najnovijih promjena.
 - Funkcija je ručno isprobana i radi prema kriterijima prihvaćanja iz pripadajućeg issuea.
 - Dokumentacija i konfiguracija su ažurirane (`docs`, `db/database.sql`, `backend/.env.example` ako se mijenjaju).
 - Ako promjena utječe na pokretanje ili rad aplikacije, provjereno je da aplikacija radi u odgovarajućem okruženju, uključujući deployment ako je primjenjivo.
